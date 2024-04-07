@@ -57,15 +57,14 @@ const components = {
     variants: {
       brandPrimary: {
         background: "brand.darkBrown",
-        color: "brand.cream",
+        color: "brand.lightBeige",
+        paddingLeft: "1.2rem",
+        paddingRight: "1.2rem",
         _hover: {
-          background: "brand.cream",
+          background: "brand.lightBeige",
           color: "brand.darkBrown",
-          fontSize: "lg",
-        },
-        _active: {
-          fontSize: "md",
-        },
+          transform: "scale(1.1)",
+        }
       },
       brandSecondary: {
         background: "brand.cream",
@@ -89,12 +88,8 @@ const components = {
   Input: {
     baseStyle: {
       field: {
-        background: "brand.cream",
+        background: "brand.lightBeige",
         borderRadius: 5,
-        _focus: {
-          borderWidth: "0.1rem",
-          borderColor: "brand.darkBeige !important",
-        },
         _placeholder: {
           color: "brand.darkBeige",
         },
