@@ -1,5 +1,5 @@
-import { extendTheme} from "@chakra-ui/react";
-import '@fontsource-variable/playfair-display';
+import { extendTheme } from "@chakra-ui/react";
+import "@fontsource-variable/playfair-display";
 
 const colors = {
   brand: {
@@ -71,19 +71,104 @@ const components = {
         background: "brand.cream",
         color: "brand.darkBrown",
       },
+      thirdStyle: {
+        background: "brand.darkBrown",
+        color: "brand.cream",
+        _hover: {
+          background: "brand.cream",
+          color: "brand.darkBrown",
+          fontSize: "lg",
+          borderColor: "brand.darkBrown",
+          borderWidth: "0.1em",
+        },
+        _active: {
+          background: "brand.cream",
+          color: "brand.darkBrown",
+          fontSize: "md",
+          borderColor: "brand.darkBrown",
+          borderWidth: "0.1em",
+        },
+      },
+      fourthStyle: {
+        background: "brand.darkBrown",
+        color: "brand.cream",
+      },
+      transparent: {
+        background: "transparent",
+        color: "brand.cream",
+        opacity: "0.8",
+        _active: {
+          fontSize: "md",
+        },
+      },
     },
   },
 
   Heading: {
     baseStyle: {
-      color: "brand.darkGreen"
-    }
+      color: "brand.darkGreen",
+    },
+    variants: {
+      mainTitle: {
+        fontWeight: "900",
+      },
+      subTitle: {
+        fontWeight: "700",
+      },
+      sectionTitle: {
+        fontWeight: "600",
+        fontSize: "1.3em",
+      },
+    },
+  },
+
+  FormLabel: {
+    baseStyle: {
+      color: "brand.darkGreen",
+      fontWeight: "600",
+    },
+  },
+
+  Select: {
+    baseStyle: {
+      field: {
+        background: "brand.darkBrown",
+        color: "brand.cream",
+        fontWeight: "600",
+      },
+      icon: {
+        color: "brand.cream",
+      },
+    },
+    variants: {
+      secondary: {
+        field: {
+          background: "brand.cream",
+          color: "brand.darkGreen",
+          borderColor: "brand.darkBrown",
+          borderWidth: "0.1em",
+        },
+        icon: {
+          color: "brand.darkBrown",
+        },
+      },
+    },
   },
 
   Text: {
     baseStyle: {
-      color: "brand.darkGreen"
-    }
+      color: "brand.darkGreen",
+    },
+    variants: {
+      productTitle: {
+        fontWeight: "600",
+        fontSize: "1.2em",
+      },
+      productPrice: {
+        fontWeight: "700",
+        fontSize: "1.2em",
+      },
+    },
   },
 
   Input: {
@@ -100,14 +185,60 @@ const components = {
         },
       },
     },
+    variants: {
+      secondary: {
+        field: {
+          borderColor: "brand.darkBrown",
+          borderWidth: "0.1em",
+          borderRadius: 5,
+          textColor: "brand.darkGreen",
+          _focus: {
+            borderWidth: "0.15em",
+            borderColor: "brand.darkGreen",
+          },
+        },
+        addon: {
+          background: "brand.darkBrown",
+          color: "brand.cream",
+          borderRadius: 5,
+        },
+      },
+    },
+  },
+  Table: {
+    baseStyle: {
+      color: "brand.darkGreen",
+      fontWeight: "550",
+    },
+    variants: {
+      totalizer: {
+        td: {
+          height: "0",
+          opacity: "0.8",
+          paddingInlineStart: "0 !important",
+          paddingInlineEnd: "0 !important",
+        },
+        th: {
+          paddingInlineStart: "0 !important",
+          paddingInlineEnd: "0 !important",
+        },
+        tr: {
+          display: "flex",
+          justifyContent: "space-between",
+          width: "100%",
+          color: "brand.darkGreen",
+          fontWeight: "550",
+        },
+      },
+    },
   },
 };
 
 const styles = {
   global: {
     body: {
-      background: "brand.cream"
-    }
+      background: "brand.cream",
+    },
   },
 };
 
