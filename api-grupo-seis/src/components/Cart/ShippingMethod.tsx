@@ -1,27 +1,44 @@
-import { Button, Flex, Input, Link, Text } from "@chakra-ui/react";
-import React from "react";
+import { Box, Button, Flex, Input, Link, Spinner, Text } from "@chakra-ui/react";
+import React, { useState } from "react";
 
 const ShippingMethod = () => {
-    return ( 
+    const [results, setResults ] = useState({isLoading: false, isShown: false});
+    const [ postalCode, setPostalCode ] = useState('');
+
+    const handleSearch = () => {
+        if(postalCode.length >= 4) {
+          setResults({isShown:false, isLoading: true})
+          setTimeout(()=> {
+            setResults({isLoading:false, isShown:true})
+          }, 1500)
+        }
+      }
+
+    return (
         <Flex bg={'rgba(78,110,82,0.2)'} borderRadius={10} p={5} flexDir={'column'} gap={8}>
             <Flex flexDir={'column'} w={'100%'}>
-                <Text fontSize={'1.1rem'} fontWeight={600}>Medios de envio</Text>
+                <Text fontWeight={600}>Medios de envio</Text>
                 <Flex alignItems={'center'}>
-                    <Input variant={'baseStyle'} placeholder='Codigo postal' />
-                    <Button variant={'brandPrimary'} p={"0"}>Ok</Button>
+                    <Input variant={'baseStyle'} placeholder='Codigo postal' onChange={(e) => setPostalCode(e.target.value)}/>
+                    <Button variant={'brandPrimary'} p={"0"} onClick={handleSearch}>Ok</Button>
                 </Flex>
-                <Link color={"brand.darkGreen"} fontSize={'0.8rem'}>No se mi codigo postal</Link>
+                <Link href='https://www.correoargentino.com.ar/formularios/cpa' color={"brand.darkGreen"} fontSize={'0.8rem'}>No sé mi código postal</Link>
             </Flex>
-            <Flex fontSize={'0.9rem'} flexDir={'column'} gap={1}>
-                <Text fontWeight={600}>Envio a domicilio</Text>
-                <Flex justifyContent={'space-between'} alignItems={'center'} border={'2px'} borderRadius={5} borderColor={'brand.lightGreen'} p={5}>
-                    <Flex flexDir={'column'}>
-                        <Text fontWeight={600}>Andreani estándar “Envío a domicilio”</Text>
-                        <Text>Llega el lunes 16/05</Text>
+            <Box fontSize={'0.9rem'} display={results.isLoading || results.isShown ? 'block' : 'none'}>
+            {results.isLoading && <Flex justifyContent={'center'}><Spinner alignSelf={'center'} /></Flex>}
+            {results.isShown && (
+                <>
+                    <Text fontWeight={600}>Seleccione una opcion</Text>
+                    <Flex justifyContent={'space-between'} alignItems={'center'} border={'2px'} borderRadius={5} borderColor={'brand.lightGreen'} p={5}>
+                        <Flex flexDir={'column'}>
+                            <Text fontWeight={600}>Andreani estándar “Envío a domicilio”</Text>
+                            <Text>Llega el lunes 16/05</Text>
+                        </Flex>
+                        <Text>$6.500,00</Text>
                     </Flex>
-                    <Text>$6.500,00</Text>
-                </Flex>
-            </Flex>
+                </>
+            )}
+            </Box>
         </Flex>
     )    
 };

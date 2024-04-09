@@ -1,29 +1,27 @@
 import { Box, Container, Flex, Icon, Image, Link, Spacer, Text, useDisclosure } from '@chakra-ui/react';
-import React from 'react';
+import React, { useState } from 'react';
 import { FaRegTrashAlt } from "react-icons/fa";
 
 type CartItemProps = {
     id:number,
-    name: string
-    author?: string
-    quantity: number,
-    price: number,
+    name: string,
+    price: string,
     img: string
-  }
+}
 
-const CartItem = ({ id, name, quantity, price, img }: CartItemProps) => {
+const CartItem = ({ id, name, price, img }: CartItemProps) => {
     return (
-        <Flex gap={5} justifyContent="center" h="10vh" boxSizing='border-box' w="100%">
-            <Flex w="9rem" bg="white" borderRadius={15} overflow="hidden">
-                <Image src={img} objectFit="contain"></Image>
-            </Flex>
-            <Flex flexDir={'column'} alignItems={'flex-start'} justifyContent={'space-between'} gap={2}>
-                <Box>
-                    <Text fontWeight={600} fontSize="0.9rem">{name}</Text>
-                    <Text fontSize="0.8rem">Purina Pro Plan</Text>
-                </Box>
-                <Flex as='button' alignItems={'center'} borderRadius={10} gap={1} fontSize={'0.8rem'} bg={'brand.darkBrown'} color={'brand.lightBeige'} p={'0.1rem 0.5rem'}>
-                    <Icon as={FaRegTrashAlt}/>Remover
+        <Flex gap={10} justifyContent="space-between" h="10vh" boxSizing='border-box'>
+            <Flex gap={5}>
+                <Image src={img} boxSize={'6rem'} borderRadius={10}/>
+                <Flex flexDir={'column'} alignItems={'flex-start'} justifyContent={'space-between'}>
+                    <Box>
+                        <Text fontWeight={600} fontSize="0.8rem">{name}</Text>
+                        <Text fontSize="0.7rem">Purina Pro Plan</Text>
+                    </Box>
+                    <Flex as='button' alignItems={'center'} borderRadius={10} gap={1} fontSize={'0.8rem'} bg={'brand.darkBrown'} color={'brand.lightBeige'} p={'0.1rem 0.5rem'}>
+                        <Icon as={FaRegTrashAlt}/>Remover
+                    </Flex>
                 </Flex>
             </Flex>
             <Flex flexDir="column" justifyContent={'space-between'}>

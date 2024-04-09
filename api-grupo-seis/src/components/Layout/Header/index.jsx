@@ -8,7 +8,7 @@ import NavLink from "./NavLink"
 const Header = () => {
   return (
     <header>
-      <Flex background={'brand.darkMustard'} h={'10vh'} justifyContent={'space-between'} alignItems={'center'}>
+      <Flex position={'fixed'} w={'100%'} background={'brand.darkMustard'} h={'10vh'} justifyContent={'space-between'} alignItems={'center'}>
         <Flex color={'brand.darkGreen'} alignItems={'center'} gap={8}>
           <Icon as={FaPaw} boxSize={'3.5rem'} ml={10}/>
           <Flex alignItems={'center'}>
