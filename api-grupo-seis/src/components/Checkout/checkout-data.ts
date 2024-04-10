@@ -1,5 +1,6 @@
 export const products = [
   {
+    id: 1,
     productName: "Alimento Club Performance Feline Adult 7,5 Kg",
     price: 50000,
     discount: 0,
@@ -8,6 +9,7 @@ export const products = [
       "https://www.paraisodemascotas.com.ar/wp-content/uploads/2019/05/gati-carno-paraiso-de-mascotas-parana-super-mascota.webp",
   },
   {
+    id: 2,
     productName: "Alimento Royal Canin Medium Adulto 15 Kg",
     price: 75000,
     discount: 25000,

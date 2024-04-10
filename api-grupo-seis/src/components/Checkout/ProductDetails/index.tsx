@@ -7,6 +7,7 @@ import { Totalizer } from "./Totalizer.tsx";
 
 type ProductDetailsProps = {
   products: {
+    id: number;
     productName: string;
     price: number;
     discount: number;
@@ -19,7 +20,6 @@ type ProductDetailsProps = {
   setTotal: (total: number) => void;
   paymentMethod: string;
 };
-
 export const ProductDetails = ({
   products,
   setProducts,
@@ -29,7 +29,7 @@ export const ProductDetails = ({
   setTotal,
 }: ProductDetailsProps) => {
   const [subtotal, setSubtotal] = useState<number>(total);
-  const freeShipping = total > 50000;
+  const [freeShipping, setFreeShipping] = useState<boolean>(subtotal > 50000);
   const discount =
     paymentMethod === "card"
       ? subtotal * 0.05
@@ -43,12 +43,13 @@ export const ProductDetails = ({
       updatedTotal += shipping;
     }
     setTotal(updatedTotal);
+    setFreeShipping(subtotal > 50000);
   }, [subtotal, discount, freeShipping, shippingMethod, setTotal]);
 
   return (
     <Flex
       direction="column"
-      maxW="700px"
+      maxW="500px"
       w="25vw"
       backgroundColor="rgba(78, 110, 82, 0.4)"
       borderRadius="10"
@@ -61,6 +62,7 @@ export const ProductDetails = ({
         <Product
           key={product.productName}
           product={product}
+          products={products}
           setProducts={setProducts}
           setSubtotal={setSubtotal}
         />

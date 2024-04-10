@@ -1,5 +1,5 @@
 import { Button, Flex, HStack, Heading } from "@chakra-ui/react";
-import { Pickup } from "..";
+import { Pickup } from "./Pickup";
 import React from "react";
 import { ShippingForm } from "./ShippingForm";
 

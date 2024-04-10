@@ -3,6 +3,8 @@ import {
   FormControl,
   FormLabel,
   Input,
+  NumberInput,
+  NumberInputField,
   Select,
   Text,
 } from "@chakra-ui/react";
@@ -28,24 +30,20 @@ export const CardPaymentForm = ({ total }: CardPaymentFormProps) => {
       <Flex align="center" w="35rem">
         <FormControl isRequired mr="0.5em" w="50%">
           <FormLabel mb="0.1em">Número de tarjeta</FormLabel>
-          <Input
-            variant="secondary"
-            type="number"
-            value={cardNumber}
-            onChange={(e) => setCardNumber(e.target.value)}
-          />
+          <NumberInput variant="secondary">
+            <NumberInputField onChange={(e) => setCardNumber(e.target.value)} />
+          </NumberInput>
         </FormControl>
         <Flex direction="row" align="center" justify="center" w="50%">
           <FormControl isRequired w="25%" mr="0.5em">
             <FormLabel mb="0.1em">CVV</FormLabel>
-            <Input
-              variant="secondary"
-              type="number"
-              value={securityCode}
-              onChange={(e) => setSecurityCode(e.target.value)}
-              padding="0"
-              textAlign="center"
-            />
+            <NumberInput variant="secondary">
+              <NumberInputField
+                onChange={(e) => setSecurityCode(e.target.value)}
+                padding="0"
+                textAlign="center"
+              />
+            </NumberInput>
           </FormControl>
           <FormControl isRequired w="75%" mr="0.5em">
             <FormLabel mb="0.1em">Fecha de vencimiento</FormLabel>
@@ -88,12 +86,11 @@ export const CardPaymentForm = ({ total }: CardPaymentFormProps) => {
         </FormControl>
         <FormControl isRequired mr="0.5em">
           <FormLabel mb="0.1em">DNI del titular</FormLabel>
-          <Input
-            variant="secondary"
-            type="number"
-            value={cardHolderDni}
-            onChange={(e) => setCardHolderDni(e.target.value)}
-          />
+          <NumberInput variant="secondary">
+            <NumberInputField
+              onChange={(e) => setCardHolderDni(e.target.value)}
+            />
+          </NumberInput>
         </FormControl>
       </Flex>
 

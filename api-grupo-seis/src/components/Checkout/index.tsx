@@ -1,6 +1,6 @@
-import { Button, Flex, Text, useDisclosure } from "@chakra-ui/react";
+import { Button, Flex, useDisclosure } from "@chakra-ui/react";
 import { Payment } from "./Payment";
-import { PersonalDataForm } from "./PersonalDataForm";
+import { PersonalData } from "./PersonalData/PersonalDataForm";
 import { Shipping } from "./Shipping";
 import { ProductDetails } from "./ProductDetails";
 import FinishedCheckoutModal from "./FinishedCheckoutModal";
@@ -40,7 +40,7 @@ const Checkout = () => {
   return (
     <Flex w="90vw" alignItems="center" justifyContent="center" m="3em">
       <Flex direction="column" align="flex-start" mr="3em">
-        <PersonalDataForm />
+        <PersonalData />
         <Shipping
           shippingMethod={shippingMethod}
           setShippingMethod={setShippingMethod}
@@ -80,10 +80,6 @@ const Checkout = () => {
       <FinishedCheckoutModal isOpen={isOpen} onClose={onClose} />
     </Flex>
   );
-};
-
-export const Pickup = () => {
-  return <Text>Podés organizar el retiro de tu compra con el vendedor.</Text>;
 };
 
 export default Checkout;

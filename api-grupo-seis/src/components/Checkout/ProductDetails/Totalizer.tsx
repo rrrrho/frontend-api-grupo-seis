@@ -38,16 +38,6 @@ export const Totalizer = ({
               {formatPrice(subtotal)}
             </Td>
           </Tr>
-          {shippingMethod === "shipping" && (
-            <Tr>
-              <Td fontSize="0.9em" opacity="0.8">
-                Envío:
-              </Td>
-              <Td fontSize="0.9em" opacity="0.8">
-                {freeShipping ? "Gratis" : formatPrice(shipping)}
-              </Td>
-            </Tr>
-          )}
           {Boolean(discount) && (
             <Tr>
               <Td fontSize="0.9em" opacity="0.8">
@@ -55,6 +45,16 @@ export const Totalizer = ({
               </Td>
               <Td fontSize="0.9em" opacity="0.8">
                 -{formatPrice(discount)}
+              </Td>
+            </Tr>
+          )}
+          {shippingMethod === "shipping" && (
+            <Tr>
+              <Td fontSize="0.9em" opacity="0.8">
+                Envío:
+              </Td>
+              <Td fontSize="0.9em" opacity="0.8">
+                {freeShipping ? "Gratis" : formatPrice(shipping)}
               </Td>
             </Tr>
           )}

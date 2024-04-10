@@ -1,4 +1,11 @@
-import { Flex, FormControl, FormLabel, Input } from "@chakra-ui/react";
+import {
+  Flex,
+  FormControl,
+  FormLabel,
+  Input,
+  NumberInput,
+  NumberInputField,
+} from "@chakra-ui/react";
 import { useState } from "react";
 import React from "react";
 
@@ -23,22 +30,16 @@ export const ShippingForm = () => {
         <Flex direction="row" align="center" justify="center" w="50%">
           <FormControl isRequired mr="0.5em">
             <FormLabel mb="0.1em">Número</FormLabel>
-            <Input
-              variant="secondary"
-              type="number"
-              value={number}
-              onChange={(e) => setNumber(e.target.value)}
-            />
+            <NumberInput variant="secondary">
+              <NumberInputField onChange={(e) => setNumber(e.target.value)} />
+            </NumberInput>
           </FormControl>
 
           <FormControl isRequired>
             <FormLabel mb="0.1em">Código postal</FormLabel>
-            <Input
-              variant="secondary"
-              type="number"
-              value={zipCode}
-              onChange={(e) => setZipCode(e.target.value)}
-            />
+            <NumberInput variant="secondary">
+              <NumberInputField onChange={(e) => setZipCode(e.target.value)} />
+            </NumberInput>
           </FormControl>
         </Flex>
       </Flex>
