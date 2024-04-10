@@ -75,25 +75,26 @@ const components = {
         background: "brand.darkBrown",
         color: "brand.cream",
         _hover: {
-          background: "brand.cream",
+          background: "#fff5e0",
           color: "brand.darkBrown",
           fontSize: "lg",
           borderColor: "brand.darkBrown",
           borderWidth: "0.1em",
+          boxShadow: "0 0.2em 0.2em 0.2em rgba(0, 0, 0, 0.25)",
         },
         _active: {
-          background: "brand.cream",
+          background: "#fff5e0",
           color: "brand.darkBrown",
           fontSize: "md",
           borderColor: "brand.darkBrown",
           borderWidth: "0.1em",
+          boxShadow: "none",
         },
       },
+
       fourthStyle: {
         background: "brand.darkBrown",
         color: "brand.cream",
-        margin: "0 0.5em",
-        padding: "0.5em",
       },
       transparent: {
         background: "transparent",
@@ -174,6 +175,40 @@ const components = {
   },
 
   Input: {
+    baseStyle: {
+      field: {
+        background: "brand.cream",
+        borderRadius: 5,
+        _focus: {
+          borderWidth: "0.1rem",
+          borderColor: "brand.darkBeige !important",
+        },
+        _placeholder: {
+          color: "brand.darkBeige",
+        },
+      },
+    },
+    variants: {
+      secondary: {
+        field: {
+          borderColor: "brand.darkBrown",
+          borderWidth: "0.1em",
+          borderRadius: 5,
+          textColor: "brand.darkGreen",
+          _focus: {
+            borderWidth: "0.15em",
+            borderColor: "brand.darkGreen",
+          },
+        },
+        addon: {
+          background: "brand.darkBrown",
+          color: "brand.cream",
+          borderRadius: 5,
+        },
+      },
+    },
+  },
+  NumberInput: {
     baseStyle: {
       field: {
         background: "brand.cream",
