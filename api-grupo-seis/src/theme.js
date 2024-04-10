@@ -83,13 +83,15 @@ const components = {
           boxShadow: "0 0.2em 0.2em 0.2em rgba(0, 0, 0, 0.25)",
         },
         _active: {
-          background: "fff5e0",
+          background: "#fff5e0",
           color: "brand.darkBrown",
           fontSize: "md",
           borderColor: "brand.darkBrown",
           borderWidth: "0.1em",
+          boxShadow: "none",
         },
       },
+
       fourthStyle: {
         background: "brand.darkBrown",
         color: "brand.cream",
