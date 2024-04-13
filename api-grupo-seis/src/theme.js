@@ -1,5 +1,6 @@
 import { extendTheme} from "@chakra-ui/react";
 import '@fontsource-variable/playfair-display';
+import '@fontsource/roboto';
 
 const colors = {
   brand: {
@@ -49,8 +50,6 @@ const components = {
       fontWeight: "600",
       textTransform: "capitalize",
       borderRadius: 8,
-      margin: "0.4rem",
-      padding: "1.5rem",
       fontSize: "1.5rem",
       transition: "all .2s ease-in-out",
     },
@@ -61,6 +60,7 @@ const components = {
         paddingLeft: "1.2rem",
         paddingRight: "1.2rem",
         _hover: {
+          background: "brand.lightBeige",
           background: "brand.lightBeige",
           color: "brand.darkBrown",
           transform: "scale(1.1)",
@@ -81,7 +81,8 @@ const components = {
 
   Text: {
     baseStyle: {
-      color: "brand.darkGreen"
+      color: "brand.darkGreen",
+      fontWeight: "500"
     }
   },
 

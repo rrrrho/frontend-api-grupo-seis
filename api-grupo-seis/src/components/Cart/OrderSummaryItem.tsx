@@ -1,5 +1,5 @@
-import { Flex, Text, useColorModeValue as mode } from "@chakra-ui/react"
-import React from "react"
+import { Flex, Text, useColorModeValue as mode } from "@chakra-ui/react";
+import React from "react";
 
 type OrderSummaryItemProps = {
   label: string
@@ -8,15 +8,16 @@ type OrderSummaryItemProps = {
 }
 
 const OrderSummaryItem = (props: OrderSummaryItemProps) => {
-  const { label, value, children } = props
+  const { label, value, children } = props;
+  
   return (
     <Flex justify="space-between" fontSize="sm">
-      <Text>
+      <Text fontWeight="medium">
         {label}
       </Text>
-      {value ? <Text>{value}</Text> : children}
+      {value ? <Text fontWeight="medium">{value}</Text> : children}
     </Flex>
-  )
-}
+  );
+};
 
-export default OrderSummaryItem
+export default OrderSummaryItem;

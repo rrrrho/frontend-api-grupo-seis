@@ -1,17 +1,18 @@
 import { Box, Icon, Text } from '@chakra-ui/react';
 import { FaCartShopping } from "react-icons/fa6";
 import React from 'react';
+import { useAppSelector } from '../../context/hooks';
 
 interface Props {
   onClick: () => void,
   ref: any
-}
+};
+
 const CartButton = ({onClick, ref}: Props) => {
-  const cartItems = 2;
+  const cartItems = useAppSelector((state) => state.cart.items.length);
   
   return (
     <Box pos={'relative'} h={'fit-content'} w={'fit-content'}>
-      {/* cantidad de items */}
       {cartItems > 0 && (
         <Text 
           bg={'brand.lightBeige'} 
@@ -30,8 +31,7 @@ const CartButton = ({onClick, ref}: Props) => {
           {cartItems}
         </Text>)
       }
-
-      {/* Botón carrito */}
+      
       <Box
         as={'button'}
         ref={ref}

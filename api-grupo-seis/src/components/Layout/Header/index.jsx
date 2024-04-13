@@ -3,12 +3,13 @@ import Cart from "../../Cart";
 import SearchBar from "./SearchBar";
 import { IoLocationSharp } from "react-icons/io5";
 import { FaPaw } from "react-icons/fa";
-import NavLink from "./NavLink"
+import NavLink from "./NavLink";
+import CategoriesMenu from './CategoriesMenu'
 
 const Header = () => {
   return (
     <header>
-      <Flex position={'fixed'} w={'100%'} background={'brand.darkMustard'} h={'10vh'} justifyContent={'space-between'} alignItems={'center'}>
+      <Flex position={'fixed'} zIndex={3} w={'100%'} background={'brand.darkMustard'} h={'10vh'} justifyContent={'space-between'} alignItems={'center'}>
         <Flex color={'brand.darkGreen'} alignItems={'center'} gap={8}>
           <Icon as={FaPaw} boxSize={'3.5rem'} ml={10}/>
           <Flex alignItems={'center'}>
@@ -22,7 +23,10 @@ const Header = () => {
         <Flex gap={10} mr={10} alignItems={'center'}>
           <SearchBar/>
           <NavLink url={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKhZjTAWcNThW7OlB4oW2FY_ckNwcYqNUgCFeRr_g-VA&s'}>
-            <Text w={'5rem'}>Mi Cuenta</Text>
+            <Text>Cuenta</Text>
+          </NavLink>
+          <NavLink>
+            <CategoriesMenu/>
           </NavLink>
           <Cart/>
         </Flex>

@@ -7,6 +7,7 @@
 
 ::-webkit-scrollbar {
   width: 12px;
+  overflow-y: overlay;
 }
 ::-webkit-scrollbar-track {
   background: var(--background);
