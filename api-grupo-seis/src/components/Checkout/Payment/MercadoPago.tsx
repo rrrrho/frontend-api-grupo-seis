@@ -1,10 +1,10 @@
 import { Flex, Image, Text } from "@chakra-ui/react";
-import { paymentMethodImages } from "../checkout-data.ts";
+import paymentMethodImages from "../payment-methods-img.json";
 import React from "react";
 
 export const MercadoPago = () => {
   return (
-    <Flex direction={"column"}>
+    <Flex direction="column" gap="0.5rem">
       <Text variant="productPrice">
         Serás redirigido a Mercado Pago y podrás pagar con:
       </Text>

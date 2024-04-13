@@ -5,7 +5,7 @@ import { Product } from "./Product.tsx";
 import { AppliedDiscounts } from "./AppliedDiscounts.tsx";
 import { Totalizer } from "./Totalizer.tsx";
 
-type ProductDetailsProps = {
+type OrderDetailsProps = {
   products: {
     id: number;
     productName: string;
@@ -20,14 +20,14 @@ type ProductDetailsProps = {
   setTotal: (total: number) => void;
   paymentMethod: string;
 };
-export const ProductDetails = ({
+export const OrderDetails = ({
   products,
   setProducts,
   shippingMethod,
   paymentMethod,
   total,
   setTotal,
-}: ProductDetailsProps) => {
+}: OrderDetailsProps) => {
   const [subtotal, setSubtotal] = useState<number>(total);
   const [freeShipping, setFreeShipping] = useState<boolean>(subtotal > 50000);
   const discount =
@@ -49,11 +49,12 @@ export const ProductDetails = ({
   return (
     <Flex
       direction="column"
-      maxW="500px"
-      w="25vw"
+      maxW="620px"
+      w="35vw"
       backgroundColor="rgba(78, 110, 82, 0.4)"
       borderRadius="10"
       padding="1em"
+      gap="0.5rem"
     >
       <Heading variant="sectionTitle" fontSize="2em">
         Detalles del pedido

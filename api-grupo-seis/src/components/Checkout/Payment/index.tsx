@@ -17,14 +17,15 @@ export const Payment = ({
 }: PaymentProps) => {
   return (
     <Flex
-      maxW="780px"
+      maxW="800px"
+      w="35vw"
       bg="rgba(78, 110, 82, 0.4)"
       borderRadius="10"
       padding="1em"
       justifyContent="center"
       direction="column"
-      w="37em"
       mt="1em"
+      gap="0.5rem"
     >
       <HStack mb="0.2em">
         <svg

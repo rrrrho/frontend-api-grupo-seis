@@ -14,14 +14,15 @@ export const Shipping = ({
 }: ShippingProps) => {
   return (
     <Flex
-      maxW="640px"
+      maxW="800px"
+      w="35vw"
       bg="rgba(78, 110, 82, 0.4)"
       borderRadius="10"
       padding="1em"
       justifyContent="center"
       direction="column"
-      w="37em"
       mt="1em"
+      gap="0.5rem"
     >
       <HStack>
         <svg

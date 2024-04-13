@@ -5,6 +5,7 @@ import {
   Input,
   NumberInput,
   NumberInputField,
+  Stack,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import React from "react";
@@ -18,58 +19,62 @@ export const ShippingForm = () => {
   const [receiver, setReceiver] = useState<string>("");
   return (
     <form>
-      <Flex align="center" w="35rem">
-        <FormControl isRequired w="50%" mr="0.5em">
-          <FormLabel mb="0.1em">Dirección</FormLabel>
-          <Input
-            variant="secondary"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-          />
-        </FormControl>
-        <Flex direction="row" align="center" justify="center" w="50%">
+      <Stack gap="1rem">
+        <Flex align="center" w="100%">
+          <FormControl isRequired w="50%" mr="0.5em">
+            <FormLabel mb="0.1em">Dirección</FormLabel>
+            <Input
+              variant="secondary"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+            />
+          </FormControl>
+          <Flex direction="row" align="center" justify="center" w="50%">
+            <FormControl isRequired mr="0.5em">
+              <FormLabel mb="0.1em">Número</FormLabel>
+              <NumberInput variant="secondary">
+                <NumberInputField onChange={(e) => setNumber(e.target.value)} />
+              </NumberInput>
+            </FormControl>
+
+            <FormControl isRequired>
+              <FormLabel mb="0.1em">Código postal</FormLabel>
+              <NumberInput variant="secondary">
+                <NumberInputField
+                  onChange={(e) => setZipCode(e.target.value)}
+                />
+              </NumberInput>
+            </FormControl>
+          </Flex>
+        </Flex>
+        <Flex direction="row" align="center">
           <FormControl isRequired mr="0.5em">
-            <FormLabel mb="0.1em">Número</FormLabel>
-            <NumberInput variant="secondary">
-              <NumberInputField onChange={(e) => setNumber(e.target.value)} />
-            </NumberInput>
+            <FormLabel mb="0.1em">Provincia</FormLabel>
+            <Input
+              variant="secondary"
+              value={province}
+              onChange={(e) => setProvince(e.target.value)}
+            />
           </FormControl>
 
           <FormControl isRequired>
-            <FormLabel mb="0.1em">Código postal</FormLabel>
-            <NumberInput variant="secondary">
-              <NumberInputField onChange={(e) => setZipCode(e.target.value)} />
-            </NumberInput>
+            <FormLabel mb="0.1em">Ciudad</FormLabel>
+            <Input
+              variant="secondary"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+            />
           </FormControl>
         </Flex>
-      </Flex>
-      <Flex direction="row" align="center">
-        <FormControl isRequired mr="0.5em">
-          <FormLabel mb="0.1em">Provincia</FormLabel>
+        <FormControl isRequired w="49.2%">
+          <FormLabel mb="0.1em">Nombre del receptor</FormLabel>
           <Input
             variant="secondary"
-            value={province}
-            onChange={(e) => setProvince(e.target.value)}
+            value={receiver}
+            onChange={(e) => setReceiver(e.target.value)}
           />
         </FormControl>
-
-        <FormControl isRequired>
-          <FormLabel mb="0.1em">Ciudad</FormLabel>
-          <Input
-            variant="secondary"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-          />
-        </FormControl>
-      </Flex>
-      <FormControl isRequired w="49.2%">
-        <FormLabel mb="0.1em">Nombre del receptor</FormLabel>
-        <Input
-          variant="secondary"
-          value={receiver}
-          onChange={(e) => setReceiver(e.target.value)}
-        />
-      </FormControl>
+      </Stack>
     </form>
   );
 };

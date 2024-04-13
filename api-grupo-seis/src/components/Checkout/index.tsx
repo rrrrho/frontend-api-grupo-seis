@@ -1,11 +1,11 @@
 import { Button, Flex, useDisclosure } from "@chakra-ui/react";
 import { Payment } from "./Payment";
-import { PersonalData } from "./PersonalData/PersonalDataForm";
+import { PersonalData } from "./PersonalData";
 import { Shipping } from "./Shipping";
-import { ProductDetails } from "./ProductDetails";
+import { OrderDetails } from "./OrderDetails";
 import FinishedCheckoutModal from "./FinishedCheckoutModal";
 import React, { useState } from "react";
-import { products as initialProducts } from "./checkout-data";
+import initialProducts from "./products.json";
 
 export const shipping = 6500;
 
@@ -58,7 +58,7 @@ const Checkout = () => {
         position="sticky"
         top="0"
       >
-        <ProductDetails
+        <OrderDetails
           products={products}
           setProducts={setProducts}
           shippingMethod={shippingMethod}

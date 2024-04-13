@@ -7,7 +7,7 @@ import {
   useNumberInput,
 } from "@chakra-ui/react";
 import { calculateTotal, formatPrice } from "../index.tsx";
-import React from "react";
+import React, { useEffect } from "react";
 
 type ProductProps = {
   product: {
@@ -43,39 +43,19 @@ export const Product = ({
       defaultValue: product.quantity,
       min: 1,
       max: 99,
+      onChange: (valueAsString, valueAsNumber) => {
+        product.quantity = valueAsNumber;
+        setProducts([...products]);
+      },
     });
 
-  const onChangeQuantity = (e) => {
-    product.quantity = Number(e.target.value);
-    setProducts([...products]);
+  useEffect(() => {
     setSubtotal(calculateTotal(products));
-  };
+  }, [products]);
 
-  const inc = {
-    onClick: () => {
-      product.quantity++;
-      setProducts([...products]);
-      setSubtotal(calculateTotal(products));
-    },
-    ...getIncrementButtonProps(),
-  };
-
-  const dec = {
-    onClick: () => {
-      if (product.quantity > 0) {
-        product.quantity--;
-        setProducts([...products]);
-        setSubtotal(calculateTotal(products));
-      }
-    },
-    ...getDecrementButtonProps(),
-  };
-
-  const input = {
-    onChange: (e) => onChangeQuantity(e),
-    value: product.quantity,
-    ...getInputProps(),
-  };
+  const inc = getIncrementButtonProps();
+  const dec = getDecrementButtonProps();
+  const input = getInputProps();
 
   const handleProductDelete = () => {
     const updatedProducts = products.filter((p) => p !== product);
@@ -89,7 +69,6 @@ export const Product = ({
       align="center"
       borderBottom="1px solid"
       borderColor="brand.darkBeige"
-      maxW="25vw"
       justify="space-between"
     >
       <Image

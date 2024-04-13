@@ -16,8 +16,15 @@ export const AppliedDiscounts = ({
       align="flex-start"
       borderBottom="1px solid"
       borderColor="brand.darkBeige"
+      gap="0.5em"
     >
-      <Heading variant="brandSecondary" fontSize="1.5em" opacity="0.8">
+      <Heading
+        variant="brandSecondary"
+        fontSize="1.3em"
+        opacity="0.8"
+        mb="0.1em"
+        mt="0.2em"
+      >
         Descuentos aplicados
       </Heading>
       {paymentMethod === "card" ? (
