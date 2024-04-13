@@ -1,0 +1,12 @@
+[
+    {
+        "id":1,
+        "name":"Andreani estándar “Envío a domicilio\"",
+        "cost":2500.00
+    },
+    {
+        "id":2,
+        "name":"Correo Argentino Clasico \"Envio a domicilio\"",
+        "cost":3000.00
+    }
+]

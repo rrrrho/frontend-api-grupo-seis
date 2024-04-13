@@ -1,16 +1,18 @@
-import './App.css'
+import './App.css';
 import Home from "./components/Home";
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route } from "react-router-dom";
+import Layout from './components/Layout';
+import Shop from './components/Shop';
 
 function App() {
-
   return (
-    <div className="content">
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </div>
-  )
-}
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/shop" element={<Shop />} />
+        </Routes>
+      </Layout>
+  );
+};
 
-export default App
+export default App;
