@@ -31,29 +31,29 @@ export const Totalizer = ({
       <Table variant="totalizer">
         <Tbody>
           <Tr>
-            <Td fontSize="0.9em" opacity="0.8">
+            <Td fontSize="sm" opacity="0.8">
               Subtotal:
             </Td>
-            <Td fontSize="0.9em" opacity="0.8">
+            <Td fontSize="sm" opacity="0.8">
               {formatPrice(subtotal)}
             </Td>
           </Tr>
           {Boolean(discount) && (
             <Tr>
-              <Td fontSize="0.9em" opacity="0.8">
+              <Td fontSize="sm" opacity="0.8">
                 Descuento:
               </Td>
-              <Td fontSize="0.9em" opacity="0.8">
+              <Td fontSize="sm" opacity="0.8">
                 -{formatPrice(discount)}
               </Td>
             </Tr>
           )}
           {shippingMethod === "shipping" && (
             <Tr>
-              <Td fontSize="0.9em" opacity="0.8">
+              <Td fontSize="sm" opacity="0.8">
                 Envío:
               </Td>
-              <Td fontSize="0.9em" opacity="0.8">
+              <Td fontSize="sm" opacity="0.8">
                 {freeShipping ? "Gratis" : formatPrice(shipping)}
               </Td>
             </Tr>
@@ -67,10 +67,10 @@ export const Totalizer = ({
         />
         <Tfoot>
           <Tr>
-            <Th fontSize="1.5em" opacity="0.8">
+            <Th fontSize="2xl" opacity="0.8">
               Total:
             </Th>
-            <Th fontSize="1.5em" opacity="0.8">
+            <Th fontSize="2xl" opacity="0.8">
               {freeShipping || shippingMethod !== "shipping"
                 ? formatPrice(total)
                 : formatPrice(total)}

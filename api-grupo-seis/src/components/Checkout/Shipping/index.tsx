@@ -73,7 +73,7 @@ export const Shipping = ({
             strokeLinecap="round"
           />
         </svg>
-        <Heading variant="sectionTitle" fontSize="2em">
+        <Heading variant="sectionTitle" fontSize="4xl">
           Envío
         </Heading>
       </HStack>
@@ -85,7 +85,7 @@ export const Shipping = ({
         mb="0.5em"
       >
         <Button
-          variant={shippingMethod === "shipping" ? "brandThird" : "brandFourth"}
+          variant={shippingMethod === "shipping" ? "brandFifth" : "brandFourth"}
           color="brand.cream"
           onClick={() => setShippingMethod("shipping")}
           w="50%"
@@ -95,7 +95,7 @@ export const Shipping = ({
           Envío a domicilio
         </Button>
         <Button
-          variant={shippingMethod === "pickup" ? "brandThird" : "brandFourth"}
+          variant={shippingMethod === "pickup" ? "brandFifth" : "brandFourth"}
           color="brand.cream"
           onClick={() => setShippingMethod("pickup")}
           w="50%"

@@ -37,7 +37,7 @@ export const PersonalData = () => {
             strokeLinejoin="round"
           />
         </svg>
-        <Heading variant="sectionTitle" fontSize="2em">
+        <Heading variant="sectionTitle" fontSize="4xl">
           Datos personales
         </Heading>
       </HStack>

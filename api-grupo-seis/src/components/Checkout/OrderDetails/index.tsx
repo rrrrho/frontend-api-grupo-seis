@@ -56,7 +56,7 @@ export const OrderDetails = ({
       padding="1em"
       gap="0.5rem"
     >
-      <Heading variant="sectionTitle" fontSize="2em">
+      <Heading variant="sectionTitle" fontSize="4xl">
         Detalles del pedido
       </Heading>
       {products.map((product) => (
@@ -68,7 +68,7 @@ export const OrderDetails = ({
           setSubtotal={setSubtotal}
         />
       ))}
-      <Heading variant="sectionTitle" fontSize="1.7em">
+      <Heading variant="sectionTitle" fontSize="3xl">
         Resumen
       </Heading>
       <AppliedDiscounts

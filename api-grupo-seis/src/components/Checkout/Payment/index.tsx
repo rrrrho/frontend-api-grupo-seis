@@ -51,14 +51,14 @@ export const Payment = ({
           />
         </svg>
 
-        <Heading variant="sectionTitle" fontSize="2em">
+        <Heading variant="sectionTitle" fontSize="4xl">
           Pago
         </Heading>
       </HStack>
       <Flex align="center" mb="0.5em">
         <Button
           w="33.33%"
-          variant={paymentMethod === "card" ? "brandThird" : "brandFourth"}
+          variant={paymentMethod === "card" ? "brandFifth" : "brandFourth"}
           padding="0"
           h="5em"
           onClick={() => setPaymentMethod("card")}
@@ -83,7 +83,7 @@ export const Payment = ({
         <Button
           w="33.33%"
           variant={
-            paymentMethod === "mercadoPago" ? "brandThird" : "brandFourth"
+            paymentMethod === "mercadoPago" ? "brandFifth" : "brandFourth"
           }
           padding="0"
           h="5em"
@@ -104,7 +104,7 @@ export const Payment = ({
         </Button>
         <Button
           w="33.33%"
-          variant={paymentMethod === "wire" ? "brandThird" : "brandFourth"}
+          variant={paymentMethod === "wire" ? "brandFifth" : "brandFourth"}
           padding="0"
           h="5em"
           onClick={() => setPaymentMethod("wire")}

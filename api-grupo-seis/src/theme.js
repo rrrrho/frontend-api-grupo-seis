@@ -82,8 +82,10 @@ const components = {
           boxShadow: "0 0.2em 0.2em 0.2em rgba(0, 0, 0, 0.25)",
         },
         _active: {
-          background: "brand.darkBrown",
-          color: "brand.cream",
+          background: "#fff5e0",
+          color: "brand.darkBrown",
+          borderColor: "brand.darkBrown",
+          borderWidth: "0.1em",
         },
       },
       brandFourth: {
@@ -98,6 +100,10 @@ const components = {
           color: "brand.cream",
           opacity: "0.8",
         },
+      },
+      brandFifth: {
+        background: "brand.darkBrown",
+        color: "brand.cream",
       },
     },
   },
