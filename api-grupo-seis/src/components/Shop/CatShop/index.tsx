@@ -49,7 +49,7 @@ const CatShop = () => {
                     <Flex gap={5} w="22vw" flexDir="column">
                         {filters.map((filter) => <Filter name={filter.name} options={filter.values}/>)}
                         <Box>
-                            <Image src="src/assets/img/poster.png" w="22vw"  objectFit="cover"></Image>
+                            <Image src="src/assets/img/cats/sales-poster.png" w="22vw"  objectFit="cover"></Image>
                         </Box>
                     </Flex>
                     <Flex flexDir="column">
