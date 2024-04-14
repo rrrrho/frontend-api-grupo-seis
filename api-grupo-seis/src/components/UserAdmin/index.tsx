@@ -68,24 +68,27 @@ const UserAdmin = () => {
 
   return (
     <Box padding="3rem">
-      <Heading variant="mainTitle">administración de usuarios!</Heading>
       <Search
         query={query}
         onChangeQuery={setQuery}
         filterUsers={filterUsers}
         handleShowAll={handleShowAll}
       />
-      <Heading variant="sectionTitle" mt="3">
+      <Heading variant="sectionTitle" mt="3" fontSize="2xl">
         Mostrar resultados por:
       </Heading>
-      <Flex align="center">
+      <Flex alignItems="center" mt="0.5em">
         <Filters onFilter={setFilter} filter={filter} />
-        {/* TODO: ver como hacer esto mejor, me quedo horrible :/ */}
         <Select
           placeholder="Ordenar por"
           w="13em"
           ml="1em"
           onChange={onOrderByChange}
+          sx={{
+            option: {
+              backgroundColor: "brand.darkBrown",
+            },
+          }}
         >
           <option value="name">Nombre</option>
           <option value="lastName">Apellido</option>

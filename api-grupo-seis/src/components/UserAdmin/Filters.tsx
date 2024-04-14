@@ -8,33 +8,40 @@ type FiltersProps = {
 
 export const Filters = ({ onFilter, filter }: FiltersProps) => {
   return (
-    <Box>
-      <Flex flexDirection="row" alignItems="center" w="full">
-        <Button
-          variant="thirdStyle"
-          m="0.15em"
-          isActive={filter === "email" ? true : false}
-          onClick={() => onFilter("email")}
-        >
-          Correo
-        </Button>
-        <Button
-          variant="thirdStyle"
-          m="0.15em"
-          isActive={filter === "name" ? true : false}
-          onClick={() => onFilter("name")}
-        >
-          Nombre
-        </Button>
-        <Button
-          variant="thirdStyle"
-          m="0.15em"
-          isActive={filter === "lastName" ? true : false}
-          onClick={() => onFilter("lastName")}
-        >
-          Apellido
-        </Button>
-      </Flex>
-    </Box>
+    <>
+      <Button
+        variant="brandThird"
+        m="0.15em"
+        isActive={filter === "email" ? true : false}
+        onClick={() => onFilter("email")}
+        h="40px"
+        paddingTop="0"
+        paddingBottom="0"
+      >
+        Correo
+      </Button>
+      <Button
+        variant="brandThird"
+        m="0.15em"
+        isActive={filter === "name" ? true : false}
+        onClick={() => onFilter("name")}
+        h="40px"
+        paddingTop="0"
+        paddingBottom="0"
+      >
+        Nombre
+      </Button>
+      <Button
+        variant="brandThird"
+        m="0.15em"
+        isActive={filter === "lastName" ? true : false}
+        onClick={() => onFilter("lastName")}
+        h="40px"
+        paddingTop="0"
+        paddingBottom="0"
+      >
+        Apellido
+      </Button>
+    </>
   );
 };

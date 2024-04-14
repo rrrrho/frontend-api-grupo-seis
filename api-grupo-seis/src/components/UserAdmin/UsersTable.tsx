@@ -37,26 +37,25 @@ export const UsersTable = ({
       <Table bg="rgba(115, 144, 114, 0.3)" borderRadius="12" mt="5" size="sm">
         <Thead>
           <Tr>
-            {/* TODO: no pude aplicar estos estilos en el theme.js :( */}
-            <Th textAlign="center" color="brand.darkGreen" fontSize="1em">
+            <Th textAlign="center" color="brand.darkGreen" fontSize="md">
               NOMBRE
             </Th>
-            <Th textAlign="center" color="brand.darkGreen" fontSize="1em">
+            <Th textAlign="center" color="brand.darkGreen" fontSize="md">
               APELLIDO
             </Th>
-            <Th textAlign="center" color="brand.darkGreen" fontSize="1em">
+            <Th textAlign="center" color="brand.darkGreen" fontSize="md">
               CORREO
             </Th>
-            <Th textAlign="center" color="brand.darkGreen" fontSize="1em">
+            <Th textAlign="center" color="brand.darkGreen" fontSize="md">
               FECHA DE CREACIÓN
             </Th>
-            <Th textAlign="center" color="brand.darkGreen" fontSize="1em">
+            <Th textAlign="center" color="brand.darkGreen" fontSize="md">
               ROL
             </Th>
-            <Th textAlign="center" color="brand.darkGreen" fontSize="1em">
+            <Th textAlign="center" color="brand.darkGreen" fontSize="md">
               ESTADO
             </Th>
-            <Th textAlign="center" color="brand.darkGreen" fontSize="1em">
+            <Th textAlign="center" color="brand.darkGreen" fontSize="md">
               ELIMINAR
             </Th>
           </Tr>
@@ -91,7 +90,12 @@ export const UsersTable = ({
                 </Tooltip>
               </Td>
               <Td textAlign="center">
-                <Button onClick={() => handleUserDelete(user.id)}>❌</Button>
+                <Button
+                  style={{ background: "transparent" }}
+                  onClick={() => handleUserDelete(user.id)}
+                >
+                  ❌
+                </Button>
               </Td>
             </Tr>
           ))}

@@ -1,4 +1,4 @@
-import { Button, Input, Flex, FormControl } from "@chakra-ui/react";
+import { Button, Input, Flex, FormControl, background } from "@chakra-ui/react";
 import React from "react";
 
 type SearchProps = {
@@ -23,15 +23,25 @@ export const Search = ({
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <FormControl mt="5">
+        <FormControl mt="5" alignItems="center">
           <Input
             placeholder="Buscar"
             width="22em"
-            variant="secondary"
+            variant="brandSecondary"
             value={query}
             onChange={(e) => onChangeQuery(e.target.value)}
+            style={{ verticalAlign: "middle" }}
           />
-          <Button variant="fourthStyle" type="submit" m="0.5em">
+          <Button
+            style={{ background: "#7D5A50" }}
+            type="submit"
+            padding="0"
+            w="45px"
+            h="40px"
+            m="0"
+            mr="0.5em"
+            ml="0.5em"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               x="0px"
@@ -46,7 +56,15 @@ export const Search = ({
               ></path>
             </svg>
           </Button>
-          <Button variant="fourthStyle" onClick={handleShowAll} m="0">
+          <Button
+            style={{ background: "#7D5A50" }}
+            color="brand.cream"
+            onClick={handleShowAll}
+            m="0"
+            w="120px"
+            h="40px"
+            padding="0"
+          >
             Mostrar todo
           </Button>
         </FormControl>
