@@ -101,6 +101,10 @@ const components = {
           opacity: "0.8",
         },
       },
+      brandFifth: {
+        background: "brand.darkBrown",
+        color: "brand.cream",
+      },
     },
   },
 
