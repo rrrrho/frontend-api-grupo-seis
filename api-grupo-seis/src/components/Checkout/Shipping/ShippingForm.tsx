@@ -24,7 +24,7 @@ export const ShippingForm = () => {
           <FormControl isRequired w="50%" mr="0.5em">
             <FormLabel mb="0.1em">Dirección</FormLabel>
             <Input
-              variant="secondary"
+              variant="brandSecondary"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
             />
@@ -32,14 +32,14 @@ export const ShippingForm = () => {
           <Flex direction="row" align="center" justify="center" w="50%">
             <FormControl isRequired mr="0.5em">
               <FormLabel mb="0.1em">Número</FormLabel>
-              <NumberInput variant="secondary">
+              <NumberInput variant="brandSecondary">
                 <NumberInputField onChange={(e) => setNumber(e.target.value)} />
               </NumberInput>
             </FormControl>
 
             <FormControl isRequired>
               <FormLabel mb="0.1em">Código postal</FormLabel>
-              <NumberInput variant="secondary">
+              <NumberInput variant="brandSecondary">
                 <NumberInputField
                   onChange={(e) => setZipCode(e.target.value)}
                 />
@@ -51,7 +51,7 @@ export const ShippingForm = () => {
           <FormControl isRequired mr="0.5em">
             <FormLabel mb="0.1em">Provincia</FormLabel>
             <Input
-              variant="secondary"
+              variant="brandSecondary"
               value={province}
               onChange={(e) => setProvince(e.target.value)}
             />
@@ -60,7 +60,7 @@ export const ShippingForm = () => {
           <FormControl isRequired>
             <FormLabel mb="0.1em">Ciudad</FormLabel>
             <Input
-              variant="secondary"
+              variant="brandSecondary"
               value={city}
               onChange={(e) => setCity(e.target.value)}
             />
@@ -69,7 +69,7 @@ export const ShippingForm = () => {
         <FormControl isRequired w="49.2%">
           <FormLabel mb="0.1em">Nombre del receptor</FormLabel>
           <Input
-            variant="secondary"
+            variant="brandSecondary"
             value={receiver}
             onChange={(e) => setReceiver(e.target.value)}
           />

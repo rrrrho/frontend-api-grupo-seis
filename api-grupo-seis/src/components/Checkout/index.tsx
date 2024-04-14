@@ -39,7 +39,7 @@ const Checkout = () => {
   const [products, setProducts] = useState(initialProducts);
   return (
     <Flex w="90vw" alignItems="center" justifyContent="center" m="3em">
-      <Flex direction="column" align="flex-start" mr="3em">
+      <Flex direction="column" align="flex-start" mr="4em">
         <PersonalData />
         <Shipping
           shippingMethod={shippingMethod}
@@ -67,7 +67,7 @@ const Checkout = () => {
           setTotal={setTotal}
         />
         <Button
-          variant="thirdStyle"
+          variant="brandThird"
           size="lg"
           w="10em"
           h="3em"

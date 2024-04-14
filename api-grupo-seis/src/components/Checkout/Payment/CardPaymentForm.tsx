@@ -32,7 +32,7 @@ export const CardPaymentForm = ({ total }: CardPaymentFormProps) => {
         <Flex align="center" w="100%">
           <FormControl isRequired mr="0.5rem" w="49%">
             <FormLabel mb="0.1em">Número de tarjeta</FormLabel>
-            <NumberInput variant="secondary">
+            <NumberInput variant="brandSecondary">
               <NumberInputField
                 onChange={(e) => setCardNumber(e.target.value)}
               />
@@ -41,7 +41,7 @@ export const CardPaymentForm = ({ total }: CardPaymentFormProps) => {
           <Flex direction="row" align="center" justify="center" w="50%">
             <FormControl isRequired w="25%" mr="0.5em">
               <FormLabel mb="0.1em">CVV</FormLabel>
-              <NumberInput variant="secondary">
+              <NumberInput variant="brandSecondary">
                 <NumberInputField
                   onChange={(e) => setSecurityCode(e.target.value)}
                   padding="0"
@@ -55,7 +55,12 @@ export const CardPaymentForm = ({ total }: CardPaymentFormProps) => {
                 <Select
                   placeholder="Mes"
                   onChange={(e) => setExpirationMonth(Number(e.target.value))}
-                  variant="secondary"
+                  variant="brandSecondary"
+                  sx={{
+                    option: {
+                      backgroundColor: "brand.lightBeige",
+                    },
+                  }}
                 >
                   {[...Array(12).keys()].map((month) => (
                     <option key={month} value={month + 1}>
@@ -67,7 +72,12 @@ export const CardPaymentForm = ({ total }: CardPaymentFormProps) => {
                 <Select
                   placeholder="Año"
                   onChange={(e) => setExpirationYear(Number(e.target.value))}
-                  variant="secondary"
+                  variant="brandSecondary"
+                  sx={{
+                    option: {
+                      backgroundColor: "brand.lightBeige",
+                    },
+                  }}
                 >
                   {[...Array(10).keys()].map((year) => (
                     <option key={year} value={2024 + year}>
@@ -83,14 +93,14 @@ export const CardPaymentForm = ({ total }: CardPaymentFormProps) => {
           <FormControl isRequired mr="0.5em">
             <FormLabel mb="0.1em">Titular de la tarjeta</FormLabel>
             <Input
-              variant="secondary"
+              variant="brandSecondary"
               value={cardHolder}
               onChange={(e) => setCardHolder(e.target.value)}
             />
           </FormControl>
           <FormControl isRequired mr="0.5em">
             <FormLabel mb="0.1em">DNI del titular</FormLabel>
-            <NumberInput variant="secondary">
+            <NumberInput variant="brandSecondary">
               <NumberInputField
                 onChange={(e) => setCardHolderDni(e.target.value)}
               />
@@ -103,7 +113,12 @@ export const CardPaymentForm = ({ total }: CardPaymentFormProps) => {
           <Select
             placeholder="Seleccionar"
             onChange={(e) => setInstallments(Number(e.target.value))}
-            variant="secondary"
+            variant="brandSecondary"
+            sx={{
+              option: {
+                backgroundColor: "brand.lightBeige",
+              },
+            }}
           >
             <option value="1">1 cuota de {formatPrice(total)} </option>
             <option value="3">3 cuotas {formatPrice(total / 3)} </option>

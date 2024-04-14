@@ -85,20 +85,22 @@ export const Shipping = ({
         mb="0.5em"
       >
         <Button
-          variant={
-            shippingMethod === "shipping" ? "fourthStyle" : "transparent"
-          }
+          variant={shippingMethod === "shipping" ? "brandThird" : "brandFourth"}
+          color="brand.cream"
           onClick={() => setShippingMethod("shipping")}
           w="50%"
           m="0"
+          isActive={shippingMethod === "shipping"}
         >
           Envío a domicilio
         </Button>
         <Button
-          variant={shippingMethod === "pickup" ? "fourthStyle" : "transparent"}
+          variant={shippingMethod === "pickup" ? "brandThird" : "brandFourth"}
+          color="brand.cream"
           onClick={() => setShippingMethod("pickup")}
           w="50%"
           m="0"
+          isActive={shippingMethod === "pickup"}
         >
           Retiro en punto
         </Button>

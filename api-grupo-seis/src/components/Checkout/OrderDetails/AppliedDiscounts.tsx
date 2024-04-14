@@ -28,16 +28,16 @@ export const AppliedDiscounts = ({
         Descuentos aplicados
       </Heading>
       {paymentMethod === "card" ? (
-        <Text variant="productTitle" fontSize="0.9em" opacity="0.8">
+        <Text fontWeight="semibold" fontSize="sm" opacity="0.8">
           5% por pago con tarjeta
         </Text>
       ) : paymentMethod === "wire" ? (
-        <Text variant="productTitle" fontSize="0.9em" opacity="0.8">
+        <Text fontWeight="semibold" fontSize="sm" opacity="0.8">
           10% por pago con transferencia
         </Text>
       ) : null}
       {freeShipping && (
-        <Text variant="productTitle" fontSize="0.9em" opacity="0.8">
+        <Text fontWeight="semibold" fontSize="sm" opacity="0.8">
           Envío gratis a partir de $50.000
         </Text>
       )}

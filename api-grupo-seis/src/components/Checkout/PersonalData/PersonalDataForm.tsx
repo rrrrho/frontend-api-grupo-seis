@@ -27,7 +27,7 @@ export const PersonalDataForm = () => {
           <FormControl isRequired mr="0.5em">
             <FormLabel mb="0.1em">Correo</FormLabel>
             <Input
-              variant="secondary"
+              variant="brandSecondary"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -36,8 +36,8 @@ export const PersonalDataForm = () => {
 
           <FormControl isRequired>
             <FormLabel mb="0.1em">Teléfono celular</FormLabel>
-            <NumberInput variant="secondary">
-              <InputGroup variant="secondary">
+            <NumberInput variant="brandSecondary">
+              <InputGroup variant="brandSecondary">
                 <InputLeftAddon>+54</InputLeftAddon>
                 <NumberInputField
                   type="number"
@@ -52,7 +52,7 @@ export const PersonalDataForm = () => {
           <FormControl isRequired mr="0.5em">
             <FormLabel mb="0.1em">Nombre</FormLabel>
             <Input
-              variant="secondary"
+              variant="brandSecondary"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
@@ -61,7 +61,7 @@ export const PersonalDataForm = () => {
           <FormControl isRequired>
             <FormLabel mb="0.1em">Apellido</FormLabel>
             <Input
-              variant="secondary"
+              variant="brandSecondary"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
             />
@@ -70,7 +70,7 @@ export const PersonalDataForm = () => {
         <Flex direction="row" align="center">
           <FormControl isRequired mr="0.5em">
             <FormLabel mb="0.1em">DNI</FormLabel>
-            <NumberInput variant="secondary">
+            <NumberInput variant="brandSecondary">
               <NumberInputField
                 type="number"
                 value={dni}
@@ -84,7 +84,12 @@ export const PersonalDataForm = () => {
             <Select
               placeholder="Seleccionar"
               onChange={(e) => setGender(e.target.value)}
-              variant="secondary"
+              variant="brandSecondary"
+              sx={{
+                option: {
+                  backgroundColor: "brand.lightBeige",
+                },
+              }}
             >
               <option value="masculine">Masculino</option>
               <option value="femenine">Femenino</option>

@@ -59,10 +59,10 @@ const FinishedCheckoutModal = ({ isOpen, onClose }) => {
               </g>
             </g>
           </svg>
-          <Heading variant="sectionTitle" fontSize="2em">
+          <Heading variant="sectionTitle" fontSize="4xl">
             Orden finalizada
           </Heading>
-          <Text variant="productPrice" fontSize="1.2em">
+          <Text fontWeight="semibold" fontSize="xl">
             ¡Gracias por tu compra!
           </Text>
           <HStack mt="0.2em" justify="center">

@@ -5,10 +5,10 @@ import React from "react";
 export const MercadoPago = () => {
   return (
     <Flex direction="column" gap="0.5rem">
-      <Text variant="productPrice">
+      <Text fontWeight="semibold" fontSize="lg">
         Serás redirigido a Mercado Pago y podrás pagar con:
       </Text>
-      <Text variant="productTitle" opacity="0.8">
+      <Text fontWeight="semibold" fontSize="lg" opacity="0.8">
         Tarjeta de crédito
       </Text>
       <Flex mb="0.5em">
@@ -21,7 +21,7 @@ export const MercadoPago = () => {
           />
         ))}
       </Flex>
-      <Text variant="productTitle" opacity="0.8">
+      <Text fontWeight="semibold" fontSize="lg" opacity="0.8">
         Tarjeta de débito
       </Text>
       <Flex mb="0.5em">
@@ -34,7 +34,7 @@ export const MercadoPago = () => {
           />
         ))}
       </Flex>
-      <Text variant="productTitle" opacity="0.8">
+      <Text fontWeight="semibold" fontSize="lg" opacity="0.8">
         Efectivo en puntos de pago
       </Text>
       <Image
@@ -44,7 +44,7 @@ export const MercadoPago = () => {
         w="34px"
         h="24px"
       />
-      <Text variant="productTitle" opacity="0.8">
+      <Text fontWeight="semibold" fontSize="lg" opacity="0.8">
         Mercado Crédito
       </Text>
       <Image
@@ -54,7 +54,7 @@ export const MercadoPago = () => {
         w="103px"
         h="34px"
       />
-      <Text variant="productTitle" opacity="0.8">
+      <Text fontWeight="semibold" fontSize="lg" opacity="0.8">
         Dinero en cuenta de MercadoPago
       </Text>
     </Flex>

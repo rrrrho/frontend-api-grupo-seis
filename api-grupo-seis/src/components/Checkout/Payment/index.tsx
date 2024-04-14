@@ -58,11 +58,12 @@ export const Payment = ({
       <Flex align="center" mb="0.5em">
         <Button
           w="33.33%"
-          variant={paymentMethod === "card" ? "fourthStyle" : "transparent"}
+          variant={paymentMethod === "card" ? "brandThird" : "brandFourth"}
           padding="0"
           h="5em"
           onClick={() => setPaymentMethod("card")}
           m="0"
+          isActive={paymentMethod === "card"}
         >
           <Flex
             align="center"
@@ -82,12 +83,13 @@ export const Payment = ({
         <Button
           w="33.33%"
           variant={
-            paymentMethod === "mercadoPago" ? "fourthStyle" : "transparent"
+            paymentMethod === "mercadoPago" ? "brandThird" : "brandFourth"
           }
           padding="0"
           h="5em"
           onClick={() => setPaymentMethod("mercadoPago")}
           m="0"
+          isActive={paymentMethod === "mercadoPago"}
         >
           <Flex
             align="center"
@@ -102,11 +104,12 @@ export const Payment = ({
         </Button>
         <Button
           w="33.33%"
-          variant={paymentMethod === "wire" ? "fourthStyle" : "transparent"}
+          variant={paymentMethod === "wire" ? "brandThird" : "brandFourth"}
           padding="0"
           h="5em"
           onClick={() => setPaymentMethod("wire")}
           m="0"
+          isActive={paymentMethod === "wire"}
         >
           <Flex
             align="center"

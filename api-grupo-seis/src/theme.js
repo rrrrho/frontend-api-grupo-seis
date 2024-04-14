@@ -71,37 +71,32 @@ const components = {
         background: "brand.cream",
         color: "brand.darkBrown",
       },
-      thirdStyle: {
+      brandThird: {
         background: "brand.darkBrown",
         color: "brand.cream",
         _hover: {
           background: "#fff5e0",
           color: "brand.darkBrown",
-          fontSize: "lg",
           borderColor: "brand.darkBrown",
           borderWidth: "0.1em",
           boxShadow: "0 0.2em 0.2em 0.2em rgba(0, 0, 0, 0.25)",
         },
         _active: {
-          background: "#fff5e0",
-          color: "brand.darkBrown",
-          fontSize: "md",
-          borderColor: "brand.darkBrown",
-          borderWidth: "0.1em",
-          boxShadow: "none",
+          background: "brand.darkBrown",
+          color: "brand.cream",
         },
       },
-
-      fourthStyle: {
-        background: "brand.darkBrown",
-        color: "brand.cream",
-      },
-      transparent: {
+      brandFourth: {
         background: "transparent",
-        color: "brand.cream",
+        color: "brand.darkGreen",
         opacity: "0.8",
         _active: {
           fontSize: "md",
+        },
+        _hover: {
+          background: "brand.darkBrown",
+          color: "brand.cream",
+          opacity: "0.8",
         },
       },
     },
@@ -144,7 +139,7 @@ const components = {
       },
     },
     variants: {
-      secondary: {
+      brandSecondary: {
         field: {
           background: "brand.cream",
           color: "brand.darkGreen",
@@ -161,16 +156,6 @@ const components = {
   Text: {
     baseStyle: {
       color: "brand.darkGreen",
-    },
-    variants: {
-      productTitle: {
-        fontWeight: "600",
-        fontSize: "1.2em",
-      },
-      productPrice: {
-        fontWeight: "700",
-        fontSize: "1.2em",
-      },
     },
   },
 
@@ -189,7 +174,7 @@ const components = {
       },
     },
     variants: {
-      secondary: {
+      brandSecondary: {
         field: {
           borderColor: "brand.darkBrown",
           borderWidth: "0.1em",
@@ -223,7 +208,7 @@ const components = {
       },
     },
     variants: {
-      secondary: {
+      brandSecondary: {
         field: {
           borderColor: "brand.darkBrown",
           borderWidth: "0.1em",

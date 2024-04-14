@@ -78,12 +78,12 @@ export const Product = ({
         maxH="50px"
         mb="0.5em"
       />
-      <Text variant="productTitle" fontSize="0.9em" textAlign="start" w="14em">
+      <Text fontWeight="semibold" fontSize="sm" textAlign="start" w="14em">
         {product.productName}
       </Text>
       <Flex justify="center" align="center">
         <Button
-          variant="fourthStyle"
+          variant="brandThird"
           size="xs"
           ml="1em"
           {...inc}
@@ -93,7 +93,7 @@ export const Product = ({
           +
         </Button>
         <Input
-          variant="secondary"
+          variant="brandSecondary"
           {...input}
           size="xs"
           textAlign="center"
@@ -102,7 +102,7 @@ export const Product = ({
           padding="0"
         />
         <Button
-          variant="fourthStyle"
+          variant="brandThird"
           size="xs"
           {...dec}
           m="0 0.5em"
@@ -111,7 +111,11 @@ export const Product = ({
           −
         </Button>
       </Flex>
-      <Button variant="transparent" m="0" onClick={handleProductDelete}>
+      <Button
+        m="0"
+        onClick={handleProductDelete}
+        style={{ background: "transparent" }}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           x="0px"
@@ -145,8 +149,8 @@ export const Product = ({
       <Flex direction="column" align="center" w="7em">
         {product.discount ? (
           <Text
-            variant="productPrice"
-            fontSize="0.9em"
+            fontWeight="semibold"
+            fontSize="sm"
             ml="0.5em"
             textAlign="end"
             opacity="0.6"
@@ -155,12 +159,7 @@ export const Product = ({
             {formatPrice(product.price * product.quantity)}
           </Text>
         ) : null}
-        <Text
-          variant="productPrice"
-          fontSize="0.9em"
-          ml="0.5em"
-          textAlign="end"
-        >
+        <Text fontWeight="semibold" fontSize="sm" ml="0.5em" textAlign="end">
           {formatPrice(finalPrice)}
         </Text>
       </Flex>
