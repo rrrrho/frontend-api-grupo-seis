@@ -3,7 +3,6 @@ import Home from "./components/Home";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import UserAdmin from "./components/UserAdmin";
-import Layout from './components/Layout';
 import CatShop from './components/Shop/CatShop';
 import DogShop from './components/Shop/DogShop';
 
