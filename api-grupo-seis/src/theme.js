@@ -1,5 +1,7 @@
-import { extendTheme } from "@chakra-ui/react";
-import "@fontsource-variable/playfair-display";
+
+import { extendTheme} from "@chakra-ui/react";
+import '@fontsource-variable/playfair-display';
+import '@fontsource/roboto';
 
 const colors = {
   brand: {
@@ -49,23 +51,21 @@ const components = {
       fontWeight: "600",
       textTransform: "capitalize",
       borderRadius: 8,
-      margin: "0.4rem",
-      padding: "1.5rem",
       fontSize: "1.5rem",
       transition: "all .2s ease-in-out",
     },
     variants: {
       brandPrimary: {
         background: "brand.darkBrown",
-        color: "brand.cream",
+        color: "brand.lightBeige",
+        paddingLeft: "1.2rem",
+        paddingRight: "1.2rem",
         _hover: {
-          background: "brand.cream",
+          background: "brand.lightBeige",
+          background: "brand.lightBeige",
           color: "brand.darkBrown",
-          fontSize: "lg",
-        },
-        _active: {
-          fontSize: "md",
-        },
+          transform: "scale(1.1)",
+        }
       },
       brandSecondary: {
         background: "brand.cream",
@@ -162,18 +162,15 @@ const components = {
   Text: {
     baseStyle: {
       color: "brand.darkGreen",
-    },
+      fontWeight: "500"
+    }
   },
 
   Input: {
     baseStyle: {
       field: {
-        background: "brand.cream",
+        background: "brand.lightBeige",
         borderRadius: 5,
-        _focus: {
-          borderWidth: "0.1rem",
-          borderColor: "brand.darkBeige !important",
-        },
         _placeholder: {
           color: "brand.darkBeige",
         },
