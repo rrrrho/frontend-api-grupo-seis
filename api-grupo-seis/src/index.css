@@ -1,8 +1,7 @@
 :root {
-  --font-color: #394C38;
-  --primary: #4E6E52;
+  --primary: #394C38;
+  --secondary: #4E6E52;
   --background: #ECE3D0;
-  --highlight: #006c67;
 }
 
 ::-webkit-scrollbar {
@@ -13,9 +12,32 @@
   background: var(--background);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--font-color);
+  background: var(--primary);
   border-radius: 12px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--primary);
+  background: var(--secondary);
+}
+
+.swiper-slide {
+  height: auto !important;
+}
+
+.swiper .swiper-button-prev::after,
+.swiper .swiper-button-next::after {
+  color: var(--primary);
+  font-weight: 900;
+  font-size: 2.5rem;
+}
+
+.swiper .swiper-pagination-bullet {
+  width: 1.3rem;
+  height: 1.3rem;
+  background-color: var(--primary);
+  opacity: 1;
+}
+
+.swiper .swiper-pagination-bullet-active {
+  background-color: var(--background);
+  opacity: 1;
 }
