@@ -5,7 +5,7 @@ import { Shipping } from "./Shipping";
 import { OrderDetails } from "./OrderDetails";
 import FinishedCheckoutModal from "./FinishedCheckoutModal";
 import React, { useState } from "react";
-import initialProducts from "./products.json";
+import { useSelector } from "react-redux";
 
 export const shipping = 6500;
 
@@ -32,11 +32,11 @@ export const calculateTotal = (products) => {
 };
 const Checkout = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [total, setTotal] = useState<number>(calculateTotal(initialProducts));
+  const products = useSelector((state) => state.products.products);
+  const [total, setTotal] = useState<number>(calculateTotal(products));
   const [paymentMethod, setPaymentMethod] = useState<string>("card");
   const [shippingMethod, setShippingMethod] = useState<string>("shipping");
-  // TODO: agregar tipo a este useState
-  const [products, setProducts] = useState(initialProducts);
+
   return (
     <Flex w="90vw" alignItems="center" justifyContent="center" m="3em">
       <Flex direction="column" align="flex-start" mr="4em">
@@ -59,8 +59,6 @@ const Checkout = () => {
         top="0"
       >
         <OrderDetails
-          products={products}
-          setProducts={setProducts}
           shippingMethod={shippingMethod}
           paymentMethod={paymentMethod}
           total={total}

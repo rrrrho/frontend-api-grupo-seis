@@ -4,30 +4,21 @@ import React, { useEffect, useState } from "react";
 import { Product } from "./Product.tsx";
 import { AppliedDiscounts } from "./AppliedDiscounts.tsx";
 import { Totalizer } from "./Totalizer.tsx";
+import { useSelector } from "react-redux";
 
 type OrderDetailsProps = {
-  products: {
-    id: number;
-    productName: string;
-    price: number;
-    discount: number;
-    quantity: number;
-    imgUrl: string;
-  }[];
-  setProducts: (products: any) => void;
   shippingMethod: string;
   total: number;
   setTotal: (total: number) => void;
   paymentMethod: string;
 };
 export const OrderDetails = ({
-  products,
-  setProducts,
   shippingMethod,
   paymentMethod,
   total,
   setTotal,
 }: OrderDetailsProps) => {
+  const products = useSelector((state) => state.products.products);
   const [subtotal, setSubtotal] = useState<number>(total);
   const [freeShipping, setFreeShipping] = useState<boolean>(subtotal > 50000);
   const discount =
@@ -63,8 +54,6 @@ export const OrderDetails = ({
         <Product
           key={product.productName}
           product={product}
-          products={products}
-          setProducts={setProducts}
           setSubtotal={setSubtotal}
         />
       ))}

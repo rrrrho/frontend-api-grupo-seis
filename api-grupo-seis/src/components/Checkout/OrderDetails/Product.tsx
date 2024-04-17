@@ -8,6 +8,8 @@ import {
 } from "@chakra-ui/react";
 import { calculateTotal, formatPrice } from "../index.tsx";
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setProducts } from "../../../redux/productsSlice.ts";
 
 type ProductProps = {
   product: {
@@ -17,24 +19,12 @@ type ProductProps = {
     quantity: number;
     imgUrl: string;
   };
-  // TODO: agregar tipo
-  products: {
-    productName: string;
-    price: number;
-    discount: number;
-    quantity: number;
-    imgUrl: string;
-  }[];
-  setProducts: (products: any) => void;
   setSubtotal: (subtotal: number) => void;
 };
 
-export const Product = ({
-  product,
-  setProducts,
-  products,
-  setSubtotal,
-}: ProductProps) => {
+export const Product = ({ product, setSubtotal }: ProductProps) => {
+  const products = useSelector((state) => state.products.products);
+  const dispatch = useDispatch();
   const finalPrice = (product.price - product.discount) * product.quantity;
 
   const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
@@ -44,8 +34,10 @@ export const Product = ({
       min: 1,
       max: 99,
       onChange: (valueAsString, valueAsNumber) => {
-        product.quantity = valueAsNumber;
-        setProducts([...products]);
+        const updatedProducts = products.map((p) =>
+          p === product ? { ...p, quantity: valueAsNumber } : p
+        );
+        dispatch(setProducts(updatedProducts));
       },
     });
 
@@ -59,7 +51,7 @@ export const Product = ({
 
   const handleProductDelete = () => {
     const updatedProducts = products.filter((p) => p !== product);
-    setProducts(updatedProducts);
+    dispatch(setProducts(updatedProducts));
     setSubtotal(calculateTotal(updatedProducts));
   };
 
