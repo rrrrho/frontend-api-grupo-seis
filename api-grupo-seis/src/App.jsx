@@ -5,6 +5,7 @@ import Layout from "./components/Layout";
 import UserAdmin from "./components/UserAdmin";
 import CatShop from './components/Shop/CatShop';
 import DogShop from './components/Shop/DogShop';
+import ProductDetail from './components/ProductDetail';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="user-admin" element={<UserAdmin />} />
         <Route path="/cats" element={<CatShop />} />
         <Route path="/dogs" element={<DogShop />} />
+        <Route path="/product-detail" element={<ProductDetail/>} />
       </Routes>
     </Layout>
   );
