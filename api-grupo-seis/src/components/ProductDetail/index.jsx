@@ -1,7 +1,10 @@
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
+import data from './data.json';
 
-const ProductDetail = ({ product }) => {
-  const { image, nombre , description, price, category, seller, stock } = product;
+const ProductDetail = () => {
+  const product = data[0];
+  
+  const { image, nombre , description, price, seller, stock } = product;
 
   return (
     <Flex justify="center" align="center" mt="2rem">
