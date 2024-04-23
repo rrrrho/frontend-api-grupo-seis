@@ -1,14 +1,11 @@
-import { Box, Button, Heading, Input } from "@chakra-ui/react";
-
+import { Box } from "@chakra-ui/react";
+import Banner from "./Banner";
 
 const Home = () => {
     return (
         <Box bg="brand.darkBeige">
-            <Heading fontSize="48px">Comida</Heading>
-            <Button variant="brandPrimary">Mas relevante</Button>
-            <Button variant="brandSecondary" m="1rem">Mayor precio</Button>
-            <Button variant="brandPrimary">Mayor precio</Button>
-            <Input variant="baseStyle" w="25vw" m="1rem" placeholder="Buscar..."></Input>
+            <Box w={'100%'} background={'brand.darkMustard'} h={'10vh'}/>
+            <Banner/>
         </Box>
     );
 };
