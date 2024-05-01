@@ -22,7 +22,7 @@ const Header = () => {
         </Flex>
         <Flex gap={10} mr={10} alignItems={'center'}>
           <SearchBar/>
-          <NavLink url={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKhZjTAWcNThW7OlB4oW2FY_ckNwcYqNUgCFeRr_g-VA&s'}>
+          <NavLink url={'/profile'}>
             <Text>Cuenta</Text>
           </NavLink>
           <NavLink>
