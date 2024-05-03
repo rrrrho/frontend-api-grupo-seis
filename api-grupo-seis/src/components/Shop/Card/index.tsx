@@ -6,11 +6,34 @@ import { Product } from "../../../types/product";
 
 const Card = ({id, name, image, rating, voters, price, discount, quota, stock, bestseller}: Product) => {
     return (
-        <Flex w="15vw" bg="brand.lightBeige" borderRadius="15" flexDir="column" position="relative" transition="all .2s" _hover={{transform: "scale(1.1)"}}>
-            <Box bg="white" h="22vh" w="100%" borderTopRadius="15" position="relative" cursor="pointer">
+        <Flex 
+        w="18rem" 
+        bg="brand.lightBeige" 
+        borderRadius="15" 
+        flexDir="column" 
+        position="relative" 
+        transition="all .2s" 
+        _hover={{transform: "scale(1.1)"}}>
+            <Box 
+            bg="white" 
+            h="22vh" 
+            w="100%" 
+            borderTopRadius="15" 
+            position="relative" 
+            cursor="pointer">
                 {
                     bestseller ? (
-                        <Text position="absolute" bottom="0" fontWeight="600" color="brand.darkBrown" fontSize="0.8rem" p="0.2rem 0.5rem" bg="brand.darkMustard" borderTopRightRadius={5}>¡Mas vendido!</Text>
+                        <Text 
+                        position="absolute" 
+                        bottom="0" 
+                        fontWeight="600" 
+                        color="brand.darkBrown" 
+                        fontSize="0.8rem" 
+                        p="0.2rem 0.5rem" 
+                        bg="brand.darkMustard" 
+                        borderTopRightRadius={5}>
+                            ¡Mas vendido!
+                        </Text>
                     ) : (
                         <></>
                     )
