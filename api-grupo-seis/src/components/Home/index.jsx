@@ -2,9 +2,21 @@ import { Box, Flex, Link } from "@chakra-ui/react";
 import Banner from "./Banner";
 import dogImage from "../../assets/img/home/dog.png"; 
 import catImage from "../../assets/img/home/cat.png"; 
+import { useEffect, useState } from "react";
+import Loading from "../Loading";
 
 const Home = () => {
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 2000);
+    }, []);
+
     return (
+        <>
+        {isLoading && <Loading />}
         <Box>
             <Box w={'100%'} h={'10vh'}/>
             <Banner/>
@@ -23,6 +35,7 @@ const Home = () => {
                 </Link>
             </Flex>
         </Box>
+        </>
     );
 };
 

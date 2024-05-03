@@ -7,7 +7,7 @@ interface Props {
 };
 
 const Filter = ({name, options}: Props) => {
-  const [selectedOption, setSelectedOption] = useState(['']);
+  const [selectedOption, setSelectedOption] = useState<Array<string>>(['']);
 
   const handleCheckboxChange = (value) => {
     setSelectedOption([value]);

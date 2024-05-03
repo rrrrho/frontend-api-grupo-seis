@@ -7,15 +7,24 @@ import ProductDetail from './components/ProductDetail';
 import Shop from "./components/Shop";
 
 function App() {
+
+  const shopRoutes = [
+    "gatos",
+    "perros",
+    "hamsters",
+    "peces"
+  ];
+
   return (
     <Layout>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="user-admin" element={<UserAdmin />} />
-        <Route path="/shop/cats" element={<Shop />} />
-        <Route path="/shop/dogs" element={<Shop />} />
-        <Route path="/shop/hamsters" element={<Shop />} />
-        <Route path="/shop/peces" element={<Shop />} />
+        <Route path="/shop" element={<Shop />}>
+          {shopRoutes.map((category, index) => (
+            <Route key={index} path={category} element={<Shop />} />
+          ))}
+        </Route>
         <Route path="/product-detail" element={<ProductDetail/>} />
       </Routes>
     </Layout>
