@@ -1,7 +1,7 @@
 [
     {
        "id":13,
-       "image":"src/assets/img/dogs/dogChowAdultoMediano.webp",
+       "image":"/src/assets/img/dogs/dogChowAdultoMediano.webp",
        "name":"Alimento Dog Chow Sin Colorantes Para Perro Adulto Mediano Grande - 21 Kg",
        "rating":5.0,
        "voters":457,
@@ -12,7 +12,7 @@
     },
     {
        "id":14,
-       "image":"src/assets/img/dogs/jugueteSogaCancat.webp",
+       "image":"/src/assets/img/dogs/jugueteSogaCancat.webp",
        "name":"Juguete Hueso con Soga CanCat Doble Nudo - 10",
        "rating":4.2,
        "voters":38,
@@ -23,7 +23,7 @@
     },
     {
        "id":15,
-       "image":"src/assets/img/dogs/bolsitasPanioPet.webp",
+       "image":"/src/assets/img/dogs/bolsitasPanioPet.webp",
        "name":"Bolsitas Recolectoras PañoPet + Palita - 50 Unidades",
        "rating":2.9,
        "voters":956,
@@ -34,7 +34,7 @@
     },
     {
        "id":16,
-       "image":"src/assets/img/dogs/cancatHuesoSaborizado.webp",
+       "image":"/src/assets/img/dogs/cancatHuesoSaborizado.webp",
        "name": "Juguete Antiestres Cancat Hueso Saborizado",
        "rating":3.7,
        "voters":23,
@@ -45,7 +45,7 @@
     },
     {
        "id":17,
-       "image":"src/assets/img/dogs/comederoJolieMarron.webp",
+       "image":"/src/assets/img/dogs/comederoJolieMarron.webp",
        "name":"Comedero Y Bebedero Jolie Marron - Mediano",
        "rating":3.5,
        "voters":54,
@@ -56,7 +56,7 @@
     },
     {
        "id":18,
-       "image":"src/assets/img/dogs/correaFerplast.webp",
+       "image":"/src/assets/img/dogs/correaFerplast.webp",
        "name":"Correa Extensible Ferplast Flippy Tech Negra - 14x3,5x11h cm",
        "rating":4.0,
        "voters":230,
@@ -67,7 +67,7 @@
     },
     {
        "id":19,
-       "image":"src/assets/img/dogs/maintenanceAdulto.png",
+       "image":"/src/assets/img/dogs/maintenanceAdulto.png",
        "name":"Alimento Maintenance Criadores Adulto - 22 kg",
        "rating":4.1,
        "voters":453,
@@ -78,7 +78,7 @@
     },
     {
        "id":20,
-       "image":"src/assets/img/dogs/mantaHuellaCorderito.webp",
+       "image":"/src/assets/img/dogs/mantaHuellaCorderito.webp",
        "name":"Manta Huella Bariloche Corderito Camel - Small",
        "rating":3.0,
        "voters":15,
@@ -89,7 +89,7 @@
     },
     {
        "id":21,
-       "image":"src/assets/img/dogs/snackMonAmiDental.png",
+       "image":"/src/assets/img/dogs/snackMonAmiDental.png",
        "name":"Snacks Mon Ami Dental Stick - 75 Gr",
        "rating":4.7,
        "voters":1070,
@@ -100,7 +100,7 @@
     },
     {
        "id":22,
-       "image":"src/assets/img/dogs/monAmiPalitos.webp",
+       "image":"/src/assets/img/dogs/monAmiPalitos.webp",
        "name":"Palitos Mon Ami Cordero - 200 Gr",
        "rating":4.6,
        "voters":34,
@@ -111,7 +111,7 @@
     },
     {
        "id":23,
-       "image":"src/assets/img/dogs/dentastixPedigree.webp",
+       "image":"/src/assets/img/dogs/dentastixPedigree.webp",
        "name":"Dentastix Pedigree Razas Pequeñas",
        "rating":4.9,
        "voters":1356,
@@ -122,7 +122,7 @@
     },
     {
        "id":24,
-       "image":"src/assets/img/dogs/arnesLarge.webp",
+       "image":"/src/assets/img/dogs/arnesLarge.webp",
        "name":"Arnés Champion Ferplast Marron - Large",
        "rating":2.7,
        "voters":6,

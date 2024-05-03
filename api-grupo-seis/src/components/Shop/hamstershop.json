@@ -1,0 +1,134 @@
+[
+    {
+       "id":25,
+       "image":"/src/assets/img/hamsters/hamsteraPrincesRosa.webp",
+       "name":"Hamstera Criceti 9 Con Decoracion De Princesa - Rosa",
+       "rating":4.8,
+       "voters":238,
+       "price":91550.00,
+       "discount":0,
+       "stock":567,
+       "bestseller": true
+    },
+    {
+       "id":26,
+       "image":"/src/assets/img/hamsters/nelsoniRanchMix.png",
+       "name":"Alimento para Hamster Nelsoni Ranch Mix - 750Gr",
+       "rating":3.5,
+       "voters":234,
+       "price":2000.00,
+       "discount":5,
+       "stock":126,
+       "bestseller": false
+    },
+    {
+       "id":27,
+       "image":"/src/assets/img/hamsters/absorbenteSanitarioMarlo.png",
+       "name":"Absorbente Sanitario para Roedores Marlo 1,2Kg - 1.2 Kg",
+       "rating":5.0,
+       "voters":1234,
+       "price":3000.25,
+       "discount":0,
+       "stock":34,
+       "bestseller": true
+    },
+    {
+       "id":28,
+       "image":"/src/assets/img/hamsters/rueditaSal.png",
+       "name": "Ruedita de Sal Zootec",
+       "rating":4.3,
+       "voters":107,
+       "price":3290.00,
+       "discount":10,
+       "stock":360,
+       "bestseller": false
+    },
+    {
+       "id":29,
+       "image":"/src/assets/img/hamsters/ruedaHabitrail.webp",
+       "name":"Rueda de Ejercicios Habitrail - Grande",
+       "rating":2.9,
+       "voters":12,
+       "price":39490.75,
+       "discount":25,
+       "stock":176,
+       "bestseller": false
+    },
+    {
+       "id":30,
+       "image":"/src/assets/img/hamsters/juegoCandyPawise.webp",
+       "name":"Juego Mineral Candy Pawise Para Roedores - Tamaño Único",
+       "rating":4.0,
+       "voters":1548,
+       "price":2400.00,
+       "discount":10,
+       "stock":31,
+       "bestseller": true
+    },
+    {
+       "id":31,
+       "image":"/src/assets/img/hamsters/tropimixHamsters.webp",
+       "name":"Tropimix Para Hamsters Y Jerbos - 1 Kg",
+       "rating":4.5,
+       "voters":345,
+       "price":2100.00,
+       "discount":20,
+       "stock":111,
+       "bestseller": false
+    },
+    {
+       "id":32,
+       "image":"/src/assets/img/hamsters/banioArena.webp",
+       "name":"Baño De Arena Para Roedores - 300 Gr",
+       "rating":3.9,
+       "voters":93,
+       "price":3190.50,
+       "discount":0,
+       "stock":28,
+       "bestseller": false
+    },
+    {
+       "id":33,
+       "image":"/src/assets/img/hamsters/transportadoraFerplast.png",
+       "name":"Transportadora Ferplast Aladino - Chica",
+       "rating":2.3,
+       "voters":10,
+       "price":6250.25,
+       "discount":50,
+       "stock":1080,
+       "bestseller": false
+    },
+    {
+       "id":34,
+       "image":"/src/assets/img/hamsters/tuboCurvo.webp",
+       "name":"Tubo FPI 4810 Curvo Para Hamsters - Tamaño Único",
+       "rating":4.2,
+       "voters":53,
+       "price":1850.00,
+       "discount":0,
+       "stock":55,
+       "bestseller": false
+    },
+    {
+       "id":35,
+       "image":"/src/assets/img/hamsters/conexionesTubos.webp",
+       "name":"Conexiones Para Tubos Para Jaulas De Hamster - 6Cm",
+       "rating":3.5,
+       "voters":125,
+       "price":1750.00,
+       "discount":25,
+       "stock":67,
+       "bestseller": false
+    },
+    {
+       "id":36,
+       "image":"/src/assets/img/hamsters/setCepillos.webp",
+       "name":"Set De Cepillado Para Pequeños Roedores - Tamaño Único",
+       "rating":4.7,
+       "voters":14,
+       "price":12700.20,
+       "discount":10,
+       "stock":83,
+       "bestseller": true
+    }
+ ]

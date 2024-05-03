@@ -3,9 +3,8 @@ import Home from "./components/Home";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import UserAdmin from "./components/UserAdmin";
-import CatShop from './components/Shop/CatShop';
-import DogShop from './components/Shop/DogShop';
 import ProductDetail from './components/ProductDetail';
+import Shop from "./components/Shop";
 
 function App() {
   return (
@@ -13,8 +12,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="user-admin" element={<UserAdmin />} />
-        <Route path="/cats" element={<CatShop />} />
-        <Route path="/dogs" element={<DogShop />} />
+        <Route path="/shop/cats" element={<Shop />} />
+        <Route path="/shop/dogs" element={<Shop />} />
+        <Route path="/shop/hamsters" element={<Shop />} />
+        <Route path="/shop/peces" element={<Shop />} />
         <Route path="/product-detail" element={<ProductDetail/>} />
       </Routes>
     </Layout>
