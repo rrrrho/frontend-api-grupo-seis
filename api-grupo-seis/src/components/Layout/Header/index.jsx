@@ -4,14 +4,17 @@ import SearchBar from "./SearchBar";
 import { IoLocationSharp } from "react-icons/io5";
 import { FaPaw } from "react-icons/fa";
 import NavLink from "./NavLink";
-import CategoriesMenu from './CategoriesMenu'
+import CategoryMenu from './Categories/CategoryMenu';
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
     <header>
       <Flex position={'fixed'} zIndex={3} w={'100%'} background={'brand.darkMustard'} h={'10vh'} justifyContent={'space-between'} alignItems={'center'}>
         <Flex color={'brand.darkGreen'} alignItems={'center'} gap={8}>
-          <Icon as={FaPaw} boxSize={'3.5rem'} ml={10}/>
+          <Link to={'/'}>
+            <Icon as={FaPaw} boxSize={'3.5rem'} ml={10}/>
+          </Link>
           <Flex alignItems={'center'}>
             <Icon as={IoLocationSharp} boxSize={'2.3rem'}/>
             <Flex flexDir={'column'} fontWeight={600}>
@@ -26,7 +29,7 @@ const Header = () => {
             <Text>Cuenta</Text>
           </NavLink>
           <NavLink>
-            <CategoriesMenu/>
+            <CategoryMenu/>
           </NavLink>
           <Cart/>
         </Flex>
