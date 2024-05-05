@@ -1,4 +1,4 @@
-import { background, extendTheme } from "@chakra-ui/react";
+import { extendTheme } from "@chakra-ui/react";
 import "@fontsource-variable/playfair-display";
 import "@fontsource/roboto";
 
@@ -63,7 +63,7 @@ const components = {
           background: "brand.lightBeige",
           color: "brand.darkBrown",
           transform: "scale(1.1)",
-        }
+        },
       },
       brandSecondary: {
         background: "brand.lightBeige",
@@ -92,11 +92,6 @@ const components = {
         opacity: "0.8",
         _active: {
           fontSize: "md",
-        },
-        _hover: {
-          background: "brand.darkBrown",
-          color: "brand.cream",
-          opacity: "0.8",
         },
       },
       brandFifth: {
@@ -160,44 +155,14 @@ const components = {
   Text: {
     baseStyle: {
       color: "brand.darkGreen",
-      fontWeight: "500"
-    }
+      fontWeight: "500",
+    },
   },
 
   Input: {
     baseStyle: {
       field: {
         background: "brand.lightBeige",
-        borderRadius: 5,
-        _placeholder: {
-          color: "brand.darkBeige",
-        },
-      },
-    },
-    variants: {
-      brandSecondary: {
-        field: {
-          borderColor: "brand.darkBrown",
-          borderWidth: "0.1em",
-          borderRadius: 5,
-          textColor: "brand.darkGreen",
-          _focus: {
-            borderWidth: "0.15em",
-            borderColor: "brand.darkGreen",
-          },
-        },
-        addon: {
-          background: "brand.darkBrown",
-          color: "brand.cream",
-          borderRadius: 5,
-        },
-      },
-    },
-  },
-  NumberInput: {
-    baseStyle: {
-      field: {
-        background: "brand.cream",
         borderRadius: 5,
         _placeholder: {
           color: "brand.darkBeige",
