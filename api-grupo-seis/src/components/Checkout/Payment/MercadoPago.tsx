@@ -11,7 +11,7 @@ export const MercadoPago = () => {
       <Text fontWeight="semibold" fontSize="lg" opacity="0.8">
         Tarjeta de crédito
       </Text>
-      <Flex mb="0.5em">
+      <Flex mb="0.5em" wrap="wrap">
         {paymentMethodImages.credit.map((creditCard) => (
           <Image
             key={creditCard.alt}
@@ -24,7 +24,7 @@ export const MercadoPago = () => {
       <Text fontWeight="semibold" fontSize="lg" opacity="0.8">
         Tarjeta de débito
       </Text>
-      <Flex mb="0.5em">
+      <Flex mb="0.5em" wrap="wrap">
         {paymentMethodImages.debit.map((debitCard) => (
           <Image
             key={debitCard.alt}

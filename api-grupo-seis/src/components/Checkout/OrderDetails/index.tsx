@@ -1,41 +1,30 @@
 import { Divider, Flex, Heading } from "@chakra-ui/react";
-import { shipping } from "../index.tsx";
+import { shipping, calcSubtotal, calcTotal } from "../index.tsx";
 import React, { useEffect, useState } from "react";
-import { Product } from "./Product.tsx";
+import { ProductItem } from "./ProductItem.tsx";
 import { AppliedDiscounts } from "./AppliedDiscounts.tsx";
 import { Totalizer } from "./Totalizer.tsx";
 import { useSelector } from "react-redux";
+import { useAppSelector } from "../../../context/hooks.ts";
 
+// TODO: setTotal??????
 type OrderDetailsProps = {
   shippingMethod: string;
-  total: number;
-  setTotal: (total: number) => void;
   paymentMethod: string;
+  discount: number;
 };
 export const OrderDetails = ({
   shippingMethod,
   paymentMethod,
-  total,
-  setTotal,
+  discount,
 }: OrderDetailsProps) => {
-  const products = useSelector((state) => state.products.products);
-  const [subtotal, setSubtotal] = useState<number>(total);
+  const cartState = useAppSelector((state) => state.cart);
+  const subtotal = calcSubtotal(cartState);
+  const items = useAppSelector((state) => state.cart.items);
   const [freeShipping, setFreeShipping] = useState<boolean>(subtotal > 50000);
-  const discount =
-    paymentMethod === "card"
-      ? subtotal * 0.05
-      : paymentMethod === "wire"
-      ? subtotal * 0.1
-      : 0;
-
   useEffect(() => {
-    let updatedTotal = subtotal - discount;
-    if (!freeShipping && shippingMethod === "shipping") {
-      updatedTotal += shipping;
-    }
-    setTotal(updatedTotal);
     setFreeShipping(subtotal > 50000);
-  }, [subtotal, discount, freeShipping, shippingMethod, setTotal]);
+  }, [subtotal]);
 
   return (
     <Flex
@@ -50,11 +39,11 @@ export const OrderDetails = ({
       <Heading variant="sectionTitle" fontSize="4xl">
         Detalles del pedido
       </Heading>
-      {products.map((product) => (
-        <Product
-          key={product.productName}
-          product={product}
-          setSubtotal={setSubtotal}
+      {items.map((item) => (
+        <ProductItem
+          key={item.product.id}
+          product={item.product}
+          quantity={item.quantity}
         />
       ))}
       <Heading variant="sectionTitle" fontSize="3xl">
@@ -70,13 +59,7 @@ export const OrderDetails = ({
         mb="-2"
         w="99.5%"
       />
-      <Totalizer
-        total={total}
-        discount={discount}
-        freeShipping={freeShipping}
-        subtotal={subtotal}
-        shippingMethod={shippingMethod}
-      />
+      <Totalizer discount={discount} shippingMethod={shippingMethod} />
     </Flex>
   );
 };

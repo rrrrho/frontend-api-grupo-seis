@@ -1,19 +1,21 @@
 import { Button, Flex, HStack, Heading } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CardPaymentForm } from "./CardPaymentForm.tsx";
 import { MercadoPago } from "./MercadoPago.tsx";
 import { Wire } from "./Wire.tsx";
+import { useAppSelector } from "../../../context/hooks.ts";
+import { calcSubtotal } from "../index.tsx";
 
 type PaymentProps = {
   paymentMethod: string;
   setPaymentMethod: (method: string) => void;
-  total: number;
+  discount: number;
 };
 
 export const Payment = ({
   paymentMethod,
   setPaymentMethod,
-  total,
+  discount,
 }: PaymentProps) => {
   return (
     <Flex
@@ -128,7 +130,7 @@ export const Payment = ({
         </Button>
       </Flex>
       {paymentMethod === "card" ? (
-        <CardPaymentForm total={total} />
+        <CardPaymentForm discount={discount} />
       ) : paymentMethod === "mercadoPago" ? (
         <MercadoPago />
       ) : (

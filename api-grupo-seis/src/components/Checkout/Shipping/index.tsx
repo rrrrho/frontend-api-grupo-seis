@@ -1,6 +1,6 @@
 import { Button, Flex, HStack, Heading } from "@chakra-ui/react";
 import { Pickup } from "./Pickup";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ShippingForm } from "./ShippingForm";
 
 type ShippingProps = {
@@ -77,13 +77,7 @@ export const Shipping = ({
           Envío
         </Heading>
       </HStack>
-      <Flex
-        w="100%"
-        bg="rgba(125, 90, 80, 0.5)"
-        m="0"
-        borderRadius="8"
-        mb="0.5em"
-      >
+      <Flex w="100%" bg="rgba(125, 90, 80, 0.5)" m="0" borderRadius="8">
         <Button
           variant={shippingMethod === "shipping" ? "brandFifth" : "brandFourth"}
           color="brand.cream"

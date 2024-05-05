@@ -8,34 +8,29 @@ import {
   Th,
   Tr,
 } from "@chakra-ui/react";
-import { formatPrice, shipping } from "../index.tsx";
+import { calcSubtotal, calcTotal, formatPrice } from "../index.tsx";
 import React from "react";
+import { useAppSelector } from "../../../context/hooks.ts";
 
 type TotalizerProps = {
-  total: number;
   discount: number;
-  freeShipping: boolean;
-  subtotal: number;
   shippingMethod: string;
 };
 
-export const Totalizer = ({
-  total,
-  discount,
-  freeShipping,
-  subtotal,
-  shippingMethod,
-}: TotalizerProps) => {
+export const Totalizer = ({ discount, shippingMethod }: TotalizerProps) => {
+  const cartState = useAppSelector((state) => state.cart);
+  const freeShipping = calcTotal(cartState, discount) > 50000;
+
   return (
     <TableContainer>
       <Table variant="totalizer">
         <Tbody>
           <Tr>
             <Td fontSize="sm" opacity="0.8">
-              Subtotal:
+              Subtotal (sin envío):
             </Td>
             <Td fontSize="sm" opacity="0.8">
-              {formatPrice(subtotal)}
+              {formatPrice(calcSubtotal(cartState))}
             </Td>
           </Tr>
           {Boolean(discount) && (
@@ -44,20 +39,26 @@ export const Totalizer = ({
                 Descuento:
               </Td>
               <Td fontSize="sm" opacity="0.8">
-                -{formatPrice(discount)}
+                -
+                {formatPrice(
+                  calcSubtotal(cartState) - calcTotal(cartState, discount)
+                )}
               </Td>
             </Tr>
           )}
-          {shippingMethod === "shipping" && (
-            <Tr>
-              <Td fontSize="sm" opacity="0.8">
-                Envío:
-              </Td>
-              <Td fontSize="sm" opacity="0.8">
-                {freeShipping ? "Gratis" : formatPrice(shipping)}
-              </Td>
-            </Tr>
-          )}
+          {shippingMethod === "shipping" &&
+            cartState.shipping?.option?.id !== 0 && (
+              <Tr>
+                <Td fontSize="sm" opacity="0.8">
+                  Envío:
+                </Td>
+                <Td fontSize="sm" opacity="0.8">
+                  {freeShipping
+                    ? "Gratis"
+                    : formatPrice(cartState.shipping?.option?.price)}
+                </Td>
+              </Tr>
+            )}
         </Tbody>
         <Divider
           borderColor="brand.darkGreen"
@@ -71,9 +72,7 @@ export const Totalizer = ({
               Total:
             </Th>
             <Th fontSize="2xl" opacity="0.8">
-              {freeShipping || shippingMethod !== "shipping"
-                ? formatPrice(total)
-                : formatPrice(total)}
+              {formatPrice(calcTotal(cartState, discount))}
             </Th>
           </Tr>
         </Tfoot>
