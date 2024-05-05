@@ -28,23 +28,8 @@ const AddToCart = ({id, name, price, image, rating, voters, discount, quota, sto
 
     return (
         <>
-            <Button 
-            position="absolute"
-            bottom="45%"
-            left="77%"
-            borderRadius="100%"
-            bg="brand.lightBeige"
-            w="3rem"
-            h="3rem"
-            cursor="pointer"
-            onClick={()=> addItemToCart()}
-            _hover="none"
-            >
-                <Icon 
-                as={AiFillShopping} 
-                color="brand.darkBrown" 
-                boxSize={7}>
-                </Icon>
+            <Button position="absolute" bottom="45%" left="77%" borderRadius="100%" bg="brand.lightBeige" w="3rem" h="3rem" cursor="pointer" onClick={()=> addItemToCart()} _hover="none">
+                <Icon as={AiFillShopping} color="brand.darkBrown" boxSize={7}/>
             </Button>
             <ModalSuccess isOpen={isOpenSuccess} onClose={onCloseSuccess} title="¡Se agregó el producto al carrito!" />
             <ModalError isOpen={isOpenError} onClose={onCloseError} title="Ya existe este producto en el carrito." />

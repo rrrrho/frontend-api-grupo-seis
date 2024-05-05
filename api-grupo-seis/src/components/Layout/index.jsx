@@ -1,17 +1,21 @@
-import React from 'react'
-import Header from './Header'
-import Footer from './Footer'
-import { Flex, Spacer } from '@chakra-ui/react'
+import React from "react";
+import Header from "./Header";
+import CheckoutHeader from "./CheckoutHeader";
+import Footer from "./Footer";
+import { Flex, Spacer } from "@chakra-ui/react";
+import { useLocation } from "react-router-dom";
 
-const Layout = ({children}) => {
+const Layout = ({ children }) => {
+  const location = useLocation();
+
   return (
     <Flex flexDir="column" minH="100vh">
-        <Header />
-        {children}
-        <Spacer />
-        <Footer/>  
+      {location.pathname === "/checkout" ? <CheckoutHeader /> : <Header />}
+      {children}
+      <Spacer />
+      <Footer />
     </Flex>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;

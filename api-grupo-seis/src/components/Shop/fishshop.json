@@ -1,0 +1,134 @@
+[
+    {
+       "id":37,
+       "image":"/src/assets/img/fishes/plantaPennplax.webp",
+       "name":"Planta Pennplax Plástica Base Extra - XXL",
+       "rating":4.0,
+       "voters":243,
+       "price":9217.50,
+       "discount":30,
+       "stock":125,
+       "bestseller": false
+    },
+    {
+       "id":38,
+       "image":"/src/assets/img/fishes/betteraAtman.webp",
+       "name":"Bettera Atman Acrilica con Divisor - 6 L",
+       "rating":3.8,
+       "voters":8,
+       "price":15262.00,
+       "discount":25,
+       "stock":50,
+       "bestseller": false
+    },
+    {
+       "id":39,
+       "image":"/src/assets/img/fishes/aquaGravelRojo.webp",
+       "name":"Aqua Gravel Marina Rojo - 2 Kg",
+       "rating":5.0,
+       "voters":503,
+       "price":4342.75,
+       "discount":25,
+       "stock":134,
+       "bestseller": false
+    },
+    {
+       "id":40,
+       "image":"/src/assets/img/fishes/adornoEstrellaMarina.webp",
+       "name": "Adorno Marina Cool Dibujo Estrella de Mar",
+       "rating":4.1,
+       "voters":56,
+       "price":2475.00,
+       "discount":0,
+       "stock":101,
+       "bestseller":true
+    },
+    {
+       "id":41,
+       "image":"/src/assets/img/fishes/reguladorAquazAlkaline.webp",
+       "name":"Regulador Aquaz Evo Alkaline - 250 g",
+       "rating":3.7,
+       "voters":89,
+       "price":17890.00,
+       "discount":0,
+       "stock":167,
+       "bestseller":false
+    },
+    {
+       "id":42,
+       "image":"/src/assets/img/fishes/redBoyuRoja.png",
+       "name":"Red Boyu Profesional Nº8 - 20x18cm",
+       "rating":2.8,
+       "voters":107,
+       "price":11212.00,
+       "discount":25,
+       "stock":23,
+       "bestseller": false
+    },
+    {
+       "id":43,
+       "image":"/src/assets/img/fishes/goldfishAliemento.webp",
+       "name":"Alimento Tropical Goldfish Color - 20Gr",
+       "rating":4.3,
+       "voters":453,
+       "price":7012.10,
+       "discount":10,
+       "stock":412,
+       "bestseller": true
+    },
+    {
+       "id":44,
+       "image":"/src/assets/img/fishes/tretaminFlakes.webp",
+       "name":"TetraMin Tropical Flakes Nutrición Balanceada - 62 Gr",
+       "rating":4.8,
+       "voters":201,
+       "price":9667.00,
+       "discount":0,
+       "stock":42,
+       "bestseller": false
+    },
+    {
+       "id":45,
+       "image":"/src/assets/img/fishes/arenaFinaMillex.png",
+       "name":"Arena Fina Millex Blanca y Azul 07-1mm - 2.5kg",
+       "rating":3.5,
+       "voters":340,
+       "price":9150.75,
+       "discount":25,
+       "stock":100,
+       "bestseller": false
+    },
+    {
+       "id":46,
+       "image":"/src/assets/img/fishes/plantaMillexPlastico.png",
+       "name":"Planta Millex de Plástico - 50cm",
+       "rating":4.3,
+       "voters":518,
+       "price":5350.00,
+       "discount":0,
+       "stock":140,
+       "bestseller": true
+    },
+    {
+       "id":47,
+       "image":"/src/assets/img/fishes/filtroEsponja.png",
+       "name":"Filtro Esponja Boyu Biomecanico - Medium",
+       "rating":3.8,
+       "voters":34,
+       "price":9950.15,
+       "discount":25,
+       "stock":35,
+       "bestseller": false
+    },
+    {
+       "id":48,
+       "image":"/src/assets/img/fishes/clarificadorTetra.webp",
+       "name":"Clarificador Tetra - 250 ml",
+       "rating":3.9,
+       "voters":188,
+       "price":33590.00,
+       "discount":0,
+       "stock":70,
+       "bestseller": true
+    }
+ ]

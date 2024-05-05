@@ -1,6 +1,6 @@
-import { extendTheme} from "@chakra-ui/react";
-import '@fontsource-variable/playfair-display';
-import '@fontsource/roboto';
+import { extendTheme } from "@chakra-ui/react";
+import "@fontsource-variable/playfair-display";
+import "@fontsource/roboto";
 
 const colors = {
   brand: {
@@ -61,29 +61,102 @@ const components = {
         paddingRight: "1.2rem",
         _hover: {
           background: "brand.lightBeige",
-          background: "brand.lightBeige",
           color: "brand.darkBrown",
           transform: "scale(1.1)",
-        }
+        },
       },
       brandSecondary: {
-        background: "brand.cream",
+        background: "brand.lightBeige",
         color: "brand.darkBrown",
+      },
+      brandThird: {
+        background: "brand.darkBrown",
+        color: "brand.cream",
+        _hover: {
+          background: "#fff5e0",
+          color: "brand.darkBrown",
+          borderColor: "brand.darkBrown",
+          borderWidth: "0.1em",
+          boxShadow: "0 0.2em 0.2em 0.2em rgba(0, 0, 0, 0.25)",
+        },
+        _active: {
+          background: "#fff5e0",
+          color: "brand.darkBrown",
+          borderColor: "brand.darkBrown",
+          borderWidth: "0.1em",
+        },
+      },
+      brandFourth: {
+        background: "transparent",
+        color: "brand.darkGreen",
+        opacity: "0.8",
+        _active: {
+          fontSize: "md",
+        },
+      },
+      brandFifth: {
+        background: "brand.darkBrown",
+        color: "brand.cream",
       },
     },
   },
 
   Heading: {
     baseStyle: {
-      color: "brand.darkGreen"
-    }
+      color: "brand.darkGreen",
+    },
+    variants: {
+      mainTitle: {
+        fontWeight: "900",
+      },
+      subTitle: {
+        fontWeight: "700",
+      },
+      sectionTitle: {
+        fontWeight: "600",
+        fontSize: "1.3em",
+      },
+    },
+  },
+
+  FormLabel: {
+    baseStyle: {
+      color: "brand.darkGreen",
+      fontWeight: "600",
+    },
+  },
+
+  Select: {
+    baseStyle: {
+      field: {
+        background: "brand.darkBrown",
+        color: "brand.cream",
+        fontWeight: "600",
+      },
+      icon: {
+        color: "brand.cream",
+      },
+    },
+    variants: {
+      brandSecondary: {
+        field: {
+          background: "brand.lightBeige",
+          color: "brand.darkGreen",
+          borderColor: "brand.darkBrown",
+          borderWidth: "0.1em",
+        },
+        icon: {
+          color: "brand.darkBrown",
+        },
+      },
+    },
   },
 
   Text: {
     baseStyle: {
       color: "brand.darkGreen",
-      fontWeight: "500"
-    }
+      fontWeight: "500",
+    },
   },
 
   Input: {
@@ -96,14 +169,90 @@ const components = {
         },
       },
     },
+    variants: {
+      brandSecondary: {
+        field: {
+          borderColor: "brand.darkBrown",
+          borderWidth: "0.1em",
+          borderRadius: 5,
+          textColor: "brand.darkGreen",
+          _focus: {
+            borderWidth: "0.15em",
+            borderColor: "brand.darkGreen",
+          },
+        },
+        addon: {
+          background: "brand.darkBrown",
+          color: "brand.cream",
+          borderRadius: 5,
+        },
+      },
+    },
+  },
+  NumberInput: {
+    baseStyle: {
+      field: {
+        background: "brand.lightBeige",
+        borderRadius: 5,
+        _placeholder: {
+          color: "brand.darkBeige",
+        },
+      },
+    },
+    variants: {
+      brandSecondary: {
+        field: {
+          borderColor: "brand.darkBrown",
+          borderWidth: "0.1em",
+          borderRadius: 5,
+          textColor: "brand.darkGreen",
+          _focus: {
+            borderWidth: "0.15em",
+            borderColor: "brand.darkGreen",
+          },
+        },
+        addon: {
+          background: "brand.darkBrown",
+          color: "brand.cream",
+          borderRadius: 5,
+        },
+      },
+    },
+  },
+  Table: {
+    baseStyle: {
+      color: "brand.darkGreen",
+      fontWeight: "550",
+    },
+    variants: {
+      totalizer: {
+        td: {
+          height: "0",
+          opacity: "0.8",
+          paddingInlineStart: "0 !important",
+          paddingInlineEnd: "0 !important",
+        },
+        th: {
+          paddingInlineStart: "0 !important",
+          paddingInlineEnd: "0 !important",
+        },
+        tr: {
+          display: "flex",
+          justifyContent: "space-between",
+          width: "100%",
+          color: "brand.darkGreen",
+          fontWeight: "550",
+        },
+      },
+    },
   },
 };
 
 const styles = {
   global: {
     body: {
-      background: "brand.cream"
-    }
+      background: "brand.cream",
+    },
   },
 };
 
