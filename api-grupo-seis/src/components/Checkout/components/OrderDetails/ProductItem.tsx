@@ -1,17 +1,8 @@
-import {
-  Button,
-  Flex,
-  HStack,
-  Image,
-  Input,
-  Text,
-  useNumberInput,
-} from "@chakra-ui/react";
-import { calculateTotal, formatPrice } from "../index.tsx";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Product } from "../../../types/product.ts";
-import { calculateDiscount } from "../../../utils/card.tsx";
+import { Flex, HStack, Image, Text } from "@chakra-ui/react";
+import { formatPrice } from "../../../../utils/card.tsx";
+import React from "react";
+import { Product } from "../../../../types/product.ts";
+import { calculateDiscount } from "../../../../utils/card.tsx";
 
 type ProductProps = {
   product: Product;
@@ -49,10 +40,11 @@ export const ProductItem = ({ product, quantity }: ProductProps) => {
             opacity="0.6"
             textDecoration="line-through"
           >
-            {formatPrice(product.price * quantity)}
+            ${formatPrice(product.price * quantity)}
           </Text>
         ) : null}
         <Text fontWeight="semibold" fontSize="sm" ml="0.5em" textAlign="end">
+          $
           {formatPrice(
             calculateDiscount(product.price * quantity, product.discount)
           )}

@@ -1,10 +1,8 @@
 import { Button, Flex, HStack, Heading } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { CardPaymentForm } from "./CardPaymentForm.tsx";
 import { MercadoPago } from "./MercadoPago.tsx";
 import { Wire } from "./Wire.tsx";
-import { useAppSelector } from "../../../context/hooks.ts";
-import { calcSubtotal } from "../index.tsx";
 
 type PaymentProps = {
   paymentMethod: string;
@@ -75,7 +73,7 @@ export const Payment = ({
             h="100%"
           >
             <img
-              src="/images/checkout/card.png"
+              src="/src/assets/img/checkout/card.png"
               width="50px"
               height="50px"
             ></img>
@@ -100,7 +98,11 @@ export const Payment = ({
             w="100%"
             h="100%"
           >
-            <img src="/images/checkout/mp.png" width="50px" height="50px"></img>
+            <img
+              src="/src/assets/img/checkout/mp.png"
+              width="50px"
+              height="50px"
+            ></img>
             Mercado Pago
           </Flex>
         </Button>
@@ -121,7 +123,7 @@ export const Payment = ({
             h="100%"
           >
             <img
-              src="/images/checkout/wire.png"
+              src="/src/assets/img/checkout/wire.png"
               width="50px"
               height="50px"
             ></img>

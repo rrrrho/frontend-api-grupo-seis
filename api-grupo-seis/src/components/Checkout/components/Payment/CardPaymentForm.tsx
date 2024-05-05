@@ -9,10 +9,11 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import React from "react";
-import { calcTotal, formatPrice } from "../index.tsx";
-import { useAppSelector } from "../../../context/hooks.ts";
+import { calcTotalCheckout } from "../../../../utils/checkout.tsx";
+import { formatPrice } from "../../../../utils/card.tsx";
+import { useAppSelector } from "../../../../context/hooks.ts";
 
 type CardPaymentFormProps = {
   discount: number;
@@ -20,7 +21,7 @@ type CardPaymentFormProps = {
 
 export const CardPaymentForm = ({ discount }: CardPaymentFormProps) => {
   const cartState = useAppSelector((state) => state.cart);
-  const total = calcTotal(cartState, discount);
+  const total = calcTotalCheckout(cartState, discount);
   const [cardNumber, setCardNumber] = useState<string>("");
   const [securityCode, setSecurityCode] = useState<string>("");
   const [expirationMonth, setExpirationMonth] = useState<number>(0);
@@ -119,10 +120,10 @@ export const CardPaymentForm = ({ discount }: CardPaymentFormProps) => {
             },
           }}
         >
-          <option value="1">1 cuota de {formatPrice(total)}</option>
-          <option value="3">3 cuotas {formatPrice(total / 3)}</option>
-          <option value="6">6 cuotas {formatPrice(total / 6)}</option>
-          <option value="12">12 cuotas {formatPrice(total / 12)}</option>
+          <option value="1">1 cuota de ${formatPrice(total)}</option>
+          <option value="3">3 cuotas ${formatPrice(total / 3)}</option>
+          <option value="6">6 cuotas ${formatPrice(total / 6)}</option>
+          <option value="12">12 cuotas ${formatPrice(total / 12)}</option>
         </Select>
       </FormControl>
     </Stack>

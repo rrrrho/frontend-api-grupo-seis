@@ -1,16 +1,18 @@
 import { Button, Flex, HStack, Heading } from "@chakra-ui/react";
 import { Pickup } from "./Pickup";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { ShippingForm } from "./ShippingForm";
 
 type ShippingProps = {
   shippingMethod: string;
   setShippingMethod: (method: string) => void;
+  shippingNotSelected: boolean;
 };
 
 export const Shipping = ({
   shippingMethod,
   setShippingMethod,
+  shippingNotSelected,
 }: ShippingProps) => {
   return (
     <Flex
@@ -99,7 +101,11 @@ export const Shipping = ({
           Retiro en punto
         </Button>
       </Flex>
-      {shippingMethod === "shipping" ? <ShippingForm /> : <Pickup />}
+      {shippingMethod === "shipping" ? (
+        <ShippingForm shippingNotSelected={shippingNotSelected} />
+      ) : (
+        <Pickup />
+      )}
     </Flex>
   );
 };

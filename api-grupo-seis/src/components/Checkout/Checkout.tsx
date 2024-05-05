@@ -1,68 +1,14 @@
-import { Button, Flex, calc, useDisclosure } from "@chakra-ui/react";
-import { Payment } from "./Payment";
-import { PersonalData } from "./PersonalData";
-import { Shipping } from "./Shipping";
-import { OrderDetails } from "./OrderDetails";
-import FinishedCheckoutModal from "./Modal/FinishedCheckoutModal";
+import { Button, Flex, useDisclosure } from "@chakra-ui/react";
+import { Payment } from "./components/Payment/Payment";
+import { PersonalData } from "./components/PersonalData/Payment";
+import { Shipping } from "./components/Shipping/Shipping";
+import { OrderDetails } from "./components/OrderDetails/OrderDetails";
+import FinishedCheckoutModal from "./components/Modal/FinishedCheckoutModal";
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../context/hooks";
-import { calculateDiscount } from "../../utils/card";
 import { useNavigate } from "react-router-dom";
 import { deleteItem } from "../../context/slices/cartSlice";
-
-export const shipping = 6500;
-
-export function formatPrice(price: number): string {
-  const formattedPrice = parseFloat(String(price)).toFixed(2);
-
-  const [integerPart, decimalPart] = formattedPrice.split(".");
-
-  const integerWithSeparators = integerPart.replace(
-    /\B(?=(\d{3})+(?!\d))/g,
-    "."
-  );
-
-  return `$${integerWithSeparators},${decimalPart}`;
-}
-export const calculateTotal = (products) => {
-  let total = 0;
-  products.forEach((product) => {
-    const totalPriceForProduct = product.price * product.quantity;
-    total += totalPriceForProduct;
-  });
-  return total;
-};
-
-export const calcTotal = (cartState, discount) => {
-  let total = 0;
-
-  cartState.items?.map((item) => {
-    total +=
-      calculateDiscount(item.product.price, item.product.discount) *
-      item.quantity;
-  });
-  let shipping = 0;
-  if (total < 50000) {
-    shipping =
-      typeof cartState.shipping.option !== "undefined"
-        ? cartState.shipping.option.price
-        : 0;
-  }
-
-  total += shipping;
-  total = calculateDiscount(total, discount);
-  return total;
-};
-
-export const calcSubtotal = (cartState) => {
-  let subtotal = 0;
-
-  cartState.items?.map((item) => {
-    subtotal += item.product.price * item.quantity;
-  });
-
-  return subtotal;
-};
+import { calcTotalCheckout } from "../../utils/checkout";
 
 const Checkout = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -72,16 +18,19 @@ const Checkout = () => {
   const dispatch = useAppDispatch();
   const [paymentMethod, setPaymentMethod] = useState<string>("card");
   const [shippingMethod, setShippingMethod] = useState<string>("shipping");
+  const [shippingNotSelected, setShippingNotSelected] =
+    useState<boolean>(false);
   const discount =
     paymentMethod === "card" ? 5 : paymentMethod === "wire" ? 10 : 0;
 
   useEffect(() => {
-    calcTotal(cartState, discount);
+    calcTotalCheckout(cartState, discount);
   }, [paymentMethod, discount]);
 
   const handleFinishedCheckout = (e) => {
     e.preventDefault();
     if (cartState.shipping.option.id === 0 && shippingMethod === "shipping") {
+      setShippingNotSelected(true);
       return;
     }
     onOpen();
@@ -102,6 +51,7 @@ const Checkout = () => {
           <Shipping
             shippingMethod={shippingMethod}
             setShippingMethod={setShippingMethod}
+            shippingNotSelected={shippingNotSelected}
           />
           <Payment
             paymentMethod={paymentMethod}

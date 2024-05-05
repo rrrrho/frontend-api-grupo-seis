@@ -1,13 +1,11 @@
 import { Divider, Flex, Heading } from "@chakra-ui/react";
-import { shipping, calcSubtotal, calcTotal } from "../index.tsx";
+import { calcSubtotalCheckout } from "../../../../utils/checkout.tsx";
 import React, { useEffect, useState } from "react";
 import { ProductItem } from "./ProductItem.tsx";
 import { AppliedDiscounts } from "./AppliedDiscounts.tsx";
 import { Totalizer } from "./Totalizer.tsx";
-import { useSelector } from "react-redux";
-import { useAppSelector } from "../../../context/hooks.ts";
+import { useAppSelector } from "../../../../context/hooks.ts";
 
-// TODO: setTotal??????
 type OrderDetailsProps = {
   shippingMethod: string;
   paymentMethod: string;
@@ -19,7 +17,7 @@ export const OrderDetails = ({
   discount,
 }: OrderDetailsProps) => {
   const cartState = useAppSelector((state) => state.cart);
-  const subtotal = calcSubtotal(cartState);
+  const subtotal = calcSubtotalCheckout(cartState);
   const items = useAppSelector((state) => state.cart.items);
   const [freeShipping, setFreeShipping] = useState<boolean>(subtotal > 50000);
   useEffect(() => {

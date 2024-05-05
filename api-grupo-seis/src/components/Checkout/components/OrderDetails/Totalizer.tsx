@@ -8,9 +8,13 @@ import {
   Th,
   Tr,
 } from "@chakra-ui/react";
-import { calcSubtotal, calcTotal, formatPrice } from "../index.tsx";
+import {
+  calcSubtotalCheckout,
+  calcTotalCheckout,
+} from "../../../../utils/checkout.tsx";
+import { formatPrice } from "../../../../utils/card.tsx";
 import React from "react";
-import { useAppSelector } from "../../../context/hooks.ts";
+import { useAppSelector } from "../../../../context/hooks.ts";
 
 type TotalizerProps = {
   discount: number;
@@ -19,7 +23,7 @@ type TotalizerProps = {
 
 export const Totalizer = ({ discount, shippingMethod }: TotalizerProps) => {
   const cartState = useAppSelector((state) => state.cart);
-  const freeShipping = calcTotal(cartState, discount) > 50000;
+  const freeShipping = calcTotalCheckout(cartState, discount) > 50000;
 
   return (
     <TableContainer>
@@ -30,22 +34,21 @@ export const Totalizer = ({ discount, shippingMethod }: TotalizerProps) => {
               Subtotal (sin envío):
             </Td>
             <Td fontSize="sm" opacity="0.8">
-              {formatPrice(calcSubtotal(cartState))}
+              ${formatPrice(calcSubtotalCheckout(cartState))}
             </Td>
           </Tr>
-          {Boolean(discount) && (
-            <Tr>
-              <Td fontSize="sm" opacity="0.8">
-                Descuento:
-              </Td>
-              <Td fontSize="sm" opacity="0.8">
-                -
-                {formatPrice(
-                  calcSubtotal(cartState) - calcTotal(cartState, discount)
-                )}
-              </Td>
-            </Tr>
-          )}
+          <Tr>
+            <Td fontSize="sm" opacity="0.8">
+              Descuento:
+            </Td>
+            <Td fontSize="sm" opacity="0.8">
+              - $
+              {formatPrice(
+                calcSubtotalCheckout(cartState) -
+                  calcTotalCheckout(cartState, discount)
+              )}
+            </Td>
+          </Tr>
           {shippingMethod === "shipping" &&
             cartState.shipping?.option?.id !== 0 && (
               <Tr>
@@ -55,7 +58,7 @@ export const Totalizer = ({ discount, shippingMethod }: TotalizerProps) => {
                 <Td fontSize="sm" opacity="0.8">
                   {freeShipping
                     ? "Gratis"
-                    : formatPrice(cartState.shipping?.option?.price)}
+                    : `$${formatPrice(cartState.shipping?.option?.price)}`}
                 </Td>
               </Tr>
             )}
@@ -72,7 +75,7 @@ export const Totalizer = ({ discount, shippingMethod }: TotalizerProps) => {
               Total:
             </Th>
             <Th fontSize="2xl" opacity="0.8">
-              {formatPrice(calcTotal(cartState, discount))}
+              ${formatPrice(calcTotalCheckout(cartState, discount))}
             </Th>
           </Tr>
         </Tfoot>

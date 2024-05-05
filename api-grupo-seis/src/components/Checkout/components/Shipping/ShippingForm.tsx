@@ -7,13 +7,17 @@ import {
   NumberInputField,
   Stack,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import React from "react";
-import ShippingOption from "../../Cart/Shipping/ShippingOption";
-import options from "../../Cart/Shipping/options.json";
-import { useAppSelector } from "../../../context/hooks";
+import ShippingOption from "../../../Cart/Shipping/ShippingOption";
+import options from "../../../Cart/Shipping/options.json";
+import { useAppSelector } from "../../../../context/hooks";
 
-export const ShippingForm = () => {
+type ShippingFormProps = {
+  shippingNotSelected: boolean;
+};
+
+export const ShippingForm = ({ shippingNotSelected }: ShippingFormProps) => {
   const cartSlice = useAppSelector((state) => state.cart);
   const [address, setAddress] = useState<string>("");
   const [number, setNumber] = useState<string>("");
@@ -81,6 +85,11 @@ export const ShippingForm = () => {
         />
       </FormControl>
       <ShippingOption options={options} postalCode={zipCode} />
+      {shippingNotSelected && (
+        <p style={{ color: "red", fontSize: "0.8em" }}>
+          Debe seleccionar un método de envío
+        </p>
+      )}
     </Stack>
   );
 };
