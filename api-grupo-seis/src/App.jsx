@@ -20,11 +20,13 @@ function App() {
   ];
 
   return (
+
     <Layout>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/user-admin" element={<UserAdmin />} />
+         <Route path="/profile" element={<Profile/>} />
         <Route path="/shop" element={<Shop />}>
           {shopRoutes.map((category, index) => (
             <Route key={index} path={category} element={<Shop />} />
