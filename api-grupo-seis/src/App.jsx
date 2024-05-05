@@ -2,9 +2,13 @@ import "./App.css";
 import Home from "./components/Home";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
-import UserAdmin from "./components/UserAdmin";
 import ProductDetail from './components/ProductDetail';
 import Shop from "./components/Shop";
+import Checkout from "./components/Checkout/Checkout";
+import UserAdmin from "./components/UserAdmin/UserAdmin";
+import CatShop from "./components/Shop/CatShop";
+import DogShop from "./components/Shop/DogShop";
+
 
 function App() {
 
@@ -19,7 +23,8 @@ function App() {
     <Layout>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="user-admin" element={<UserAdmin />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/user-admin" element={<UserAdmin />} />
         <Route path="/shop" element={<Shop />}>
           {shopRoutes.map((category, index) => (
             <Route key={index} path={category} element={<Shop />} />

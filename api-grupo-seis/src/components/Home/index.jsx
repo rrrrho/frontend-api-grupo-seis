@@ -1,3 +1,4 @@
+
 import { Box, Flex, Link } from "@chakra-ui/react";
 import Banner from "./Banner";
 import dogImage from "../../assets/img/home/dog.png"; 

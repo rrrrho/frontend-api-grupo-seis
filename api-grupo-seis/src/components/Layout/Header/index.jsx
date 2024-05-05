@@ -1,3 +1,4 @@
+
 import { Box, Flex, Text, Icon } from "@chakra-ui/react";
 import Cart from "../../Cart";
 import SearchBar from "./SearchBar";
@@ -37,6 +38,5 @@ const Header = () => {
     </header>
   );
 };
-  
+
 export default Header;
-  

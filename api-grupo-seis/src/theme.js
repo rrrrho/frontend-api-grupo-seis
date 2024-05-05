@@ -1,7 +1,6 @@
-
-import { extendTheme} from "@chakra-ui/react";
-import '@fontsource-variable/playfair-display';
-import '@fontsource/roboto';
+import { background, extendTheme } from "@chakra-ui/react";
+import "@fontsource-variable/playfair-display";
+import "@fontsource/roboto";
 
 const colors = {
   brand: {
@@ -62,13 +61,12 @@ const components = {
         paddingRight: "1.2rem",
         _hover: {
           background: "brand.lightBeige",
-          background: "brand.lightBeige",
           color: "brand.darkBrown",
           transform: "scale(1.1)",
         }
       },
       brandSecondary: {
-        background: "brand.cream",
+        background: "brand.lightBeige",
         color: "brand.darkBrown",
       },
       brandThird: {
@@ -147,7 +145,7 @@ const components = {
     variants: {
       brandSecondary: {
         field: {
-          background: "brand.cream",
+          background: "brand.lightBeige",
           color: "brand.darkGreen",
           borderColor: "brand.darkBrown",
           borderWidth: "0.1em",
@@ -201,10 +199,36 @@ const components = {
       field: {
         background: "brand.cream",
         borderRadius: 5,
-        _focus: {
-          borderWidth: "0.1rem",
-          borderColor: "brand.darkBeige !important",
+        _placeholder: {
+          color: "brand.darkBeige",
         },
+      },
+    },
+    variants: {
+      brandSecondary: {
+        field: {
+          borderColor: "brand.darkBrown",
+          borderWidth: "0.1em",
+          borderRadius: 5,
+          textColor: "brand.darkGreen",
+          _focus: {
+            borderWidth: "0.15em",
+            borderColor: "brand.darkGreen",
+          },
+        },
+        addon: {
+          background: "brand.darkBrown",
+          color: "brand.cream",
+          borderRadius: 5,
+        },
+      },
+    },
+  },
+  NumberInput: {
+    baseStyle: {
+      field: {
+        background: "brand.lightBeige",
+        borderRadius: 5,
         _placeholder: {
           color: "brand.darkBeige",
         },
