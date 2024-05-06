@@ -1,19 +1,18 @@
-import React from "react";
+import Footer from "./Footer";
+import { SimpleGrid, Flex } from "@chakra-ui/react";
+import { useLocation } from "react-router-dom";
 import Header from "./Header";
 import CheckoutHeader from "./CheckoutHeader";
-import Footer from "./Footer";
-import { Box, Flex, Spacer } from "@chakra-ui/react";
-import { useLocation } from "react-router-dom";
 
 const Layout = ({ children }) => {
   const location = useLocation();
 
   return (
-    <Flex flexDir="column" h="100vh">
+    <SimpleGrid row={3} column={1} minH={'100vh'}>
       {location.pathname === "/checkout" ? <CheckoutHeader /> : <Header />}
-      {children}
+      <Flex flexDir={'column'} minH={'75vh'}>{children}</Flex>
       <Footer />
-    </Flex>
+    </SimpleGrid>
   );
 };
 

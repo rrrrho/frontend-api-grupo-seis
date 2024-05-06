@@ -1,13 +1,11 @@
-import { Button, Flex } from '@chakra-ui/react'
+import { Box, Button, Flex, Text } from '@chakra-ui/react'
 import React from 'react';
 
 
 const Register = () => {
     return(
-        <Flex h="100%" mt={'5rem'}>
-            <Flex backgroundColor="rgba(78, 110, 82, 0.4)" borderRadius={10} boxSize={'30rem'}> 
-                <Button variant={"brandSecondary"} marginTop={"10em"}>Registrarme</Button>
-            </Flex>
+        <Flex boxSize={'100%'} alignItems={'center'} justifyContent={'center'}>
+            <Box h={'25rem'} w={'55vw'} bg={'red'}></Box>
         </Flex>
     )
 }

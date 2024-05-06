@@ -18,8 +18,7 @@ const Home = () => {
     return (
         <>
         {isLoading && <Loading />}
-        <Box>
-            <Box w={'100%'} h={'10vh'}/>
+        <Box w={'100vw'}>
             <Banner/>
             <Flex justify="center" mt="4rem">
                 <Link href="/dogs" mx={4} textDecoration="none">
