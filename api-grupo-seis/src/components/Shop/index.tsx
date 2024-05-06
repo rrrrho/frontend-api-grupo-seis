@@ -73,9 +73,9 @@ const Shop = () => {
     return (
         <>
             {isLoading && <Loading />}
-            <Box my="5rem">
+            <Box>
                 <Skeleton isLoaded={!isLoading} startColor='brand.darkGreen' endColor='brand.lightGreen'>
-                    <Box bg="brand.lightGreen" h="35vh" position="relative">
+                    <Box bg="brand.lightGreen" h="35vh" position="relative" zIndex={-1}>
                         <Box position="absolute" bottom="-5" left={{ "lg": "3%", "xl": "12%" }} h={{ "lg": "120%", "xl": "130%" }} >
                             <Image src={info.image} objectFit="cover" h="100%" w="100%" />
                         </Box>

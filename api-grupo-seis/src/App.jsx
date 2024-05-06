@@ -8,6 +8,7 @@ import Checkout from "./components/Checkout/Checkout";
 import UserAdmin from "./components/UserAdmin/UserAdmin";
 import Register from "./components/Register";
 import Profile from "./components/Profile";
+import Login from "./components/Login";
 
 function App() {
   const shopRoutes = ["gatos", "perros", "hamsters", "peces"];
@@ -19,6 +20,7 @@ function App() {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/user-admin" element={<UserAdmin />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/shop" element={<Shop />}>
           {shopRoutes.map((category, index) => (

@@ -19,7 +19,7 @@ const Register = () => {
     const { isOpen: isOpenSuccess, onOpen: onOpenSuccess, onClose: onCloseSuccess } = useDisclosure();
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-
+    
     useEffect(() => {
         setTimeout(() => {
             setIsLoading(false);
