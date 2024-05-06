@@ -4,11 +4,10 @@ import React from 'react';
 interface Props {
   children: React.ReactNode,
   onClick: ()=>void,
-  url: string
 }
 
-const NavLink = (props: Props) => {
-  const { children } = props
+const ActionLink = (props: Props) => {
+  const { children, onClick } = props;
 
   return (
     <Link
@@ -32,12 +31,11 @@ const NavLink = (props: Props) => {
       color={'brand.darkGreen'}
       fontWeight={800}
       fontSize={16}
-      href={props.url}
-      onClick={props.onClick}
+      onClick={onClick}
     >
       {children}
     </Link>
   );
 };
 
-export default NavLink;
+export default ActionLink;
