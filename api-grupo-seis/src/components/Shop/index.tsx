@@ -82,7 +82,7 @@ const Shop = () => {
                     </Box>
                 </Skeleton>
                 <Flex justifyContent="center" mt="3rem" gap={20}>
-                    <Flex gap={5} w="22vw" flexDir="column">
+                    <Flex gap={5} w={{base: '28vw', xl: "22vw"}} flexDir="column">
                         {filters.map((filter, index) =>
                             <Skeleton key={index} isLoaded={!isLoading} startColor='brand.darkGreen' endColor='brand.lightGreen'>
                                 <Filter name={filter.name} options={filter.values} />
@@ -94,15 +94,15 @@ const Shop = () => {
                     </Flex>
                     <Flex flexDir="column">
                         <Skeleton isLoaded={!isLoading} startColor='brand.darkGreen' endColor='brand.lightGreen'>
-                            <Flex justifyContent="space-between">
-                                <Heading fontSize="3.5rem" fontWeight="900">Resultados</Heading>
+                            <Flex justifyContent="space-between" gap={10}>
+                                <Heading fontSize={{ base: "2rem", xl: "3.5rem" }} fontWeight="900">Resultados</Heading>
                                 <Flex gap={4} alignSelf="flex-end">
-                                    {buttons.map((value, index) => <Button key={index} variant={'brandPrimary'}>{value}</Button>)}
+                                    {buttons.map((value, index) => <Button key={index} variant={'brandPrimary'} h={'fit-content'} py={{ base: "0.6rem", xl: "0.8rem" }} fontSize={{ base: "0.7rem", xl: "1rem" }} pr={{ base: "0.7rem", xl: "1.2rem" }} pl={{ base: "0.7rem", xl: "1.2rem" }}>{value}</Button>)}
                                 </Flex>
                             </Flex>
-                            <Text fontSize="1.1rem" ml="0.5rem">{info.results} productos</Text>
+                            <Text fontSize={{ base: "0.8rem", xl: "1.1rem" }} ml={{ base: "0.2rem", xl: "0.5rem" }}>{info.results} productos</Text>
                         </Skeleton>
-                        <SimpleGrid columns={3} spacing={9} mt="2rem">
+                        <SimpleGrid columns={{base: '2', xl: '3'}} spacing={9} mt="2rem">
                             {info.data?.map((product: any, index: number) =>
                                 <Skeleton key={index} isLoaded={!isLoading} startColor='brand.darkGreen' endColor='brand.lightGreen'>
                                     <Card

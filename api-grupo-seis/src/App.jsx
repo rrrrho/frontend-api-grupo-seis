@@ -8,6 +8,7 @@ import Checkout from "./components/Checkout/Checkout";
 import UserAdmin from "./components/UserAdmin/UserAdmin";
 import CatShop from "./components/Shop/CatShop";
 import DogShop from "./components/Shop/DogShop";
+import Register from "./components/Register";
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/user-admin" element={<UserAdmin />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/shop" element={<Shop />}>
           {shopRoutes.map((category, index) => (
             <Route key={index} path={category} element={<Shop />} />

@@ -49,6 +49,7 @@ export function generateRating(rating: number): JSX.Element[] {
                 as={FaStar} 
                 color="brand.darkMustard"
                 key={i}
+                boxSize={{base: '3', xl: '4'}}
                 />);
         } else if (i === roundedRating) {
             icons.push(
@@ -56,6 +57,7 @@ export function generateRating(rating: number): JSX.Element[] {
                 as={FaStarHalfAlt} 
                 color="brand.darkMustard"
                 key={i}
+                boxSize={{base: '3', xl: '4'}}
                 />);
         } else {
             icons.push(
@@ -63,6 +65,7 @@ export function generateRating(rating: number): JSX.Element[] {
                 as={FaRegStar} 
                 color="brand.darkMustard"
                 key={i}
+                boxSize={{base: '3', xl: '4'}}
                 />);
         }
     }
