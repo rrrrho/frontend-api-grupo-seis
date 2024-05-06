@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 const Header = () => {
   return (
     <header>
-      <Flex position={'fixed'} zIndex={3} w={'100%'} background={'brand.darkMustard'} h={'10vh'} justifyContent={'space-between'} alignItems={'center'}>
+      <Flex w={'100%'} background={'brand.darkMustard'} h={'10vh'} justifyContent={'space-between'} alignItems={'center'}>
         <Flex color={'brand.darkGreen'} alignItems={'center'} gap={8}>
           <Link to={'/'}>
             <Icon as={FaPaw} boxSize={'3.5rem'} ml={10}/>

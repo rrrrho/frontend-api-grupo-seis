@@ -6,6 +6,7 @@ import ProductDetail from "./components/ProductDetail";
 import Shop from "./components/Shop";
 import Checkout from "./components/Checkout/Checkout";
 import UserAdmin from "./components/UserAdmin/UserAdmin";
+import Register from "./components/Register";
 import Profile from "./components/Profile";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/user-admin" element={<UserAdmin />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/shop" element={<Shop />}>
           {shopRoutes.map((category, index) => (
