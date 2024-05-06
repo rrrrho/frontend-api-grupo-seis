@@ -25,7 +25,7 @@ function App() {
             <Route key={index} path={category} element={<Shop />} />
           ))}
         </Route>
-        <Route path="/product-detail" element={<ProductDetail />} />
+        <Route path="/product-detail/:id" Component={ProductDetail} />
       </Routes>
     </Layout>
   );

@@ -3,8 +3,21 @@ import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import AddToCart from './AddToCart';
 import { formatPrice, calculateDiscount, generateRating } from "../../../utils/card";
 import { Product } from "../../../types/product";
+import { Link } from "react-router-dom";
 
 const Card = ({id, name, image, rating, voters, price, discount, quota, stock, bestseller}: Product) => {
+    const producto = {
+        id: id,
+        name: name,
+        image: image,
+        rating: rating,
+        voters: voters,
+        price: price,
+        discount: discount,
+        quota: quota,
+        stock: stock,
+        bestseller: bestseller
+    };
     return (
         <Flex w={{base: '17rem', xl: "18rem"}} bg="brand.lightBeige" borderRadius="15px" flexDir="column" position="relative" transition="all 0.2s" _hover={{transform: "scale(1.1)"}}>
             <Box bg="white" h="22vh" w="100%" borderTopRadius="15px" position="relative" cursor="pointer">
@@ -13,7 +26,16 @@ const Card = ({id, name, image, rating, voters, price, discount, quota, stock, b
                         ¡Más vendido!
                     </Text>
                 )}
-                <Image src={image} objectFit="contain" w="100%" h="100%" borderTopRadius="15px" />
+                <Link to= {`/product-detail/${producto.id}`} state = { producto }>
+
+                    <Image
+                        src={image}
+                        objectFit="contain"
+                        w="100%"
+                        h="100%"
+                        borderTopRadius="15"
+                    />
+                </Link>
             </Box>
             <AddToCart id={id} name={name} image={image} rating={rating} voters={voters} price={price} discount={discount} quota={quota} stock={stock} bestseller={bestseller}/>
             <Box p="1.4rem">
