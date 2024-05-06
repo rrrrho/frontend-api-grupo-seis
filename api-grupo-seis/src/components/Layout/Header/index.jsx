@@ -6,7 +6,7 @@ import { IoLocationSharp } from "react-icons/io5";
 import { FaPaw } from "react-icons/fa";
 import NavLink from "./NavLink";
 import CategoryMenu from './Categories/CategoryMenu';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ActionLink from "./ActionLink";
 import { useAppDispatch } from "../../../context/hooks";
 import { logoutUser } from "../../../context/slices/userSlice";
@@ -14,6 +14,7 @@ import { logoutUser } from "../../../context/slices/userSlice";
 const Header = () => {
   const isLogged = JSON.parse(localStorage.getItem('isLogged'));
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const handleLogOut = () => {
     dispatch(logoutUser());
@@ -22,7 +23,7 @@ const Header = () => {
     localStorage.removeItem("isLogged");
     localStorage.removeItem("isLoggedAdmin");
       
-    location.reload();
+    navigate('/');
   }
 
   return (
