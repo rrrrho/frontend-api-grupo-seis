@@ -3,7 +3,6 @@ import React from 'react';
 
 interface Props {
   children: React.ReactNode,
-  onClick: ()=>void,
   url: string
 }
 
@@ -12,6 +11,7 @@ const NavLink = (props: Props) => {
 
   return (
     <Link
+      w={'fit-content'}
       as="a"
       px={1}
       py={1}
@@ -33,7 +33,6 @@ const NavLink = (props: Props) => {
       fontWeight={800}
       fontSize={16}
       href={props.url}
-      onClick={props.onClick}
     >
       {children}
     </Link>

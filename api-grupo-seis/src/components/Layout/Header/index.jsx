@@ -23,7 +23,7 @@ const Header = () => {
     localStorage.removeItem("isLogged");
     localStorage.removeItem("isLoggedAdmin");
       
-    navigate('/');
+    location.reload() && navigate('/');
   }
 
   return (
@@ -61,7 +61,7 @@ const Header = () => {
                 <NavLink url={'/register'}>
                   <Text>Registrarse</Text>
                 </NavLink>
-                <NavLink>
+                <NavLink url={'/login'}>
                   <Text>Loguearse</Text>
                 </NavLink>
               </>
