@@ -1,6 +1,5 @@
-import { Button, Flex, FormControl, FormLabel, Heading, Input, InputGroup, InputLeftAddon, NumberInput, NumberInputField, Select, Stack, Text, VStack } from '@chakra-ui/react'
+import { Box, Button, Flex, FormControl, FormLabel, Heading, Input, NumberInput, NumberInputField, Image, InputGroup, InputLeftAddon, Stack } from '@chakra-ui/react'
 import React, { useState } from 'react';
-
 
 const Register = () => {
     const [name, setName] = useState<string>("");
@@ -13,36 +12,45 @@ const Register = () => {
     const [confirmedPassword, setConfirmedPassword] = useState<string>("");
 
     return(
-        <Flex boxSize={'100%'} justifyContent={'center'} alignItems={'center'}>
-        <Stack w={'55vw'} bg="rgba(78,110,82,0.3)" borderRadius={10} py={'2rem'} px={'4rem'}>
-        <Heading pb={'1rem'}>Registrate</Heading>
-        <form> 
-            <Flex flexDir={'column'} gap={5}>
-            <Flex align="center">
-                <FormControl isRequired mr="0.5em">
-                <FormLabel mb="0.1em">Nombre</FormLabel>
-                <Input
-                    variant="brandSecondary"
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                />
-                </FormControl>
+        <Flex
+            boxSize={'100%'}
+            justifyContent={'center'}
+            alignItems={'center'}
+            bgImage="url('/src/assets/img/paws.svg')"
+            bgSize="cover"
+            bgPosition="90px 50%"
+            bgRepeat="no-repeat"
+            minHeight="75vh" // Asegura que el contenedor ocupe al menos toda la altura de la pantalla
+        >
+            <Stack w={'55vw'} bg="rgba(78,110,82,0.9)" borderRadius={10} py={'2rem'} px={'4rem'}>
+                <Heading pb={'1rem'} color={'brand.lightBeige'}>Registrate</Heading>
+                <form> 
+                    <Flex flexDir={'column'} gap={5}>
+                        <Flex align="center">
+                            <FormControl isRequired mr="0.5em">
+                                <FormLabel mb="0.1em" color={'brand.lightBeige'}>Nombre</FormLabel>
+                                <Input
+                                    variant="brandSecondary"
+                                    type="text"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                />
+                            </FormControl>
 
-                <FormControl isRequired mr="0.5em">
-                <FormLabel mb="0.1em">Apellido</FormLabel>
-                <Input
-                    variant="brandSecondary"
-                    type="text"
-                    value={lastname}
-                    onChange={(e) => setLastname(e.target.value)}
-                />
-                </FormControl>
-                </Flex>
+                            <FormControl isRequired mr="0.5em">
+                                <FormLabel mb="0.1em" color={'brand.lightBeige'}>Apellido</FormLabel>
+                                <Input
+                                    variant="brandSecondary"
+                                    type="text"
+                                    value={lastname}
+                                    onChange={(e) => setLastname(e.target.value)}
+                                />
+                            </FormControl>
+                        </Flex>
 
                 <Flex align="center">
                 <FormControl isRequired mr="0.5em" w={'49.1%'}>
-                <FormLabel mb="0.1em">DNI</FormLabel>
+                <FormLabel mb="0.1em" color={'brand.lightBeige'}>DNI</FormLabel>
                 <NumberInput variant="brandSecondary">
                     <NumberInputField
                     type="number"
@@ -53,10 +61,10 @@ const Register = () => {
                 </FormControl>
 
                 <FormControl isRequired w={'49.2%'}>
-                <FormLabel mb="0.1em">Teléfono celular</FormLabel>
+                <FormLabel mb="0.1em" color={'brand.lightBeige'}>Teléfono celular</FormLabel>
                 <NumberInput variant="brandSecondary">
                     <InputGroup variant="brandSecondary">
-                    <InputLeftAddon>+54</InputLeftAddon>
+                    <InputLeftAddon color={'brand.lightBeige'}>+54</InputLeftAddon>
                     <NumberInputField
                         type="number"
                         value={phone}
@@ -69,7 +77,7 @@ const Register = () => {
 
                 <Flex align="center">
                 <FormControl isRequired mr="0.5em">
-                <FormLabel mb="0.1em">Correo</FormLabel>
+                <FormLabel mb="0.1em" color={'brand.lightBeige'}>Correo</FormLabel>
                 <Input
                     variant="brandSecondary"
                     type="email"
@@ -79,7 +87,7 @@ const Register = () => {
                 </FormControl>
 
                 <FormControl isRequired mr="0.5em">
-                <FormLabel mb="0.1em">Confirmar correo</FormLabel>
+                <FormLabel mb="0.1em" color={'brand.lightBeige'}>Confirmar correo</FormLabel>
                 <Input
                     variant="brandSecondary"
                     type="email"
@@ -91,7 +99,7 @@ const Register = () => {
 
                 <Flex align="center">
                 <FormControl isRequired mr="0.5em">
-                <FormLabel mb="0.1em">Contraseña</FormLabel>
+                <FormLabel mb="0.1em" color={'brand.lightBeige'}>Contraseña</FormLabel>
                 <Input
                     variant="brandSecondary"
                     type="password"
@@ -101,7 +109,7 @@ const Register = () => {
                 </FormControl>
 
                 <FormControl isRequired mr="0.5em">
-                <FormLabel mb="0.1em">Confirmar contraseña</FormLabel>
+                <FormLabel mb="0.1em" color={'brand.lightBeige'}>Confirmar contraseña</FormLabel>
                 <Input
                     variant="brandSecondary"
                     type="password"
@@ -111,7 +119,7 @@ const Register = () => {
                 </FormControl>
 
                 </Flex>
-                <Button type={'submit'} variant={'brandPrimary'} alignSelf={'center'}>Registrarme</Button>
+                <Button color={'brand.lightBeige'} type={'submit'} variant={'brandThird'} alignSelf={'center'}>Registrarme</Button>
                 </Flex>
         </form>
       
