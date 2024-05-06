@@ -5,7 +5,6 @@ import Layout from "./components/Layout";
 import ProductDetail from "./components/ProductDetail";
 import Shop from "./components/Shop";
 import Checkout from "./components/Checkout/Checkout";
-import UserAdmin from "./components/UserAdmin/UserAdmin";
 import Register from "./components/Register";
 import Profile from "./components/Profile";
 import Login from "./components/Login";
@@ -18,7 +17,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/checkout" element={<Checkout />} />
-        <Route path="/user-admin" element={<UserAdmin />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />

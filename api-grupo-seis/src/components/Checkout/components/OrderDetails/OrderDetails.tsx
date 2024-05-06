@@ -9,12 +9,12 @@ import { useAppSelector } from "../../../../context/hooks.ts";
 type OrderDetailsProps = {
   shippingMethod: string;
   paymentMethod: string;
-  discount: number;
+  paymentMethodDiscount: number;
 };
 export const OrderDetails = ({
   shippingMethod,
   paymentMethod,
-  discount,
+  paymentMethodDiscount: discount,
 }: OrderDetailsProps) => {
   const cartState = useAppSelector((state) => state.cart);
   const subtotal = calcSubtotalCheckout(cartState);
@@ -57,7 +57,10 @@ export const OrderDetails = ({
         mb="-2"
         w="99.5%"
       />
-      <Totalizer discount={discount} shippingMethod={shippingMethod} />
+      <Totalizer
+        paymentMethodDiscount={discount}
+        shippingMethod={shippingMethod}
+      />
     </Flex>
   );
 };

@@ -67,7 +67,7 @@ const UserAdmin = () => {
   };
 
   return (
-    <Box padding="3rem" my="5rem">
+    <Box padding="3rem">
       <Search
         query={query}
         onChangeQuery={setQuery}

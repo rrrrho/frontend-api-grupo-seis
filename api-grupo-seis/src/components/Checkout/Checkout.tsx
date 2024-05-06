@@ -20,12 +20,12 @@ const Checkout = () => {
   const [shippingMethod, setShippingMethod] = useState<string>("shipping");
   const [shippingNotSelected, setShippingNotSelected] =
     useState<boolean>(false);
-  const discount =
+  const paymentMethodDiscount =
     paymentMethod === "card" ? 5 : paymentMethod === "wire" ? 10 : 0;
 
   useEffect(() => {
-    calcTotalCheckout(cartState, discount);
-  }, [paymentMethod, discount]);
+    calcTotalCheckout(cartState, paymentMethodDiscount);
+  }, [paymentMethod, paymentMethodDiscount]);
 
   const handleFinishedCheckout = (e) => {
     e.preventDefault();
@@ -56,7 +56,7 @@ const Checkout = () => {
           <Payment
             paymentMethod={paymentMethod}
             setPaymentMethod={setPaymentMethod}
-            discount={discount}
+            paymentMethodDiscount={paymentMethodDiscount}
           />
         </Flex>
         <Flex
@@ -69,7 +69,7 @@ const Checkout = () => {
           <OrderDetails
             shippingMethod={shippingMethod}
             paymentMethod={paymentMethod}
-            discount={discount}
+            paymentMethodDiscount={paymentMethodDiscount}
           />
           <Button
             variant="brandThird"
