@@ -1,4 +1,4 @@
-import { Button, Flex, Skeleton, useDisclosure } from "@chakra-ui/react";
+import { Button, Flex, Skeleton, Skeleton, useDisclosure } from "@chakra-ui/react";
 import { Payment } from "./components/Payment/Payment";
 import { PersonalData } from "./components/PersonalData/Payment";
 import { Shipping } from "./components/Shipping/Shipping";
