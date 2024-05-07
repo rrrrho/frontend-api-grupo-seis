@@ -30,26 +30,27 @@ import ProductForm from "../ProductForm/ProductForm";
 
 const ManageProductTable = () => {
   const [editingProduct, setEditingProduct] = useState<number>(0);
-  const handleEdit = (id: number) => {
-    setEditingProduct(id);
-  };
   const [productsState, setProductsState] = useState(
     products.map((product) => ({
       ...product,
       quota: product.price / 6,
     }))
   );
-  const handleDelete = (id: number) => {
-    const newProducts = productsState.filter((product) => product.id !== id);
-    setProductsState(newProducts);
-    onCloseDelete();
-  };
   const {
     isOpen: isDeleteOpen,
     onOpen: onOpenDelete,
     onClose: onCloseDelete,
   } = useDisclosure();
   const cancelRef = React.useRef<HTMLButtonElement>(null);
+
+  const handleEdit = (id: number) => {
+    setEditingProduct(id);
+  };
+  const handleDelete = (id: number) => {
+    const newProducts = productsState.filter((product) => product.id !== id);
+    setProductsState(newProducts);
+    onCloseDelete();
+  };
 
   return (
     <>

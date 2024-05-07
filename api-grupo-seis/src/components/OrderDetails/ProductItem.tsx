@@ -1,8 +1,8 @@
 import { Flex, HStack, Image, Text } from "@chakra-ui/react";
-import { formatPrice } from "../../../../utils/card.tsx";
+import { formatPrice } from "../../utils/card.tsx";
 import React from "react";
-import { Product } from "../../../../types/product.ts";
-import { calculateDiscount } from "../../../../utils/card.tsx";
+import { Product } from "../../types/product.ts";
+import { calculateDiscount } from "../../utils/card.tsx";
 
 type ProductProps = {
   product: Product;

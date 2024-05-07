@@ -4,8 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
 import ProductDetail from "./components/ProductDetail";
 import Shop from "./pages/Shop";
-import Checkout from "./components/Checkout/Checkout";
-import UserAdmin from "./components/UserAdmin/UserAdmin";
+import Checkout from "./pages/Checkout";
 import Register from "./pages/Register";
 import Profile from "./components/Profile";
 import Login from "./pages/Login";
@@ -20,7 +19,6 @@ function App() {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/user-admin" element={<UserAdmin />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/shop" element={<Shop />}>
           {shopRoutes.map((category, index) => (
