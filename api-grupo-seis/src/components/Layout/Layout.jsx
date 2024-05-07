@@ -1,8 +1,8 @@
-import Footer from "./Footer";
+import Footer from "./Footer/Footer";
 import { SimpleGrid, Flex } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
-import Header from "./Header";
-import CheckoutHeader from "./CheckoutHeader";
+import Header from "./Header/Header";
+import CheckoutHeader from "./CheckoutHeader/CheckoutHeader";
 
 const Layout = ({ children }) => {
   const location = useLocation();

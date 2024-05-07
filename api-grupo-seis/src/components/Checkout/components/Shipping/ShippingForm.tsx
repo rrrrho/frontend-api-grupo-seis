@@ -10,7 +10,7 @@ import {
 import { useState } from "react";
 import React from "react";
 import ShippingOption from "../../../Cart/Shipping/ShippingOption";
-import options from "../../../Cart/Shipping/options.json";
+import options from "/src/json/Cart/options.json";
 import { useAppSelector } from "../../../../context/hooks";
 
 type ShippingFormProps = {

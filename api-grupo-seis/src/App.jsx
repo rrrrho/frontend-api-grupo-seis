@@ -1,14 +1,14 @@
 import "./App.css";
-import Home from "./components/Home";
+import Home from "./pages/Home";
 import { Routes, Route } from "react-router-dom";
-import Layout from "./components/Layout";
+import Layout from "./components/Layout/Layout";
 import ProductDetail from "./components/ProductDetail";
-import Shop from "./components/Shop";
+import Shop from "./pages/Shop";
 import Checkout from "./components/Checkout/Checkout";
 import UserAdmin from "./components/UserAdmin/UserAdmin";
-import Register from "./components/Register";
+import Register from "./pages/Register";
 import Profile from "./components/Profile";
-import Login from "./components/Login";
+import Login from "./pages/Login";
 
 function App() {
   const shopRoutes = ["gatos", "perros", "hamsters", "peces"];

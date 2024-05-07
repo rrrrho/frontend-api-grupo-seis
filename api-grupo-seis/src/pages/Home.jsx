@@ -1,12 +1,11 @@
-
 import { Box, Flex, Link } from "@chakra-ui/react";
-import Banner from "./Banner";
-import dogImage from "../../assets/img/home/dog.png"; 
-import catImage from "../../assets/img/home/cat.png"; 
-import pecesImage from "../../assets/img/home/pez.png";
-import hamstersImage from "../../assets/img/home/hamnster.png";
+import Banner from "/src/components/Home/Banner";
+import dogImage from "/src/assets/img/home/dog.png"; 
+import catImage from "/src/assets/img/home/cat.png"; 
+import pecesImage from "/src/assets/img/home/pez.png";
+import hamstersImage from "/src/assets/img/home/hamnster.png";
 import { useEffect, useState } from "react";
-import Loading from "../Loading";
+import Loading from "/src/components/Loading/Loading";
 
 const Home = () => {
     const [isLoading, setIsLoading] = useState(true);

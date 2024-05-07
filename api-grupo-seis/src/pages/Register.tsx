@@ -1,10 +1,10 @@
 import { Button, Flex, FormControl, FormLabel, Heading, Input, NumberInput, NumberInputField, InputGroup, InputLeftAddon, Stack, useDisclosure, Skeleton } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import { useAppDispatch } from '../../context/hooks';
-import { setUser } from '../../context/slices/userSlice';
+import { useAppDispatch } from '../context/hooks';
+import { setUser } from '../context/slices/userSlice';
 import { useNavigate } from 'react-router-dom';
-import Loading from '../Loading';
-import ModalCountdown from '../Modal/ModalCountdown';
+import Loading from '../components/Loading/Loading';
+import ModalCountdown from '../components/Modal/ModalCountdown';
 
 const Register = () => {
     const [name, setName] = useState<string>("");

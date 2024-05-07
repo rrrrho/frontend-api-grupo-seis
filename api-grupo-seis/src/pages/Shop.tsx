@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, Flex, Heading, SimpleGrid, Text, Image, Skeleton } from '@chakra-ui/react';
-import Card from './Card';
-import Paginator from './Paginator';
-import { cutTitle } from '../../utils/card';
-import Filter from './Filter';
+import Card from '/src/components/Shop/Card';
+import Paginator from '/src/components/Shop/Paginator';
+import { cutTitle } from '/src/utils/card';
+import Filter from '/src/components/Shop/Filter';
 import { useLocation } from 'react-router-dom';
-import Loading from '../Loading';
+import Loading from '/src/components/Loading/Loading';
 
 import catBanner from '/src/assets/img/cat-banner.svg';
 import catPoster from '/src/assets/img/cats/sales-poster.png';
@@ -13,10 +13,10 @@ import dogBanner from '/src/assets/img/dog-banner.svg';
 import dogPoster from '/src/assets/img/dogs/dog-poster.png';
 import hamsterBanner from '/src/assets/img/hamster-banner.svg';
 import pezBanner from '/src/assets/img/pez-banner.svg';
-import catshop from './catshop.json';
-import dogshop from './dogshop.json';
-import hamstershop from './hamstershop.json';
-import fishshop from './fishshop.json';
+import catshop from '/src/json/Shop/catshop.json';
+import dogshop from '/src/json/Shop/dogshop.json';
+import hamstershop from '/src/json/Shop/hamstershop.json';
+import fishshop from '/src/json/Shop/fishshop.json';
 
 const buttons = ['Todo', 'Mas relevante', 'Mayor precio', 'Menor precio'];
 const filters = [
