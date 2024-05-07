@@ -11,6 +11,7 @@ import catBanner from '/src/assets/img/cat-banner.svg';
 import catPoster from '/src/assets/img/cats/sales-poster.png';
 import dogBanner from '/src/assets/img/dog-banner.svg';
 import dogPoster from '/src/assets/img/dogs/dog-poster.png';
+import hamsterPoster from '/src/assets/img/hamsters/hamster-poster.png'
 import hamsterBanner from '/src/assets/img/hamster-banner.svg';
 import pezBanner from '/src/assets/img/pez-banner.svg';
 import catshop from '/src/json/Shop/catshop.json';
@@ -45,7 +46,7 @@ const getShopInfo = (pathname: string) => {
         case '/shop/perros':
             return { image: dogBanner, poster: dogPoster, data: dogshop, results: 12453 };
         case '/shop/hamsters':
-            return { image: hamsterBanner, data: hamstershop, results: 9546 };
+            return { image: hamsterBanner, poster: hamsterPoster, data: hamstershop, results: 9546 };
         case '/shop/peces':
             return { image: pezBanner, data: fishshop, results: 6023 };
         default:
@@ -89,7 +90,7 @@ const Shop = () => {
                             </Skeleton>
                         )}
                         <Box>
-                            <Image src={info.poster} w="22vw" objectFit="cover" />
+                            <Image src={info.poster} w="22vw" objectFit="cover"/>
                         </Box>
                     </Flex>
                     <Flex flexDir="column">

@@ -41,3 +41,19 @@
   background-color: var(--background);
   opacity: 1;
 }
+
+.productsSwiper {
+  position: initial;
+  padding: 2rem 0;
+}
+.productsSwiper .swiper-button-prev {
+  left: -10px;
+}
+.productsSwiper .swiper-button-next {
+  right: -10px;
+}
+
+.productSlide {
+  display: flex;
+  justify-content: center;
+}
