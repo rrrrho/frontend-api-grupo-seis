@@ -2,7 +2,7 @@ import "./App.css";
 import Home from "./pages/Home";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
-import ProductDetail from "./components/ProductDetail";
+import ProductDetail from "./pages/ProductDetail";
 import Shop from "./pages/Shop";
 import Checkout from "./pages/Checkout";
 import Register from "./pages/Register";

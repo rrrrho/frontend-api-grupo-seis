@@ -1,8 +1,7 @@
 import React from 'react';
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
-import data from './data.json';
-import { formatPrice, calculateDiscount, generateRating } from "../../utils/card";
-import AddToCart from './AddToCart2';
+import { formatPrice, calculateDiscount, generateRating } from "../utils/card";
+import AddToCart from '../components/ProductDetail/AddToCart2';
 import { useLocation, useParams } from 'react-router-dom';
 
 const ProductDetail = () => {
@@ -58,4 +57,3 @@ const ProductDetail = () => {
   );
 };
 export default ProductDetail;
-
