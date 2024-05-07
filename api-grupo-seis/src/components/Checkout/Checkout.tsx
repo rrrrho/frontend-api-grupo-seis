@@ -1,4 +1,4 @@
-import { Button, Flex, useDisclosure } from "@chakra-ui/react";
+import { Button, Flex, Skeleton, useDisclosure } from "@chakra-ui/react";
 import { Payment } from "./components/Payment/Payment";
 import { PersonalData } from "./components/PersonalData/Payment";
 import { Shipping } from "./components/Shipping/Shipping";
@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from "../../context/hooks";
 import { useNavigate } from "react-router-dom";
 import { deleteItem } from "../../context/slices/cartSlice";
 import { calcTotalCheckout } from "../../utils/checkout";
+import Loading from "../Loading";
 
 const Checkout = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -16,6 +17,7 @@ const Checkout = () => {
   const cartState = useAppSelector((state) => state.cart);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [paymentMethod, setPaymentMethod] = useState<string>("card");
   const [shippingMethod, setShippingMethod] = useState<string>("shipping");
   const [shippingNotSelected, setShippingNotSelected] =
@@ -43,48 +45,79 @@ const Checkout = () => {
     }, 5000);
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  }, []);
+
   return (
-    <form onSubmit={handleFinishedCheckout}>
-      <Flex w="90vw" alignItems="center" justifyContent="center" m="3em">
-        <Flex direction="column" align="flex-start" mr="4em">
-          <PersonalData />
-          <Shipping
-            shippingMethod={shippingMethod}
-            setShippingMethod={setShippingMethod}
-            shippingNotSelected={shippingNotSelected}
-          />
-          <Payment
-            paymentMethod={paymentMethod}
-            setPaymentMethod={setPaymentMethod}
-            paymentMethodDiscount={paymentMethodDiscount}
-          />
-        </Flex>
-        <Flex
-          direction="column"
-          align="center"
-          alignSelf="flex-start"
-          position="sticky"
-          top="0"
-        >
-          <OrderDetails
-            shippingMethod={shippingMethod}
-            paymentMethod={paymentMethod}
-            paymentMethodDiscount={paymentMethodDiscount}
-          />
-          <Button
-            variant="brandThird"
-            size="lg"
-            w="10em"
-            h="3em"
-            mt="1em"
-            type="submit"
+    <>
+      {isLoading && <Loading />}
+      <form onSubmit={handleFinishedCheckout}>
+        <Flex w="90vw" alignItems="center" justifyContent="center" m="3em">
+          <Flex direction="column" align="flex-start" mr="4em">
+            <Skeleton
+              isLoaded={!isLoading}
+              startColor="brand.lightGreen"
+              endColor="brand.lightGreen"
+            >
+              <PersonalData />
+            </Skeleton>
+            <Skeleton
+              isLoaded={!isLoading}
+              startColor="brand.lightGreen"
+              endColor="brand.lightGreen"
+            >
+              <Shipping
+                shippingMethod={shippingMethod}
+                setShippingMethod={setShippingMethod}
+                shippingNotSelected={shippingNotSelected}
+              />
+            </Skeleton>
+            <Skeleton
+              isLoaded={!isLoading}
+              startColor="brand.lightGreen"
+              endColor="brand.lightGreen"
+            >
+              <Payment
+                paymentMethod={paymentMethod}
+                setPaymentMethod={setPaymentMethod}
+                paymentMethodDiscount={paymentMethodDiscount}
+              />
+            </Skeleton>
+          </Flex>
+          <Skeleton
+            isLoaded={!isLoading}
+            startColor="brand.lightGreen"
+            endColor="brand.lightGreen"
+            alignContent="center"
+            alignSelf="flex-start"
+            position="sticky"
+            top="0"
           >
-            Finalizar compra
-          </Button>
+            <Flex direction="column" align="center" top="0">
+              <OrderDetails
+                shippingMethod={shippingMethod}
+                paymentMethod={paymentMethod}
+                paymentMethodDiscount={paymentMethodDiscount}
+              />
+              <Button
+                variant="brandThird"
+                size="lg"
+                w="10em"
+                h="3em"
+                mt="1em"
+                type="submit"
+              >
+                Finalizar compra
+              </Button>
+            </Flex>
+          </Skeleton>
+          <FinishedCheckoutModal isOpen={isOpen} onClose={onClose} />
         </Flex>
-        <FinishedCheckoutModal isOpen={isOpen} onClose={onClose} />
-      </Flex>
-    </form>
+      </form>
+    </>
   );
 };
 
