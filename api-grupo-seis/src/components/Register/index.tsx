@@ -12,6 +12,8 @@ import {
   Stack,
   useDisclosure,
   Skeleton,
+  FormErrorMessage,
+  FormHelperText,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useAppDispatch } from "../../context/hooks";
@@ -30,6 +32,8 @@ const Register = () => {
   const [password, setPassword] = useState<string>("");
   const [confirmedPassword, setConfirmedPassword] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [passwordsMatch, setPasswordsMatch] = useState<boolean>(true);
+  const [emailsMatch, setEmailsMatch] = useState<boolean>(true);
   const {
     isOpen: isOpenSuccess,
     onOpen: onOpenSuccess,
@@ -46,6 +50,13 @@ const Register = () => {
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    email !== confirmedEmail ? setEmailsMatch(false) : setEmailsMatch(true);
+    password !== confirmedPassword
+      ? setPasswordsMatch(false)
+      : setPasswordsMatch(true);
+    if (!passwordsMatch || !emailsMatch) {
+      return;
+    }
 
     dispatch(setUser({ name: name, lastName: lastname, id: 1 }));
     localStorage.setItem(
@@ -161,6 +172,11 @@ const Register = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                     />
+                    {!emailsMatch && (
+                      <FormHelperText color="#f54542" fontWeight={600}>
+                        Los correos deben coincidir
+                      </FormHelperText>
+                    )}
                   </FormControl>
 
                   <FormControl isRequired mr="0.5em">
@@ -173,6 +189,11 @@ const Register = () => {
                       value={confirmedEmail}
                       onChange={(e) => setConfirmedEmail(e.target.value)}
                     />
+                    {!emailsMatch && (
+                      <FormHelperText color="#f54542" fontWeight={600}>
+                        Los correos deben coincidir
+                      </FormHelperText>
+                    )}
                   </FormControl>
                 </Flex>
 
@@ -187,6 +208,11 @@ const Register = () => {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                     />
+                    {!passwordsMatch && (
+                      <FormHelperText color="#f54542" fontWeight={600}>
+                        Las contraseñas deben coincidir
+                      </FormHelperText>
+                    )}
                   </FormControl>
 
                   <FormControl isRequired mr="0.5em">
@@ -199,6 +225,11 @@ const Register = () => {
                       value={confirmedPassword}
                       onChange={(e) => setConfirmedPassword(e.target.value)}
                     />
+                    {!passwordsMatch && (
+                      <FormHelperText color="#f54542" fontWeight={600}>
+                        Las contraseñas deben coincidir
+                      </FormHelperText>
+                    )}
                   </FormControl>
                 </Flex>
                 <Button
