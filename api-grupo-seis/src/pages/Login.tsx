@@ -1,12 +1,12 @@
 import { useDisclosure, Flex, Skeleton, Stack, Heading, FormControl, FormLabel, Input, NumberInput, NumberInputField, InputGroup, InputLeftAddon, Button, Text, Link } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../context/hooks";
-import { setUser } from "../../context/slices/userSlice";
-import Loading from "../Loading";
-import ModalCountdown from "../Modal/ModalCountdown";
-import ModalError from "../Modal/ModalError";
-import NavLink from "../Layout/Header/NavLink";
+import { useAppDispatch } from "../context/hooks";
+import { setUser } from "../context/slices/userSlice";
+import Loading from "../components/Loading/Loading";
+import ModalCountdown from "../components/Modal/ModalCountdown";
+import ModalError from "../components/Modal/ModalError";
+import NavLink from "../components/Layout/Header/NavLink";
 
 const Login = () => {
     const [email, setEmail] = useState<string>("");

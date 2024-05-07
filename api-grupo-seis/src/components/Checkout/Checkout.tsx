@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from "../../context/hooks";
 import { useNavigate } from "react-router-dom";
 import { deleteItem } from "../../context/slices/cartSlice";
 import { calcTotalCheckout } from "../../utils/checkout";
-import Loading from "../Loading";
+import Loading from "/src/components/Loading/Loading";
 
 const Checkout = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();

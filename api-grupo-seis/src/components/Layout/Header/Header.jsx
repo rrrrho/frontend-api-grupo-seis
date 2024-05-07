@@ -1,6 +1,6 @@
 
 import { Flex, Text, Icon } from "@chakra-ui/react";
-import Cart from "../../Cart";
+import Cart from "/src/components/Cart/Cart";
 import SearchBar from "./SearchBar";
 import { IoLocationSharp } from "react-icons/io5";
 import { FaPaw } from "react-icons/fa";
