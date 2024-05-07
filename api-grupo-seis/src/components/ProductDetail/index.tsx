@@ -42,14 +42,14 @@ const ProductDetail = () => {
                       {discount ? (
                           <>
                               <Text fontWeight="600" fontSize={{ base: '0.8rem', xl: "2rem" }}>${formatPrice(calculateDiscount(price, discount))}</Text>
-                              <Text fontSize={{ base: '0.5rem', xl: "1.7rem" }} ml={1} color="brand.darkBrown">{discount}%</Text>
+                              <Text fontSize={{ base: '0.5rem', xl: "1.7rem" }} ml={1} color="brand.darkBrown" fontWeight={600}>{discount}%</Text>
                           </>
                       ) : (
                           <Text fontWeight="600" fontSize={{ base: '0.8rem', xl: "1rem" }}>${formatPrice(price)}</Text>
                       )}
                   </Flex>
                   <Text fontSize={{ base: '0.5rem', xl: "1.1rem" }}>En 6 cuotas de ${formatPrice(quota)}</Text>
-                  <Text mt={3} p="0.4rem 1.5rem" borderRadius={3} bg="brand.lightBrown" w="fit-content" fontSize={{ base: '0.5rem', xl: "0.7rem" }} color="brand.cream">Envío gratis</Text>
+                  <Text mt={3} p="0.4rem 1.5rem" borderRadius={3} bg="brand.lightGreen" w="fit-content" fontSize={{ base: '0.5rem', xl: "0.7rem" }} color="brand.cream">Envío gratis</Text>
               </Flex>
               <AddToCart id={id} name={name} image={image} rating={rating} voters={voters} price={price} discount={discount} quota={quota} stock={stock} bestseller={bestseller} />
           </Box>

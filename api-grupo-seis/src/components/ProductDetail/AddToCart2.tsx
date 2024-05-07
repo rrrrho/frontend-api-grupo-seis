@@ -32,13 +32,11 @@ const AddToCart = ({id, name, price, image, rating, voters, discount, quota, sto
                 bottom={{base: '46%', xl: "45%"}} 
                 top="8rem"
                 left="55%" 
-                bg="#E8C07D" 
-                color="#4E6E52"
+                variant={"brandThird"}
                 w={{base: '8rem', xl: "10rem"}} 
                 h={{base: '3rem', xl: "3.5rem"}} 
                 cursor="pointer" 
                 onClick={()=> addItemToCart()} 
-                _hover="none"
                 borderRadius="10"
             >
                 Agregar al carrito

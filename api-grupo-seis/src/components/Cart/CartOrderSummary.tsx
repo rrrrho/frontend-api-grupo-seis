@@ -62,7 +62,6 @@ export const CartOrderSummary = ({ onCloseCart }: Props) => {
         />
         <OrderSummaryItem label="Envío a domicilio">
           <Link
-            href="#"
             onClick={() => setShowShippingMenu(!showShippingMenu)}
             textDecor="underline"
           >
