@@ -11,9 +11,9 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import React from "react";
-import { calcTotalCheckout } from "../../../../utils/checkout.tsx";
-import { formatPrice } from "../../../../utils/card.tsx";
-import { useAppSelector } from "../../../../context/hooks.ts";
+import { calcTotalCheckout } from "../../utils/checkout.tsx";
+import { formatPrice } from "../../utils/card.tsx";
+import { useAppSelector } from "../../context/hooks.ts";
 
 type CardPaymentFormProps = {
   discount: number;

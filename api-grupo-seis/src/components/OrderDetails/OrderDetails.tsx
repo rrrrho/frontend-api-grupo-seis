@@ -1,10 +1,10 @@
 import { Divider, Flex, Heading } from "@chakra-ui/react";
-import { calcSubtotalCheckout } from "../../../../utils/checkout.tsx";
+import { calcSubtotalCheckout } from "../../utils/checkout.tsx";
 import React, { useEffect, useState } from "react";
 import { ProductItem } from "./ProductItem.tsx";
 import { AppliedDiscounts } from "./AppliedDiscounts.tsx";
 import { Totalizer } from "./Totalizer.tsx";
-import { useAppSelector } from "../../../../context/hooks.ts";
+import { useAppSelector } from "../../context/hooks.ts";
 
 type OrderDetailsProps = {
   shippingMethod: string;

@@ -1,15 +1,15 @@
 import { Button, Flex, Skeleton, useDisclosure } from "@chakra-ui/react";
-import { Payment } from "./components/Payment/Payment";
-import { PersonalData } from "./components/PersonalData/Payment";
-import { Shipping } from "./components/Shipping/Shipping";
-import { OrderDetails } from "./components/OrderDetails/OrderDetails";
-import FinishedCheckoutModal from "./components/Modal/FinishedCheckoutModal";
+import { Payment } from "../components/Payment/Payment";
+import { PersonalData } from "../components/PersonalData/Payment";
+import { Shipping } from "../components/Shipping/Shipping";
+import { OrderDetails } from "../components/OrderDetails/OrderDetails";
+import FinishedCheckoutModal from "../components/Modal/FinishedCheckoutModal";
 import React, { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../context/hooks";
+import { useAppDispatch, useAppSelector } from "../context/hooks";
 import { useNavigate } from "react-router-dom";
-import { deleteItem } from "../../context/slices/cartSlice";
-import { calcTotalCheckout } from "../../utils/checkout";
-import Loading from "/src/components/Loading/Loading";
+import { deleteItem } from "../context/slices/cartSlice";
+import { calcTotalCheckout } from "../utils/checkout";
+import Loading from "../components/Loading/Loading";
 
 const Checkout = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -42,7 +42,7 @@ const Checkout = () => {
     setTimeout(() => {
       onClose();
       navigate("/");
-    }, 5000);
+    }, 3000);
   };
 
   useEffect(() => {

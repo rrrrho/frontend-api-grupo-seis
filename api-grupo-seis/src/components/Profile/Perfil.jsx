@@ -1,15 +1,14 @@
-import React from 'react';
-import { Box, Heading, VStack, Text } from '@chakra-ui/react';
+import { Box, Heading, VStack, Text } from "@chakra-ui/react";
 
 const SeccionPerfil = () => {
   // Ejemplo de datos del perfil (puedes obtener estos datos de una fuente de datos o de props)
   const profileData = {
-    nombre: 'Juan',
-    apellido: 'Pérez',
-    dni: '12345678',
-    fechaNacimiento: '01/01/1990',
-    genero: 'Masculino',
-    telefono: '123-456-789'
+    nombre: "Juan",
+    apellido: "Pérez",
+    dni: "12345678",
+    fechaNacimiento: "01/01/1990",
+    genero: "Masculino",
+    telefono: "123-456-789",
   };
 
   return (

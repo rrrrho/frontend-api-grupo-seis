@@ -2,8 +2,9 @@ import { Box } from "@chakra-ui/react";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import SeccionPerfil from "./Perfil";
 import PedidosRealizados from "./Pedidos";
-import AddProductForm from "../AddProductForm/AddProductForm";
+import ProductForm from "../ProductForm/ProductForm";
 import UserAdmin from "../UserAdmin/UserAdmin";
+import ManageProductTable from "../ManageProducts/ManageProduct";
 
 const Profile = () => {
   return (
@@ -15,6 +16,7 @@ const Profile = () => {
           <Tab>Perfil</Tab>
           <Tab>Pedidos</Tab>
           <Tab>Agregar producto</Tab>
+          <Tab>Gestionar productos</Tab>
           <Tab>Administración de usuarios</Tab>
         </TabList>
 
@@ -26,7 +28,10 @@ const Profile = () => {
             <PedidosRealizados />
           </TabPanel>
           <TabPanel>
-            <AddProductForm />
+            <ProductForm />
+          </TabPanel>
+          <TabPanel>
+            <ManageProductTable />
           </TabPanel>
           <TabPanel>
             <UserAdmin />

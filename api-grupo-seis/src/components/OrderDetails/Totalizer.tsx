@@ -12,10 +12,10 @@ import {
 import {
   calcSubtotalCheckout,
   calcTotalCheckout,
-} from "../../../../utils/checkout.tsx";
-import { formatPrice } from "../../../../utils/card.tsx";
+} from "../../utils/checkout.tsx";
+import { formatPrice } from "../../utils/card.tsx";
 import React from "react";
-import { useAppSelector } from "../../../../context/hooks.ts";
+import { useAppSelector } from "../../context/hooks.ts";
 
 type TotalizerProps = {
   paymentMethodDiscount: number;
