@@ -7,13 +7,13 @@ import { Wire } from "./Wire.tsx";
 type PaymentProps = {
   paymentMethod: string;
   setPaymentMethod: (method: string) => void;
-  discount: number;
+  paymentMethodDiscount: number;
 };
 
 export const Payment = ({
   paymentMethod,
   setPaymentMethod,
-  discount,
+  paymentMethodDiscount: discount,
 }: PaymentProps) => {
   return (
     <Flex

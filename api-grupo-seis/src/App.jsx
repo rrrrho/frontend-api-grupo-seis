@@ -18,16 +18,16 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/checkout" element={<Checkout />} />
-        <Route path="/user-admin" element={<UserAdmin />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/user-admin" element={<UserAdmin />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/shop" element={<Shop />}>
           {shopRoutes.map((category, index) => (
             <Route key={index} path={category} element={<Shop />} />
           ))}
         </Route>
-        <Route path="/product-detail" element={<ProductDetail />} />
+        <Route path="/product-detail/:id" Component={ProductDetail} />
       </Routes>
     </Layout>
   );

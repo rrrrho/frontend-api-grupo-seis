@@ -22,10 +22,10 @@ const Home = () => {
         <Box w={'100vw'} mb = "4rem">
             <Banner/>
             <Flex justify="center" mt="4rem">
-                <Link href="/shop/dogs" mx={4} textDecoration="none">
+                <Link href="/shop/perros" mx={4} textDecoration="none">
                     <img src={dogImage} alt="Dog" style={{ width: '200px', height: '200px', borderRadius: '10px', cursor: 'pointer' }} />
                 </Link>
-                <Link href="/shop/cats" mx={4} textDecoration="none">
+                <Link href="/shop/gatos" mx={4} textDecoration="none">
                     <img src={catImage} alt="Cat" style={{ width: '200px', height: '200px', borderRadius: '10px', cursor: 'pointer' }} />   
                 </Link>
                 <Link href="/shop/peces" mx={4} textDecoration="none">
