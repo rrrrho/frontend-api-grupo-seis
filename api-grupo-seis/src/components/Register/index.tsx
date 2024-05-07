@@ -50,12 +50,19 @@ const Register = () => {
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    email !== confirmedEmail ? setEmailsMatch(false) : setEmailsMatch(true);
-    password !== confirmedPassword
-      ? setPasswordsMatch(false)
-      : setPasswordsMatch(true);
-    if (!passwordsMatch || !emailsMatch) {
+
+    if (email !== confirmedEmail) {
+      setEmailsMatch(false);
       return;
+    } else {
+      setEmailsMatch(true);
+    }
+
+    if (password !== confirmedPassword) {
+      setPasswordsMatch(false);
+      return;
+    } else {
+      setPasswordsMatch(true);
     }
 
     dispatch(setUser({ name: name, lastName: lastname, id: 1 }));
