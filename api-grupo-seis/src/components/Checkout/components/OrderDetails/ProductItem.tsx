@@ -14,7 +14,6 @@ export const ProductItem = ({ product, quantity }: ProductProps) => {
     <Flex
       direction="row"
       align="center"
-      borderBottom="1px solid"
       borderColor="brand.darkBeige"
       justify="space-between"
     >

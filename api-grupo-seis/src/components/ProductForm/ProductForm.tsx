@@ -21,13 +21,33 @@ import {
 import React, { useState } from "react";
 import { Form } from "react-router-dom";
 import ModalSuccess from "../Modal/ModalSuccess";
+import { Product } from "../../types/product";
 
-const AddProductForm = () => {
-  const [name, setName] = useState<string>("");
-  const [imageUrl, setImageUrl] = useState<string>("");
-  const [price, setPrice] = useState<number>(0);
-  const [discount, setDiscount] = useState<number>(0);
-  const [stock, setStock] = useState<number>(0);
+type AddProductFormProps = {
+  product: Product;
+  setEditingProduct: (id: number) => void;
+};
+
+const ProductForm = ({
+  product = {
+    id: 0,
+    name: "",
+    image: "",
+    price: 0,
+    discount: 0,
+    stock: 0,
+    rating: 0,
+    voters: 0,
+    quota: 0,
+    bestseller: false,
+  },
+  setEditingProduct,
+}: AddProductFormProps) => {
+  const [name, setName] = useState<string>(product.name);
+  const [imageUrl, setImageUrl] = useState<string>(product.image);
+  const [price, setPrice] = useState<number>(product.price);
+  const [discount, setDiscount] = useState<number>(product.discount);
+  const [stock, setStock] = useState<number>(product.stock);
   const {
     isOpen: isOpenSuccess,
     onOpen: onOpenSuccess,
@@ -42,10 +62,21 @@ const AddProductForm = () => {
     setStock(0);
   };
 
-  const handleSubmit = (e: { preventDefault: () => void }) => {
+  const handleAddSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     resetForm();
     onOpenSuccess();
+  };
+
+  const handleEditSubmit = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    setEditingProduct(0);
+    resetForm();
+  };
+
+  const handleCancel = () => {
+    setEditingProduct(0);
+    resetForm();
   };
 
   return (
@@ -60,9 +91,9 @@ const AddProductForm = () => {
         gap="0.5rem"
       >
         <Heading variant="sectionTitle" fontSize="4xl" mb="0.5rem">
-          Agregar producto
+          {product.id ? `Editando ${product.name}` : "Agregar producto"}
         </Heading>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={product.id ? handleEditSubmit : handleAddSubmit}>
           <Flex flexDir={"column"} gap={5}>
             <Stack gap="1rem">
               <Flex align="center">
@@ -134,14 +165,36 @@ const AddProductForm = () => {
                 </FormControl>
               </Flex>
             </Stack>
-            <Button
-              color={"brand.lightBeige"}
-              type="submit"
-              variant={"brandThird"}
-              alignSelf={"center"}
-            >
-              Agregar producto
-            </Button>
+            {product.id ? (
+              <Flex justifyContent={"center"}>
+                <Button
+                  color={"brand.lightBeige"}
+                  type="submit"
+                  variant={"brandThird"}
+                  alignSelf={"center"}
+                  mr="0.6rem"
+                >
+                  Confirmar
+                </Button>
+                <Button
+                  color={"brand.lightBeige"}
+                  onClick={handleCancel}
+                  variant={"brandThird"}
+                  alignSelf={"center"}
+                >
+                  Cancelar
+                </Button>
+              </Flex>
+            ) : (
+              <Button
+                color={"brand.lightBeige"}
+                type="submit"
+                variant={"brandThird"}
+                alignSelf={"center"}
+              >
+                Agregar producto
+              </Button>
+            )}
             <ModalSuccess
               isOpen={isOpenSuccess}
               onClose={onCloseSuccess}
@@ -154,4 +207,4 @@ const AddProductForm = () => {
   );
 };
 
-export default AddProductForm;
+export default ProductForm;

@@ -12,6 +12,7 @@ import {
   Badge,
 } from "@chakra-ui/react";
 import React from "react";
+import { MdDelete } from "react-icons/md";
 
 type UsersTableProps = {
   users: {
@@ -91,10 +92,10 @@ export const UsersTable = ({
               </Td>
               <Td textAlign="center">
                 <Button
-                  style={{ background: "transparent" }}
+                  variant="brandPrimary"
                   onClick={() => handleUserDelete(user.id)}
                 >
-                  ❌
+                  <MdDelete />
                 </Button>
               </Td>
             </Tr>

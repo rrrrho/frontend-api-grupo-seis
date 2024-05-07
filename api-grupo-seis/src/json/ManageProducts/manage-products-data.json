@@ -1,0 +1,57 @@
+[
+  {
+    "id": 3,
+    "image": "/src/assets/img/cats/catChowCarneYPollo.webp",
+    "name": "Cat Chow Adulto Carne y Pollo - 15 Kg",
+    "rating": 4.3,
+    "voters": 1269,
+    "price": 56640.25,
+    "discount": 0,
+    "stock": 43,
+    "bestseller": true
+  },
+  {
+    "id": 6,
+    "image": "/src/assets/img/cats/oldPrinceNovel.png",
+    "name": "Alimento Old Prince Novel Gato Adulto - 3 Kg",
+    "rating": 4.3,
+    "voters": 14,
+    "price": 23950.0,
+    "discount": 30,
+    "stock": 43,
+    "bestseller": false
+  },
+  {
+    "id": 18,
+    "image": "/src/assets/img/dogs/correaFerplast.webp",
+    "name": "Correa Extensible Ferplast Flippy Tech Negra - 14x3,5x11h cm",
+    "rating": 4.0,
+    "voters": 230,
+    "price": 24800.0,
+    "discount": 0,
+    "stock": 43,
+    "bestseller": true
+  },
+  {
+    "id": 27,
+    "image": "/src/assets/img/hamsters/absorbenteSanitarioMarlo.png",
+    "name": "Absorbente Sanitario para Roedores Marlo 1,2Kg - 1.2 Kg",
+    "rating": 5.0,
+    "voters": 1234,
+    "price": 3000.25,
+    "discount": 0,
+    "stock": 34,
+    "bestseller": true
+  },
+  {
+    "id": 38,
+    "image": "/src/assets/img/fishes/betteraAtman.webp",
+    "name": "Bettera Atman Acrilica con Divisor - 6 L",
+    "rating": 3.8,
+    "voters": 8,
+    "price": 15262.0,
+    "discount": 25,
+    "stock": 50,
+    "bestseller": false
+  }
+]

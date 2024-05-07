@@ -3,7 +3,7 @@ import { Payment } from "./components/Payment/Payment";
 import { PersonalData } from "./components/PersonalData/Payment";
 import { Shipping } from "./components/Shipping/Shipping";
 import { OrderDetails } from "./components/OrderDetails/OrderDetails";
-import FinishedCheckoutModal from "./components/Modal/FinishedCheckoutModal";
+import FinishedCheckoutModal from "../Modal/FinishedCheckoutModal";
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../context/hooks";
 import { useNavigate } from "react-router-dom";
@@ -42,7 +42,7 @@ const Checkout = () => {
     setTimeout(() => {
       onClose();
       navigate("/");
-    }, 5000);
+    }, 3000);
   };
 
   useEffect(() => {

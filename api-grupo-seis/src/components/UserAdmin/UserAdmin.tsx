@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 import { Search } from "./Search";
 import { Filters } from "./Filters";
 import { UsersTable } from "./UsersTable";
-import { users } from "./user-admin-data";
-
+import users from "../../json/UserAdmin/user-admin-data.json";
 const UserAdmin = () => {
   const [filter, setFilter] = useState<string>("email");
   const [query, setQuery] = useState<string>("");

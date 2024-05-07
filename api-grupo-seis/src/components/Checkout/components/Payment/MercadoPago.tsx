@@ -1,5 +1,5 @@
 import { Flex, Image, Text } from "@chakra-ui/react";
-import paymentMethodImages from "../../payment-methods-img.json";
+import paymentMethodImages from "../../../../assets/img/checkout/payment-methods-img.json";
 import React from "react";
 
 export const MercadoPago = () => {
