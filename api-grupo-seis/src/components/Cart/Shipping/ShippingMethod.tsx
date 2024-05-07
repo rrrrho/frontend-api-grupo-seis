@@ -1,9 +1,10 @@
 import { Button, Collapse, Flex, Input, Link, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import ShippingOption from "./ShippingOption";
-import { useAppDispatch, useAppSelector } from "../../../context/hooks";
-import options from './options.json';
+import { useAppDispatch, useAppSelector } from "/src/context/hooks";
+import options from '/src/json/Cart/options.json';
 import { setShippingData } from "../../../context/slices/cartSlice";
+
 const ShippingMethod = () => {
     const shippingSelection = useAppSelector((state) => state.cart.shipping);
     const [postalCode, setPostalCode] = useState(shippingSelection.postalCode);
