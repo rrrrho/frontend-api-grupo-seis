@@ -1,0 +1,134 @@
+[
+    {
+       "id":13,
+       "image":"/src/assets/img/dogs/dogChowAdultoMediano.webp",
+       "name":"Alimento Dog Chow Sin Colorantes Para Perro Adulto Mediano Grande - 21 Kg",
+       "rating":5.0,
+       "voters":457,
+       "price":44290.00,
+       "discount":10,
+       "stock":120,
+       "bestseller": true
+    },
+    {
+       "id":14,
+       "image":"/src/assets/img/dogs/jugueteSogaCancat.webp",
+       "name":"Juguete Hueso con Soga CanCat Doble Nudo - 10",
+       "rating":4.2,
+       "voters":38,
+       "price":2750.00,
+       "discount":0,
+       "stock":57,
+       "bestseller": false
+    },
+    {
+       "id":15,
+       "image":"/src/assets/img/dogs/bolsitasPanioPet.webp",
+       "name":"Bolsitas Recolectoras PañoPet + Palita - 50 Unidades",
+       "rating":2.9,
+       "voters":956,
+       "price":3450.25,
+       "discount":0,
+       "stock":20,
+       "bestseller": false
+    },
+    {
+       "id":16,
+       "image":"/src/assets/img/dogs/cancatHuesoSaborizado.webp",
+       "name": "Juguete Antiestres Cancat Hueso Saborizado",
+       "rating":3.7,
+       "voters":23,
+       "price":9750.00,
+       "discount":0,
+       "stock":100,
+       "bestseller": false
+    },
+    {
+       "id":17,
+       "image":"/src/assets/img/dogs/comederoJolieMarron.webp",
+       "name":"Comedero Y Bebedero Jolie Marron - Mediano",
+       "rating":3.5,
+       "voters":54,
+       "price":9950.00,
+       "discount":5,
+       "stock":93,
+       "bestseller": false
+    },
+    {
+       "id":18,
+       "image":"/src/assets/img/dogs/correaFerplast.webp",
+       "name":"Correa Extensible Ferplast Flippy Tech Negra - 14x3,5x11h cm",
+       "rating":4.0,
+       "voters":230,
+       "price":24800.00,
+       "discount":0,
+       "stock":43,
+       "bestseller": true
+    },
+    {
+       "id":19,
+       "image":"/src/assets/img/dogs/maintenanceAdulto.png",
+       "name":"Alimento Maintenance Criadores Adulto - 22 kg",
+       "rating":4.1,
+       "voters":453,
+       "price":30050.00,
+       "discount":25,
+       "stock":123,
+       "bestseller": false
+    },
+    {
+       "id":20,
+       "image":"/src/assets/img/dogs/mantaHuellaCorderito.webp",
+       "name":"Manta Huella Bariloche Corderito Camel - Small",
+       "rating":3.0,
+       "voters":15,
+       "price":17703.00,
+       "discount":30,
+       "stock":167,
+       "bestseller": false
+    },
+    {
+       "id":21,
+       "image":"/src/assets/img/dogs/snackMonAmiDental.png",
+       "name":"Snacks Mon Ami Dental Stick - 75 Gr",
+       "rating":4.7,
+       "voters":1070,
+       "price":1650.25,
+       "discount":0,
+       "stock":340,
+       "bestseller": true
+    },
+    {
+       "id":22,
+       "image":"/src/assets/img/dogs/monAmiPalitos.webp",
+       "name":"Palitos Mon Ami Cordero - 200 Gr",
+       "rating":4.6,
+       "voters":34,
+       "price":4650.00,
+       "discount":0,
+       "stock":103,
+       "bestseller": false
+    },
+    {
+       "id":23,
+       "image":"/src/assets/img/dogs/dentastixPedigree.webp",
+       "name":"Dentastix Pedigree Razas Pequeñas",
+       "rating":4.9,
+       "voters":1356,
+       "price":850.00,
+       "discount":0,
+       "stock":67,
+       "bestseller": true
+    },
+    {
+       "id":24,
+       "image":"/src/assets/img/dogs/arnesLarge.webp",
+       "name":"Arnés Champion Ferplast Marron - Large",
+       "rating":2.7,
+       "voters":6,
+       "price":13000.00,
+       "discount":25,
+       "stock":235,
+       "bestseller": false
+    }
+ ]

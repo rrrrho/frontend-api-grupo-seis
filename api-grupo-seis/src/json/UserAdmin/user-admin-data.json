@@ -1,0 +1,83 @@
+[
+  {
+    "id": 1,
+    "name": "Luciano",
+    "lastName": "Gauna",
+    "email": "lgauna@mail.com",
+    "creationDate": "2021-10-01",
+    "role": "ADMIN",
+    "isActive": true
+  },
+  {
+    "id": 2,
+    "name": "Cecilia",
+    "lastName": "Von Trapp",
+    "email": "cecivontrapp@mail.com",
+    "creationDate": "2021-10-01",
+    "role": "BUYER",
+    "isActive": true
+  },
+  {
+    "id": 3,
+    "name": "Pablo",
+    "lastName": "Lamponne",
+    "email": "lamponne@mail.com",
+    "creationDate": "2021-10-01",
+    "role": "BUYER",
+    "isActive": true
+  },
+  {
+    "id": 4,
+    "name": "Eladio",
+    "lastName": "Gómez",
+    "email": "egomez@mail.com",
+    "creationDate": "2021-10-01",
+    "role": "SELLER",
+    "isActive": true
+  },
+  {
+    "id": 5,
+    "name": "José",
+    "lastName": "Gómez",
+    "email": "jgomez@mail.com",
+    "creationDate": "2021-10-01",
+    "role": "SELLER",
+    "isActive": true
+  },
+  {
+    "id": 6,
+    "name": "Sofia",
+    "lastName": "Perez",
+    "email": "sofiaperez@mail.com",
+    "creationDate": "2021-10-01",
+    "role": "ADMIN",
+    "isActive": true
+  },
+  {
+    "id": 7,
+    "name": "Lucrecia",
+    "lastName": "Martel",
+    "email": "lucreciamartel@mail.com",
+    "creationDate": "2021-10-01",
+    "role": "BUYER",
+    "isActive": true
+  },
+  {
+    "id": 8,
+    "name": "Juan José",
+    "lastName": "Morales",
+    "email": "jjmorales@mail.com",
+    "creationDate": "2021-10-01",
+    "role": "BUYER",
+    "isActive": true
+  },
+  {
+    "id": 9,
+    "name": "Lionel Andrés",
+    "lastName": "Simme",
+    "email": "leosimme@mail.com",
+    "creationDate": "2021-10-01",
+    "role": "BUYER",
+    "isActive": true
+  }
+]

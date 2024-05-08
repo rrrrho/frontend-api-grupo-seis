@@ -1,0 +1,82 @@
+{
+  "credit": [
+    {
+      "src": "/src/assets/img/checkout/payment-methods-mp/credit/visa.svg",
+      "alt": "Visa"
+    },
+    {
+      "src": "/src/assets/img/checkout/payment-methods-mp/credit/mastercard.svg",
+      "alt": "MasterCard"
+    },
+    {
+      "src": "/src/assets/img/checkout/payment-methods-mp/credit/amex.svg",
+      "alt": "Amex"
+    },
+    {
+      "src": "/src/assets/img/checkout/payment-methods-mp/credit/tarjeta_naranja.svg",
+      "alt": "Naranja"
+    },
+    {
+      "src": "/src/assets/img/checkout/payment-methods-mp/credit/tarjeta_shopping.svg",
+      "alt": "Tarjeta Shopping"
+    },
+    {
+      "src": "/src/assets/img/checkout/payment-methods-mp/credit/nativa.svg",
+      "alt": "Nativa"
+    },
+    {
+      "src": "/src/assets/img/checkout/payment-methods-mp/credit/cencosud.svg",
+      "alt": "Cencosud"
+    },
+    {
+      "src": "/src/assets/img/checkout/payment-methods-mp/credit/cabal.svg",
+      "alt": "Cabal"
+    },
+    {
+      "src": "/src/assets/img/checkout/payment-methods-mp/credit/argencard.svg",
+      "alt": "Argencard"
+    },
+    {
+      "src": "/src/assets/img/checkout/payment-methods-mp/credit/diners.svg",
+      "alt": "Diners"
+    },
+    {
+      "src": "/src/assets/img/checkout/payment-methods-mp/credit/cordobesa.svg",
+      "alt": "Cordobesa"
+    },
+    {
+      "src": "/src/assets/img/checkout/payment-methods-mp/credit/falabella.svg",
+      "alt": "Falabella"
+    },
+    {
+      "src": "/src/assets/img/checkout/payment-methods-mp/credit/tarjeta_walmart.svg",
+      "alt": "Tarjeta Walmart"
+    }
+  ],
+  "debit": [
+    {
+      "src": "/src/assets/img/checkout/payment-methods-mp/debit/visa_debit.svg",
+      "alt": "Visa débito"
+    },
+    {
+      "src": "/src/assets/img/checkout/payment-methods-mp/debit/mastercard_debit.svg",
+      "alt": "Mastercard débito"
+    },
+    {
+      "src": "/src/assets/img/checkout/payment-methods-mp/debit/maestro.svg",
+      "alt": "Maestro"
+    },
+    {
+      "src": "/src/assets/img/checkout/payment-methods-mp/debit/cabal_debit.svg",
+      "alt": "Cabal débito"
+    }
+  ],
+  "cash": {
+    "src": "/src/assets/img/checkout/payment-methods-mp/pagofacil.svg",
+    "alt": "Pagofácil"
+  },
+  "mercadoCredito": {
+    "src": "/src/assets/img/checkout/payment-methods-mp/mercado_credito.png",
+    "alt": "Mercado Pago"
+  }
+}

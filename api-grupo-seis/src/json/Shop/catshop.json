@@ -1,0 +1,134 @@
+[
+    {
+       "id":1,
+       "image":"/src/assets/img/cats/lataDelightsTurkey.webp",
+       "name":"Alimento Old Prince Indoor Gato Adulto - 3 Kg",
+       "rating":4.5,
+       "voters":405,
+       "price":16890.00,
+       "discount":25,
+       "stock":43,
+       "bestseller": true
+    },
+    {
+       "id":2,
+       "image":"/src/assets/img/cats/pouchHomemadeDelightsTurkey.webp",
+       "name":"Pouch Homemade Delights Country Turkey Gato Adulto - 100 Gr",
+       "rating":5.0,
+       "voters":1029,
+       "price":1900.00,
+       "discount":0,
+       "stock":43,
+       "bestseller": false
+    },
+    {
+       "id":3,
+       "image":"/src/assets/img/cats/catChowCarneYPollo.webp",
+       "name":"Cat Chow Adulto Carne y Pollo - 15 Kg",
+       "rating":4.3,
+       "voters":1269,
+       "price":56640.25,
+       "discount":0,
+       "stock":43,
+       "bestseller": true
+    },
+    {
+       "id":4,
+       "image":"/src/assets/img/cats/lataHomemadeDelightsWhiteCroaker.webp",
+       "name":"Lata Homemade Delights White Croaker Gato Adulto - 340 gr",
+       "rating":3.7,
+       "voters":127,
+       "price":4450.50,
+       "discount":0,
+       "stock":43,
+       "bestseller": false
+    },
+    {
+       "id":5,
+       "image":"/src/assets/img/cats/royalCaninFit.webp",
+       "name":"Alimento Royal Canin Fit 32 - 1,5 Kg",
+       "rating":5.0,
+       "voters":346,
+       "price":20750.00,
+       "discount":10,
+       "stock":43,
+       "bestseller": false
+    },
+    {
+       "id":6,
+       "image":"/src/assets/img/cats/oldPrinceNovel.png",
+       "name":"Alimento Old Prince Novel Gato Adulto - 3 Kg",
+       "rating":4.3,
+       "voters":14,
+       "price":23950.00,
+       "discount":30,
+       "stock":43,
+       "bestseller": false
+    },
+    {
+       "id":7,
+       "image":"/src/assets/img/cats/wildSalmonMerluzaCorvina.webp",
+       "name":"Lata Wild Salmón, Merluza Y Corvina Gato Adulto - 340 Gr",
+       "rating":2.9,
+       "voters":107,
+       "price":4450.00,
+       "discount":0,
+       "stock":43,
+       "bestseller": true
+    },
+    {
+       "id":8,
+       "image":"/src/assets/img/cats/monAmi.webp",
+       "name":"Alimento Mon Ami para Gatos - 6 Kg",
+       "rating":4.8,
+       "voters":54,
+       "price":62350.00,
+       "discount":0,
+       "stock":43,
+       "bestseller": false
+    },
+    {
+       "id":9,
+       "image":"/src/assets/img/cats/royalCaninVeterinaryUrinary.webp",
+       "name":"Alimento Royal Canin Cat Veterinary Urinary - 7.5 Kg",
+       "rating":5.0,
+       "voters":340,
+       "price":82016.50,
+       "discount":0,
+       "stock":43,
+       "bestseller": false
+    },
+    {
+       "id":10,
+       "image":"/src/assets/img/cats/excellentSterilized.webp",
+       "name":"Alimento Excellent Gato Sterilized Pollo - 1 kg",
+       "rating":3.2,
+       "voters":18,
+       "price":9248.00,
+       "discount":0,
+       "stock":43,
+       "bestseller": false
+    },
+    {
+       "id":11,
+       "image":"/src/assets/img/cats/catChowPescadoPollo.webp",
+       "name":"Cat Chow Adulto Pescado y Pollo - 15 Kg",
+       "rating":4.6,
+       "voters":202,
+       "price":56640.00,
+       "discount":0,
+       "stock":43,
+       "bestseller": true
+    },
+    {
+       "id":12,
+       "image":"/src/assets/img/cats/whiskasCarne.webp",
+       "name":"Pouch Whiskas para Gatos Adultos Carne - 85G",
+       "rating":2.7,
+       "voters":1067,
+       "price":500.00,
+       "discount":0,
+       "stock":43,
+       "bestseller": false
+    }
+ ]
