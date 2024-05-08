@@ -8,21 +8,29 @@ import NavLink from "./NavLink";
 import CategoryMenu from './Categories/CategoryMenu';
 import { Link, useNavigate } from "react-router-dom";
 import ActionLink from "./ActionLink";
-import { useAppDispatch } from "../../../context/hooks";
+import { useAppDispatch, useAppSelector } from "../../../context/hooks";
 import { logoutUser } from "../../../context/slices/userSlice";
+import { deleteItem } from "../../../context/slices/cartSlice";
 
 const Header = () => {
   const isLogged = JSON.parse(localStorage.getItem('isLogged'));
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const cartState = useAppSelector((state) => state.cart);
 
   const handleLogOut = () => {
+    
+
+    cartState.items.map((item) => {
+      dispatch(deleteItem({ id: item.product.id }));
+    });
+
     dispatch(logoutUser());
 
     localStorage.removeItem("user");
     localStorage.removeItem("isLogged");
     localStorage.removeItem("isLoggedAdmin");
-      
+
     location.reload() && navigate('/');
   }
 
