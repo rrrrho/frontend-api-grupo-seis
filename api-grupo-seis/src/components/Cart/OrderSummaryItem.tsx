@@ -1,4 +1,4 @@
-import { Flex, Text, useColorModeValue as mode } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 import React from "react";
 
 type OrderSummaryItemProps = {
