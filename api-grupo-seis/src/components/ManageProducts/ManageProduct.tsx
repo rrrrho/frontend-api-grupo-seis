@@ -24,7 +24,7 @@ import {
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import React, { useState } from "react";
-import { generateRating } from "../../utils/card";
+import { formatPrice, generateRating } from "../../utils/card";
 import products from "../../json/ManageProducts/manage-products-data.json";
 import ProductForm from "../ProductForm/ProductForm";
 
@@ -130,7 +130,7 @@ const ManageProductTable = () => {
                     color="brand.darkGreen"
                     fontSize={"md"}
                   >
-                    {product.price}
+                    ${formatPrice(product.price)}
                   </Td>
                   <Td
                     textAlign={"center"}
