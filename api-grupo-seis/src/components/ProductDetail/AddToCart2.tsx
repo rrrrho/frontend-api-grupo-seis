@@ -70,7 +70,6 @@ const AddToCart = ({
         position="relative"
         bottom={{ base: "46%", xl: "45%" }}
         top="8rem"
-        left="55%"
         variant={"brandThird"}
         w={{ base: "8rem", xl: "10rem" }}
         h={{ base: "3rem", xl: "3.5rem" }}
