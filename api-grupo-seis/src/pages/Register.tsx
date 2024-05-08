@@ -13,6 +13,8 @@ import {
   useDisclosure,
   Skeleton,
   FormHelperText,
+  Radio,
+  RadioGroup,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useAppDispatch } from "../context/hooks";
@@ -238,6 +240,27 @@ const Register = () => {
                     )}
                   </FormControl>
                 </Flex>
+                <FormControl>
+                  <RadioGroup
+                    defaultValue="buyer"
+                    color={"brand.lightBeige"}
+                    fontWeight={"600"}
+                    size={"lg"}
+                  >
+                    <Stack
+                      spacing={5}
+                      direction="row"
+                      justifyContent={"center"}
+                    >
+                      <Radio colorScheme="red" value="seller">
+                        Vendedor
+                      </Radio>
+                      <Radio colorScheme="green" value="buyer">
+                        Comprador
+                      </Radio>
+                    </Stack>
+                  </RadioGroup>
+                </FormControl>
                 <Button
                   color={"brand.lightBeige"}
                   type={"submit"}

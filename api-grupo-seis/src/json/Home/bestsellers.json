@@ -1,0 +1,90 @@
+[
+    {
+        "id":55,
+        "image":"/src/assets/img/cats/lataDelightsTurkey.webp",
+        "name":"Alimento Old Prince Indoor Gato Adulto - 3 Kg",
+        "rating":4.5,
+        "voters":405,
+        "price":16890.00,
+        "discount":25,
+        "stock":43,
+        "bestseller": true
+    },
+    {
+        "id":56,
+        "image":"/src/assets/img/fishes/adornoEstrellaMarina.webp",
+        "name": "Adorno Marina Cool Dibujo Estrella de Mar",
+        "rating":4.1,
+        "voters":56,
+        "price":2475.00,
+        "discount":0,
+        "stock":101,
+        "bestseller":true
+    },
+    {
+        "id":57,
+        "image":"/src/assets/img/hamsters/hamsteraPrincesRosa.webp",
+        "name":"Hamstera Criceti 9 Con Decoracion De Princesa - Rosa",
+        "rating":4.8,
+        "voters":238,
+        "price":91550.00,
+        "discount":0,
+        "stock":567,
+        "bestseller": true
+    },
+    {
+        "id":58,
+        "image":"/src/assets/img/dogs/correaFerplast.webp",
+        "name":"Correa Extensible Ferplast Flippy Tech Negra - 14x3,5x11h cm",
+        "rating":4.0,
+        "voters":230,
+        "price":24800.00,
+        "discount":0,
+        "stock":43,
+        "bestseller": true
+    },
+    {
+        "id":59,
+        "image":"/src/assets/img/fishes/plantaMillexPlastico.png",
+        "name":"Planta Millex de Plástico - 50cm",
+        "rating":4.3,
+        "voters":518,
+        "price":5350.00,
+        "discount":0,
+        "stock":140,
+        "bestseller": true
+     },
+     {
+        "id":60,
+        "image":"/src/assets/img/hamsters/setCepillos.webp",
+        "name":"Set De Cepillado Para Pequeños Roedores - Tamaño Único",
+        "rating":4.7,
+        "voters":14,
+        "price":12700.20,
+        "discount":10,
+        "stock":83,
+        "bestseller": true
+     },
+     {
+        "id":23,
+        "image":"/src/assets/img/dogs/dentastixPedigree.webp",
+        "name":"Dentastix Pedigree Razas Pequeñas",
+        "rating":4.9,
+        "voters":1356,
+        "price":850.00,
+        "discount":0,
+        "stock":67,
+        "bestseller": true
+     },
+     {
+        "id":11,
+        "image":"/src/assets/img/cats/catChowPescadoPollo.webp",
+        "name":"Cat Chow Adulto Pescado y Pollo - 15 Kg",
+        "rating":4.6,
+        "voters":202,
+        "price":56640.00,
+        "discount":0,
+        "stock":43,
+        "bestseller": true
+     }
+]
