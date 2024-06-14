@@ -7,12 +7,14 @@ type ShippingProps = {
   shippingMethod: string;
   setShippingMethod: (method: string) => void;
   shippingNotSelected: boolean;
+  setShippingData: (data: string) => void;
 };
 
 export const Shipping = ({
   shippingMethod,
   setShippingMethod,
   shippingNotSelected,
+  setShippingData,
 }: ShippingProps) => {
   return (
     <Flex
@@ -20,10 +22,9 @@ export const Shipping = ({
       w="35vw"
       bg="rgba(78, 110, 82, 0.4)"
       borderRadius="10"
-      padding="1em"
+      padding="1.2rem"
       justifyContent="center"
       direction="column"
-      mt="1em"
       gap="0.5rem"
     >
       <HStack>
@@ -102,7 +103,10 @@ export const Shipping = ({
         </Button>
       </Flex>
       {shippingMethod === "shipping" ? (
-        <ShippingForm shippingNotSelected={shippingNotSelected} />
+        <ShippingForm
+          shippingNotSelected={shippingNotSelected}
+          setShippingData={setShippingData}
+        />
       ) : (
         <Pickup />
       )}

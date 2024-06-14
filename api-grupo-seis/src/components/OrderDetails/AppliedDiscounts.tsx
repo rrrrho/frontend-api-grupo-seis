@@ -27,11 +27,11 @@ export const AppliedDiscounts = ({
       >
         Descuentos aplicados
       </Heading>
-      {paymentMethod === "card" ? (
+      {paymentMethod === "CREDIT_CARD" ? (
         <Text fontWeight="semibold" fontSize="sm" opacity="0.8">
           5% por pago con tarjeta
         </Text>
-      ) : paymentMethod === "wire" ? (
+      ) : paymentMethod === "WIRE" ? (
         <Text fontWeight="semibold" fontSize="sm" opacity="0.8">
           10% por pago con transferencia
         </Text>

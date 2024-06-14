@@ -8,12 +8,14 @@ type PaymentProps = {
   paymentMethod: string;
   setPaymentMethod: (method: string) => void;
   paymentMethodDiscount: number;
+  setLastFourDigits: (digits: string) => void;
 };
 
 export const Payment = ({
   paymentMethod,
   setPaymentMethod,
   paymentMethodDiscount: discount,
+  setLastFourDigits,
 }: PaymentProps) => {
   return (
     <Flex
@@ -21,7 +23,7 @@ export const Payment = ({
       w="35vw"
       bg="rgba(78, 110, 82, 0.4)"
       borderRadius="10"
-      padding="1em"
+      padding="1.2rem"
       justifyContent="center"
       direction="column"
       mt="1em"
@@ -58,12 +60,14 @@ export const Payment = ({
       <Flex align="center" mb="0.5em">
         <Button
           w="33.33%"
-          variant={paymentMethod === "card" ? "brandFifth" : "brandFourth"}
+          variant={
+            paymentMethod === "CREDIT_CARD" ? "brandFifth" : "brandFourth"
+          }
           padding="0"
           h="5em"
-          onClick={() => setPaymentMethod("card")}
+          onClick={() => setPaymentMethod("CREDIT_CARD")}
           m="0"
-          isActive={paymentMethod === "card"}
+          isActive={paymentMethod === "CREDIT_CARD"}
         >
           <Flex
             align="center"
@@ -83,13 +87,13 @@ export const Payment = ({
         <Button
           w="33.33%"
           variant={
-            paymentMethod === "mercadoPago" ? "brandFifth" : "brandFourth"
+            paymentMethod === "MERCADO_PAGO" ? "brandFifth" : "brandFourth"
           }
           padding="0"
           h="5em"
-          onClick={() => setPaymentMethod("mercadoPago")}
+          onClick={() => setPaymentMethod("MERCADO_PAGO")}
           m="0"
-          isActive={paymentMethod === "mercadoPago"}
+          isActive={paymentMethod === "MERCADO_PAGO"}
         >
           <Flex
             align="center"
@@ -108,12 +112,12 @@ export const Payment = ({
         </Button>
         <Button
           w="33.33%"
-          variant={paymentMethod === "wire" ? "brandFifth" : "brandFourth"}
+          variant={paymentMethod === "WIRE" ? "brandFifth" : "brandFourth"}
           padding="0"
           h="5em"
-          onClick={() => setPaymentMethod("wire")}
+          onClick={() => setPaymentMethod("WIRE")}
           m="0"
-          isActive={paymentMethod === "wire"}
+          isActive={paymentMethod === "WIRE"}
         >
           <Flex
             align="center"
@@ -131,9 +135,12 @@ export const Payment = ({
           </Flex>
         </Button>
       </Flex>
-      {paymentMethod === "card" ? (
-        <CardPaymentForm discount={discount} />
-      ) : paymentMethod === "mercadoPago" ? (
+      {paymentMethod === "CREDIT_CARD" ? (
+        <CardPaymentForm
+          discount={discount}
+          setLastFourDigits={setLastFourDigits}
+        />
+      ) : paymentMethod === "MERCADO_PAGO" ? (
         <MercadoPago />
       ) : (
         <Wire />

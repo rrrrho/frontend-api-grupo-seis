@@ -1,6 +1,5 @@
 import { Button, Flex, Skeleton, useDisclosure } from "@chakra-ui/react";
 import { Payment } from "../components/Payment/Payment";
-import { PersonalData } from "../components/PersonalData/Payment";
 import { Shipping } from "../components/Shipping/Shipping";
 import { OrderDetails } from "../components/OrderDetails/OrderDetails";
 import FinishedCheckoutModal from "../components/Modal/FinishedCheckoutModal";
@@ -18,12 +17,14 @@ const Checkout = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [paymentMethod, setPaymentMethod] = useState<string>("card");
+  const [paymentMethod, setPaymentMethod] = useState<string>("CREDIT_CARD");
   const [shippingMethod, setShippingMethod] = useState<string>("shipping");
   const [shippingNotSelected, setShippingNotSelected] =
     useState<boolean>(false);
   const paymentMethodDiscount =
-    paymentMethod === "card" ? 5 : paymentMethod === "wire" ? 10 : 0;
+    paymentMethod === "CREDIT_CARD" ? 5 : paymentMethod === "WIRE" ? 10 : 0;
+  const [shippingData, setShippingData] = useState("");
+  const [lastFourDigits, setLastFourDigits] = useState("");
 
   useEffect(() => {
     calcTotalCheckout(cartState, paymentMethodDiscount);
@@ -31,10 +32,11 @@ const Checkout = () => {
 
   const handleFinishedCheckout = (e) => {
     e.preventDefault();
-    if (cartState.shipping.option.id === 0 && shippingMethod === "shipping") {
+    if (cartState.shipping.option.id === 0 && shippingMethod !== "shipping") {
       setShippingNotSelected(true);
       return;
     }
+    fetchCheckout();
     onOpen();
     cartState.items.map((item) => {
       dispatch(deleteItem({ id: item.product.id }));
@@ -43,6 +45,36 @@ const Checkout = () => {
       onClose();
       navigate("/");
     }, 3000);
+  };
+
+  const fetchCheckout = async () => {
+    const products = cartState.items.map((item) => ({
+      product_id: item.product.id,
+      quantity: item.quantity,
+    }));
+
+    // TODO: mandar el id del user actual
+    const response = await fetch("http://localhost:8080/api/invoice", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        products: products,
+        user_id: 1,
+        payment_method: paymentMethod,
+        shipping_method:
+          shippingMethod === "shipping"
+            ? cartState.shipping.option.id === 1
+              ? "ANDREANI"
+              : "CORREO_ARGENTINO"
+            : "PICKUP",
+        shipping_data: shippingData,
+        last_four_digits: lastFourDigits,
+      }),
+    });
+    const data = await response.json();
+    console.log(data);
   };
 
   useEffect(() => {
@@ -61,9 +93,7 @@ const Checkout = () => {
               isLoaded={!isLoading}
               startColor="brand.lightGreen"
               endColor="brand.lightGreen"
-            >
-              <PersonalData />
-            </Skeleton>
+            ></Skeleton>
             <Skeleton
               isLoaded={!isLoading}
               startColor="brand.lightGreen"
@@ -73,6 +103,7 @@ const Checkout = () => {
                 shippingMethod={shippingMethod}
                 setShippingMethod={setShippingMethod}
                 shippingNotSelected={shippingNotSelected}
+                setShippingData={setShippingData}
               />
             </Skeleton>
             <Skeleton
@@ -84,6 +115,7 @@ const Checkout = () => {
                 paymentMethod={paymentMethod}
                 setPaymentMethod={setPaymentMethod}
                 paymentMethodDiscount={paymentMethodDiscount}
+                setLastFourDigits={setLastFourDigits}
               />
             </Skeleton>
           </Flex>
