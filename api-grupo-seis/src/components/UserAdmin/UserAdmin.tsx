@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import { Search } from "./Search";
 import { Filters } from "./Filters";
 import { UsersTable } from "./UsersTable";
-// import users from "../../json/UserAdmin/user-admin-data.json";
 import axios from "axios";
 import { User } from "../../types/user";
+import UserAdminPaginator from "./UserAdminPaginator";
 
 const UserAdmin = () => {
   const [filter, setFilter] = useState<string>("email");
@@ -14,6 +14,9 @@ const UserAdmin = () => {
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
   const [unfilteredUsers, setUnfilteredUsers] = useState<User[]>([]);
   const [orderBy, setOrderBy] = useState<string>("");
+  const [selectedPage, setSelectedPage] = useState<number>(0);
+  const [totalPages, setTotalPages] = useState<number>(0);
+
   const {
     isOpen: isDeleteOpen,
     onOpen: onOpenDelete,
@@ -24,12 +27,13 @@ const UserAdmin = () => {
     try {
       const response = await axios.get("http://localhost:8080/api/user", {
         params: {
-          page: 0,
+          page: selectedPage,
         },
       });
-      console.log("Fetched users:", response.data.content);
+      console.log("Fetched users:", response.data);
       setFilteredUsers(response.data.content);
       setUnfilteredUsers(response.data.content);
+      setTotalPages(response.data.totalPages);
     } catch (error) {
       console.error(error);
     }
@@ -104,7 +108,7 @@ const UserAdmin = () => {
 
   useEffect(() => {
     fetchUsers();
-  }, []);
+  }, [selectedPage]);
 
   useEffect(() => {
     orderUsers();
@@ -149,6 +153,13 @@ const UserAdmin = () => {
         isDeleteOpen={isDeleteOpen}
         onOpenDelete={onOpenDelete}
         onCloseDelete={onCloseDelete}
+      />
+      <UserAdminPaginator
+        alignSelf={"alignSelf"}
+        m="3rem"
+        totalPages={totalPages}
+        selectedPage={selectedPage}
+        setSelectedPage={setSelectedPage}
       />
     </Box>
   );
