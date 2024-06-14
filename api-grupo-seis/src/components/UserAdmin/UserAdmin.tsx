@@ -156,7 +156,7 @@ const UserAdmin = () => {
       />
       <UserAdminPaginator
         alignSelf={"alignSelf"}
-        m="3rem"
+        m="2rem"
         totalPages={totalPages}
         selectedPage={selectedPage}
         setSelectedPage={setSelectedPage}

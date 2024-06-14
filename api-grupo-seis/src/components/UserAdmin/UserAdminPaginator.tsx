@@ -21,7 +21,7 @@ const UserAdminPaginator = ({
     if (selectedPage == 0) {
       return;
     }
-    setSelectedPage(selectedPage + 1);
+    setSelectedPage(selectedPage - 1);
   };
 
   return (
@@ -29,6 +29,7 @@ const UserAdminPaginator = ({
       gap={4}
       borderRadius="5px"
       alignItems="center"
+      justify={"center"}
       alignSelf={alignSelf}
       m={m}
     >
@@ -60,13 +61,13 @@ const UserAdminPaginator = ({
             bg="brand.lightBeige"
             borderRadius={5}
             color="brand.darkBrown"
+            _hover={{}}
           >
             {index + 1}
           </Button>
         ) : (
           <Button
             key={index}
-            as="button"
             fontWeight="600"
             w="3rem"
             h="3rem"
@@ -85,7 +86,7 @@ const UserAdminPaginator = ({
           </Button>
         )
       )}
-      <Flex
+      <Button
         as="button"
         alignItems="center"
         justifyContent="center"
@@ -100,9 +101,10 @@ const UserAdminPaginator = ({
           color: "brand.darkBrown",
           transform: "scale(1.2)",
         }}
+        onClick={handleNextPage}
       >
-        <Icon as={FaArrowRight} onClick={handleNextPage} />
-      </Flex>
+        <Icon as={FaArrowRight} />
+      </Button>
     </Flex>
   );
 };
