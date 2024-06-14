@@ -10,34 +10,54 @@ import {
   Switch,
   Button,
   Badge,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
+  useDisclosure,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import { MdDelete } from "react-icons/md";
+import { User } from "../../types/user";
 
 type UsersTableProps = {
-  users: {
-    id: number;
-    name: string;
-    lastName: string;
-    email: string;
-    creationDate: string;
-    role: string;
-    isActive: boolean;
-  }[];
+  users: User[];
   toggleUserStatus: (id: number) => void;
   handleUserDelete: (id: number) => void;
+  isDeleteOpen: boolean;
+  onOpenDelete: () => void;
+  onCloseDelete: () => void;
 };
 
 export const UsersTable = ({
   users,
   toggleUserStatus,
   handleUserDelete,
+  isDeleteOpen,
+  onOpenDelete,
+  onCloseDelete,
 }: UsersTableProps) => {
+  const cancelRef = React.useRef<HTMLButtonElement>(null);
+
+  const [deleteCandidateId, setDeleteCandidateId] = useState<number>(0);
+  const [deleteCandidateName, setDeleteCandidateName] = useState<string>("");
+
+  const handleOnOpenDelete = (id, name) => {
+    onOpenDelete();
+    setDeleteCandidateId(id);
+    setDeleteCandidateName(name);
+  };
+
   return (
     <TableContainer>
       <Table bg="rgba(115, 144, 114, 0.3)" borderRadius="12" mt="5" size="sm">
         <Thead>
           <Tr>
+            <Th textAlign="center" color="brand.darkGreen" fontSize="md">
+              ID
+            </Th>
             <Th textAlign="center" color="brand.darkGreen" fontSize="md">
               NOMBRE
             </Th>
@@ -45,10 +65,13 @@ export const UsersTable = ({
               APELLIDO
             </Th>
             <Th textAlign="center" color="brand.darkGreen" fontSize="md">
-              CORREO
+              DNI
             </Th>
             <Th textAlign="center" color="brand.darkGreen" fontSize="md">
-              FECHA DE CREACIÓN
+              NÚMERO
+            </Th>
+            <Th textAlign="center" color="brand.darkGreen" fontSize="md">
+              CORREO
             </Th>
             <Th textAlign="center" color="brand.darkGreen" fontSize="md">
               ROL
@@ -64,10 +87,12 @@ export const UsersTable = ({
         <Tbody>
           {users.map((user) => (
             <Tr key={user.id}>
+              <Td textAlign="center">{user.id}</Td>
               <Td textAlign="center">{user.name}</Td>
-              <Td textAlign="center">{user.lastName}</Td>
+              <Td textAlign="center">{user.lastname}</Td>
+              <Td textAlign="center">{user.dni}</Td>
+              <Td textAlign="center">{user.phoneNumber}</Td>
               <Td textAlign="center">{user.email}</Td>
-              <Td textAlign="center">{user.creationDate}</Td>
               <Td textAlign="center" id="admin">
                 <Badge
                   colorScheme={
@@ -85,7 +110,7 @@ export const UsersTable = ({
                 <Tooltip>
                   <Switch
                     colorScheme="green"
-                    defaultChecked={user.isActive}
+                    defaultChecked={user.state}
                     onChange={() => toggleUserStatus(user.id)}
                   />
                 </Tooltip>
@@ -93,10 +118,51 @@ export const UsersTable = ({
               <Td textAlign="center">
                 <Button
                   variant="brandPrimary"
-                  onClick={() => handleUserDelete(user.id)}
+                  onClick={() =>
+                    handleOnOpenDelete(user.id, user.name + " " + user.lastname)
+                  }
                 >
                   <MdDelete />
                 </Button>
+                <AlertDialog
+                  isOpen={isDeleteOpen}
+                  leastDestructiveRef={cancelRef}
+                  onClose={onCloseDelete}
+                >
+                  <AlertDialogOverlay bg="rgba(0,0,0,0.3)">
+                    <AlertDialogContent
+                      bgColor="brand.lightGreen"
+                      color={"brand.lightBeige"}
+                      justifySelf={"center"}
+                      alignSelf={"center"}
+                    >
+                      <AlertDialogHeader fontSize="lg" fontWeight="bold">
+                        Eliminar usuario
+                      </AlertDialogHeader>
+
+                      <AlertDialogBody>
+                        ¿Seguro que querés eliminar a {deleteCandidateName}?
+                      </AlertDialogBody>
+
+                      <AlertDialogFooter>
+                        <Button
+                          ref={cancelRef}
+                          onClick={onCloseDelete}
+                          variant="brandFifth"
+                        >
+                          Cancelar
+                        </Button>
+                        <Button
+                          colorScheme="red"
+                          onClick={() => handleUserDelete(deleteCandidateId)}
+                          ml={3}
+                        >
+                          Eliminar
+                        </Button>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialogOverlay>
+                </AlertDialog>
               </Td>
             </Tr>
           ))}

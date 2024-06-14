@@ -1,20 +1,57 @@
-import { Heading, Flex, Box, Select } from "@chakra-ui/react";
+import { Heading, Flex, Box, Select, useDisclosure } from "@chakra-ui/react";
 import React from "react";
 import { useEffect, useState } from "react";
 import { Search } from "./Search";
 import { Filters } from "./Filters";
 import { UsersTable } from "./UsersTable";
-import users from "../../json/UserAdmin/user-admin-data.json";
+// import users from "../../json/UserAdmin/user-admin-data.json";
+import axios from "axios";
+import { User } from "../../types/user";
+
 const UserAdmin = () => {
   const [filter, setFilter] = useState<string>("email");
   const [query, setQuery] = useState<string>("");
-  const [filteredUsers, setFilteredUsers] = useState(users);
-  const [unfilteredUsers, setUnfilteredUsers] = useState(users);
+  const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
+  const [unfilteredUsers, setUnfilteredUsers] = useState<User[]>([]);
   const [orderBy, setOrderBy] = useState<string>("");
+  const {
+    isOpen: isDeleteOpen,
+    onOpen: onOpenDelete,
+    onClose: onCloseDelete,
+  } = useDisclosure();
 
-  useEffect(() => {
-    orderUsers();
-  }, [orderBy, filteredUsers]);
+  const fetchUsers = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/api/user", {
+        params: {
+          page: 0,
+        },
+      });
+      console.log("Fetched users:", response.data.content);
+      setFilteredUsers(response.data.content);
+      setUnfilteredUsers(response.data.content);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const fetchUserStateChange = async (id, state) => {
+    try {
+      await axios.patch(`http://localhost:8080/api/user/${id}?state=${state}`);
+      await fetchUsers();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const fetchUserDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:8080/api/user/${id}`);
+      await fetchUsers();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const filterUsers = () => {
     const newFilteredUsers = query
@@ -43,26 +80,35 @@ const UserAdmin = () => {
   };
 
   const toggleUserStatus = (id) => {
-    const updatedUsers = filteredUsers.map((user) => {
+    filteredUsers.map((user) => {
       if (user.id === id) {
-        return { ...user, isActive: !user.isActive };
+        console.log("User state changed:", user.state);
+
+        fetchUserStateChange(id, !user.state);
+        return { ...user, state: !user.state };
       }
       return user;
     });
-    setFilteredUsers(updatedUsers);
   };
 
   const handleUserDelete = (id) => {
-    const newUnfilteredUsers = unfilteredUsers.filter((user) => user.id !== id);
-    const newFilteredUsers = filteredUsers.filter((user) => user.id !== id);
-    setFilteredUsers(newFilteredUsers);
-    setUnfilteredUsers(newUnfilteredUsers);
+    fetchUserDelete(id);
+    onCloseDelete();
+    fetchUsers();
   };
 
   const handleShowAll = () => {
     setFilteredUsers(unfilteredUsers);
     setQuery("");
   };
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  useEffect(() => {
+    orderUsers();
+  }, [orderBy]);
 
   return (
     <Box px="2rem">
@@ -100,6 +146,9 @@ const UserAdmin = () => {
         users={filteredUsers}
         toggleUserStatus={toggleUserStatus}
         handleUserDelete={handleUserDelete}
+        isDeleteOpen={isDeleteOpen}
+        onOpenDelete={onOpenDelete}
+        onCloseDelete={onCloseDelete}
       />
     </Box>
   );
