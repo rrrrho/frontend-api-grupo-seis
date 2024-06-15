@@ -68,7 +68,7 @@ export const UsersTable = ({
               DNI
             </Th>
             <Th textAlign="center" color="brand.darkGreen" fontSize="md">
-              NÚMERO
+              TELÉFONO
             </Th>
             <Th textAlign="center" color="brand.darkGreen" fontSize="md">
               CORREO

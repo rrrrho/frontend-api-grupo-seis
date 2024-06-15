@@ -11,8 +11,7 @@ import UserAdminPaginator from "./UserAdminPaginator";
 const UserAdmin = () => {
   const [filter, setFilter] = useState<string>("email");
   const [query, setQuery] = useState<string>("");
-  const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
-  const [unfilteredUsers, setUnfilteredUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
   const [orderBy, setOrderBy] = useState<string>("");
   const [selectedPage, setSelectedPage] = useState<number>(0);
   const [totalPages, setTotalPages] = useState<number>(0);
@@ -27,12 +26,18 @@ const UserAdmin = () => {
     try {
       const response = await axios.get("http://localhost:8080/api/user", {
         params: {
+          name: query && filter === "name" ? query : undefined,
+          lastname: query && filter === "lastname" ? query : undefined,
+          email: query && filter === "email" ? query : undefined,
+          sort: orderBy ? orderBy : undefined,
           page: selectedPage,
         },
       });
-      console.log("Fetched users:", response.data);
-      setFilteredUsers(response.data.content);
-      setUnfilteredUsers(response.data.content);
+      if (response.data.content.length === 0) {
+        return;
+      }
+
+      setUsers(response.data.content);
       setTotalPages(response.data.totalPages);
     } catch (error) {
       console.error(error);
@@ -58,25 +63,9 @@ const UserAdmin = () => {
   };
 
   const filterUsers = () => {
-    const newFilteredUsers = query
-      ? unfilteredUsers.filter((user) =>
-          user[filter].toLowerCase().includes(query.toLowerCase())
-        )
-      : filteredUsers;
-    setFilteredUsers(newFilteredUsers);
-  };
-
-  const orderUsers = () => {
-    const orderedUsers = [...filteredUsers].sort((a, b) => {
-      if (a[orderBy] < b[orderBy]) {
-        return -1;
-      }
-      if (a[orderBy] > b[orderBy]) {
-        return 1;
-      }
-      return 0;
-    });
-    setFilteredUsers(orderedUsers);
+    setSelectedPage(0);
+    setQuery("");
+    fetchUsers();
   };
 
   const onOrderByChange = (e) => {
@@ -84,7 +73,7 @@ const UserAdmin = () => {
   };
 
   const toggleUserStatus = (id) => {
-    filteredUsers.map((user) => {
+    users.map((user) => {
       if (user.id === id) {
         console.log("User state changed:", user.state);
 
@@ -102,25 +91,21 @@ const UserAdmin = () => {
   };
 
   const handleShowAll = () => {
-    setFilteredUsers(unfilteredUsers);
     setQuery("");
+    fetchUsers();
   };
 
   useEffect(() => {
     fetchUsers();
-  }, [selectedPage]);
-
-  useEffect(() => {
-    orderUsers();
-  }, [orderBy]);
+  }, [selectedPage, orderBy]);
 
   return (
     <Box px="2rem">
       <Search
         query={query}
         onChangeQuery={setQuery}
-        filterUsers={filterUsers}
         handleShowAll={handleShowAll}
+        filterUsers={filterUsers}
       />
       <Heading variant="sectionTitle" mt="3" fontSize="2xl">
         Mostrar resultados por:
@@ -138,16 +123,18 @@ const UserAdmin = () => {
             },
           }}
         >
+          <option value="id">ID</option>
           <option value="name">Nombre</option>
-          <option value="lastName">Apellido</option>
+          <option value="lastname">Apellido</option>
+          <option value="dni">DNI</option>
+          <option value="phone">Teléfono</option>
           <option value="email">Correo</option>
-          <option value="creationDate">Fecha de creación</option>
           <option value="role">Rol</option>
           <option value="state">Estado</option>
         </Select>
       </Flex>
       <UsersTable
-        users={filteredUsers}
+        users={users}
         toggleUserStatus={toggleUserStatus}
         handleUserDelete={handleUserDelete}
         isDeleteOpen={isDeleteOpen}
