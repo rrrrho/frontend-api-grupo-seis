@@ -21,7 +21,24 @@ import {
 import React, { useState } from "react";
 import { Form } from "react-router-dom";
 import ModalSuccess from "../Modal/ModalSuccess";
-import { Product } from "../../types/product";
+import axios from "axios";
+
+//TODO: eliminar esta y usar la que quede como definitiva en /types
+interface Product {
+  id: number;
+  title: string;
+  description: string;
+  imageUrl: string;
+  brand: string;
+  petCategory: string;
+  petStage: string;
+  score: number;
+  scoreVoters: number;
+  price: number;
+  discount: number;
+  stock: number;
+  bestseller: boolean;
+}
 
 type AddProductFormProps = {
   product: Product;
@@ -31,20 +48,27 @@ type AddProductFormProps = {
 const ProductForm = ({
   product = {
     id: 0,
-    name: "",
-    image: "",
+    title: "",
+    description: "",
+    imageUrl: "",
+    brand: "",
+    petCategory: "",
+    petStage: "",
+    score: 0,
+    scoreVoters: 0,
     price: 0,
     discount: 0,
     stock: 0,
-    rating: 0,
-    voters: 0,
-    quota: 0,
     bestseller: false,
   },
   setEditingProduct,
 }: AddProductFormProps) => {
-  const [name, setName] = useState<string>(product.name);
-  const [imageUrl, setImageUrl] = useState<string>(product.image);
+  const [title, setTitle] = useState<string>(product.title);
+  const [description, setDescription] = useState<string>(product.description);
+  const [imageUrl, setImageUrl] = useState<string>(product.imageUrl);
+  const [brand, setBrand] = useState<string>(product.brand);
+  const [petCategory, setPetCategory] = useState<string>(product.petCategory);
+  const [petStage, setPetStage] = useState<string>(product.petStage);
   const [price, setPrice] = useState<number>(product.price);
   const [discount, setDiscount] = useState<number>(product.discount);
   const [stock, setStock] = useState<number>(product.stock);
@@ -55,8 +79,12 @@ const ProductForm = ({
   } = useDisclosure();
 
   const resetForm = () => {
-    setName("");
+    setTitle("");
+    setDescription("");
     setImageUrl("");
+    setBrand("");
+    setPetCategory("");
+    setPetStage("");
     setPrice(0);
     setDiscount(0);
     setStock(0);
@@ -64,6 +92,7 @@ const ProductForm = ({
 
   const handleAddSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    fetchCreateProduct();
     resetForm();
     onOpenSuccess();
   };
@@ -79,6 +108,38 @@ const ProductForm = ({
     resetForm();
   };
 
+  // TODO: cambiar lo de headers para que mande un token bien
+  const fetchCreateProduct = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/product",
+        {
+          title: title,
+          description: description,
+          image_url: imageUrl,
+          brand: brand,
+          pet_category: petCategory,
+          pet_stage: petStage,
+          score: 0,
+          score_voters: 0,
+          price: price,
+          discount: discount,
+          stock: stock,
+          bestseller: false,
+        },
+        {
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdTEyM2Fubm5ubm4xMjNubkBleGFtcGxlLmNvbSIsImlhdCI6MTcxODQyNzgxNCwiZXhwIjoxNzE4NDYzODE0fQ.yh2lvsUt6v7KglchKlkqxP9oeuE7obZ6z1Z4UjxIrLQ",
+          },
+        }
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Flex w="100%" h="100%" justify={"center"} align={"center"}>
       <Flex
@@ -91,7 +152,7 @@ const ProductForm = ({
         gap="0.5rem"
       >
         <Heading variant="sectionTitle" fontSize="4xl" mb="0.5rem">
-          {product.id ? `Editando ${product.name}` : "Agregar producto"}
+          {product.id ? `Editando ${product.title}` : "Agregar producto"}
         </Heading>
         <form onSubmit={product.id ? handleEditSubmit : handleAddSubmit}>
           <Flex flexDir={"column"} gap={5}>
@@ -102,8 +163,28 @@ const ProductForm = ({
                   <Input
                     variant="brandSecondary"
                     type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
+                </FormControl>
+
+                <FormControl isRequired mr="0.5em">
+                  <FormLabel mb="0.1em">Descripción</FormLabel>
+                  <Input
+                    variant="brandSecondary"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                  />
+                </FormControl>
+              </Flex>
+              <Flex align="center">
+                <FormControl isRequired mr="0.5em">
+                  <FormLabel mb="0.1em">Marca</FormLabel>
+                  <Input
+                    variant="brandSecondary"
+                    type="text"
+                    value={brand}
+                    onChange={(e) => setBrand(e.target.value)}
                   />
                 </FormControl>
 
@@ -115,6 +196,46 @@ const ProductForm = ({
                     value={imageUrl}
                     onChange={(e) => setImageUrl(e.target.value)}
                   />
+                </FormControl>
+              </Flex>
+              <Flex align="center">
+                <FormControl isRequired mr="0.5em">
+                  <FormLabel mb="0.1em">Categoría</FormLabel>
+                  <Select
+                    placeholder="Seleccionar"
+                    value={petCategory}
+                    onChange={(e) => setPetCategory(e.target.value)}
+                    variant="brandSecondary"
+                    sx={{
+                      option: {
+                        backgroundColor: "brand.lightBeige",
+                      },
+                    }}
+                  >
+                    <option value={"CAT"}>Gatos</option>
+                    <option value={"DOG"}>Perros</option>
+                    <option value={"HAMSTER"}>Hamster</option>
+                    <option value={"FISH"}>Peces</option>
+                  </Select>
+                </FormControl>
+
+                <FormControl isRequired mr="0.5em">
+                  <FormLabel mb="0.1em">Edad</FormLabel>
+                  <Select
+                    placeholder="Seleccionar"
+                    value={petStage}
+                    onChange={(e) => setPetStage(e.target.value)}
+                    variant="brandSecondary"
+                    sx={{
+                      option: {
+                        backgroundColor: "brand.lightBeige",
+                      },
+                    }}
+                  >
+                    <option value={"BABY"}>Cachorro</option>
+                    <option value={"ADULT"}>Adulto</option>
+                    <option value={"SENIOR"}>Adulto senior</option>
+                  </Select>
                 </FormControl>
               </Flex>
               <Flex direction="row" align="center">

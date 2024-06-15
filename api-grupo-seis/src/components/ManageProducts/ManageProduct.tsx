@@ -30,12 +30,7 @@ import ProductForm from "../ProductForm/ProductForm";
 
 const ManageProductTable = () => {
   const [editingProduct, setEditingProduct] = useState<number>(0);
-  const [productsState, setProductsState] = useState(
-    products.map((product) => ({
-      ...product,
-      quota: product.price / 6,
-    }))
-  );
+  const [productsState, setProductsState] = useState(products);
   const {
     isOpen: isDeleteOpen,
     onOpen: onOpenDelete,
