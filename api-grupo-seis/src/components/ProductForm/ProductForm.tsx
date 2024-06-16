@@ -19,7 +19,6 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { Form } from "react-router-dom";
 import ModalSuccess from "../Modal/ModalSuccess";
 import axios from "axios";
 
@@ -99,6 +98,7 @@ const ProductForm = ({
 
   const handleEditSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    fetchEditProduct();
     setEditingProduct(0);
     resetForm();
   };
@@ -111,7 +111,7 @@ const ProductForm = ({
   // TODO: cambiar lo de headers para que mande un token bien
   const fetchCreateProduct = async () => {
     try {
-      const response = await axios.post(
+      await axios.post(
         "http://localhost:8080/api/product",
         {
           title: title,
@@ -119,7 +119,7 @@ const ProductForm = ({
           image_url: imageUrl,
           brand: brand,
           pet_category: petCategory,
-          pet_stage: petStage,
+          pet_stage: petStage ? petStage : null,
           score: 0,
           score_voters: 0,
           price: price,
@@ -130,7 +130,37 @@ const ProductForm = ({
         {
           headers: {
             Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdTEyM2Fubm5ubm4xMjNubkBleGFtcGxlLmNvbSIsImlhdCI6MTcxODQyNzgxNCwiZXhwIjoxNzE4NDYzODE0fQ.yh2lvsUt6v7KglchKlkqxP9oeuE7obZ6z1Z4UjxIrLQ",
+              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdTEyM2Fubm5ubm4xMjNubkBleGFtcGxlLmNvbSIsImlhdCI6MTcxODUxMTcxNCwiZXhwIjoxNzE4NTQ3NzE0fQ.QzC__TbToUZWsUI-xuDScLrzi7pxmKNcr4gvy0uTf-4",
+          },
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchEditProduct = async () => {
+    try {
+      await axios.put(
+        `http://localhost:8080/api/product/${product.id}`,
+        {
+          title: title,
+          description: description,
+          image_url: imageUrl,
+          brand: brand,
+          pet_category: petCategory,
+          pet_stage: petStage ? petStage : null,
+          score: 0,
+          score_voters: 0,
+          price: price,
+          discount: discount,
+          stock: stock,
+          bestseller: false,
+        },
+        {
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdTEyM2Fubm5ubm4xMjNubkBleGFtcGxlLmNvbSIsImlhdCI6MTcxODUxMTcxNCwiZXhwIjoxNzE4NTQ3NzE0fQ.QzC__TbToUZWsUI-xuDScLrzi7pxmKNcr4gvy0uTf-4",
           },
         }
       );
@@ -218,7 +248,7 @@ const ProductForm = ({
                   </Select>
                 </FormControl>
 
-                <FormControl isRequired mr="0.5em">
+                <FormControl mr="0.5em">
                   <FormLabel mb="0.1em">Edad</FormLabel>
                   <Select
                     placeholder="Seleccionar"

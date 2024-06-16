@@ -30,6 +30,8 @@ import ProductForm from "../ProductForm/ProductForm";
 
 const ManageProductTable = () => {
   const [editingProduct, setEditingProduct] = useState<number>(0);
+  const [deleteCandidateId, setDeleteCandidateId] = useState<number>(0);
+  const [deleteCandidateTitle, setDeleteCandidateTitle] = useState<string>("");
   const [productsState, setProductsState] = useState(products);
   const {
     isOpen: isDeleteOpen,
@@ -42,9 +44,24 @@ const ManageProductTable = () => {
     setEditingProduct(id);
   };
   const handleDelete = (id: number) => {
-    const newProducts = productsState.filter((product) => product.id !== id);
-    setProductsState(newProducts);
+    fetchDelete(id);
     onCloseDelete();
+  };
+
+  const fetchDelete = async (id: number) => {
+    try {
+      await fetch(`http://localhost:8080/api/product/${id}`, {
+        method: "DELETE",
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleOnOpenDelete = (id, name) => {
+    onOpenDelete();
+    setDeleteCandidateId(id);
+    setDeleteCandidateTitle(name);
   };
 
   return (
@@ -59,13 +76,18 @@ const ManageProductTable = () => {
           <Table>
             <Thead>
               <Tr>
-                <Th color="brand.darkGreen" fontSize={"md"}>
+                <Th
+                  color="brand.darkGreen"
+                  fontSize={"md"}
+                  borderColor={"brand.darkGreen"}
+                >
                   Producto
                 </Th>
                 <Th
                   textAlign={"center"}
                   color="brand.darkGreen"
                   fontSize={"md"}
+                  borderColor={"brand.darkGreen"}
                 >
                   Precio
                 </Th>
@@ -73,6 +95,7 @@ const ManageProductTable = () => {
                   textAlign={"center"}
                   color="brand.darkGreen"
                   fontSize={"md"}
+                  borderColor={"brand.darkGreen"}
                 >
                   Stock
                 </Th>
@@ -80,6 +103,7 @@ const ManageProductTable = () => {
                   textAlign={"center"}
                   color="brand.darkGreen"
                   fontSize={"md"}
+                  borderColor={"brand.darkGreen"}
                 >
                   Rating
                 </Th>
@@ -87,6 +111,7 @@ const ManageProductTable = () => {
                   textAlign={"center"}
                   color="brand.darkGreen"
                   fontSize={"md"}
+                  borderColor={"brand.darkGreen"}
                 >
                   Editar
                 </Th>
@@ -94,6 +119,7 @@ const ManageProductTable = () => {
                   textAlign={"center"}
                   color="brand.darkGreen"
                   fontSize={"md"}
+                  borderColor={"brand.darkGreen"}
                 >
                   Eliminar
                 </Th>
@@ -102,11 +128,11 @@ const ManageProductTable = () => {
             <Tbody>
               {productsState.map((product) => (
                 <Tr key={product.id}>
-                  <Td>
+                  <Td borderColor={"brand.darkGreen"}>
                     <HStack w="20vw">
                       <Image
-                        src={product.image}
-                        alt={product.name}
+                        src={product.imageUrl}
+                        alt={product.title}
                         boxSize="50px"
                         objectFit="cover"
                         borderRadius="md"
@@ -116,7 +142,7 @@ const ManageProductTable = () => {
                         color="brand.darkGreen"
                         fontSize={"md"}
                       >
-                        {product.name}
+                        {product.title}
                       </Text>
                     </HStack>
                   </Td>
@@ -124,6 +150,7 @@ const ManageProductTable = () => {
                     textAlign={"center"}
                     color="brand.darkGreen"
                     fontSize={"md"}
+                    borderColor={"brand.darkGreen"}
                   >
                     ${formatPrice(product.price)}
                   </Td>
@@ -131,18 +158,19 @@ const ManageProductTable = () => {
                     textAlign={"center"}
                     color="brand.darkGreen"
                     fontSize={"md"}
+                    borderColor={"brand.darkGreen"}
                   >
                     {product.stock}
                   </Td>
-                  <Td>
+                  <Td borderColor={"brand.darkGreen"}>
                     <VStack>
-                      <HStack>{generateRating(product.rating)}</HStack>
+                      <HStack>{generateRating(product.score)}</HStack>
                       <Text
                         textAlign={"center"}
                         color="brand.darkGreen"
                         fontSize={"md"}
                       >
-                        {product.rating}
+                        {product.score}
                       </Text>
                     </VStack>
                   </Td>
@@ -150,6 +178,7 @@ const ManageProductTable = () => {
                     textAlign={"center"}
                     color="brand.darkGreen"
                     fontSize={"md"}
+                    borderColor={"brand.darkGreen"}
                   >
                     <Button
                       variant="brandPrimary"
@@ -162,8 +191,14 @@ const ManageProductTable = () => {
                     textAlign={"center"}
                     color="brand.darkGreen"
                     fontSize={"md"}
+                    borderColor={"brand.darkGreen"}
                   >
-                    <Button variant="brandPrimary" onClick={onOpenDelete}>
+                    <Button
+                      variant="brandPrimary"
+                      onClick={() =>
+                        handleOnOpenDelete(product.id, product.title)
+                      }
+                    >
                       <MdDelete />
                     </Button>
                     <AlertDialog
@@ -183,7 +218,7 @@ const ManageProductTable = () => {
                           </AlertDialogHeader>
 
                           <AlertDialogBody>
-                            ¿Seguro que querés eliminar {product.name}?
+                            ¿Seguro que querés eliminar {deleteCandidateTitle}?
                           </AlertDialogBody>
 
                           <AlertDialogFooter>
@@ -196,7 +231,7 @@ const ManageProductTable = () => {
                             </Button>
                             <Button
                               colorScheme="red"
-                              onClick={() => handleDelete(product.id)}
+                              onClick={() => handleDelete(deleteCandidateId)}
                               ml={3}
                             >
                               Eliminar
