@@ -20,7 +20,6 @@ const Header = () => {
 
   const handleLogOut = () => {
     
-
     cartState.items.map((item) => {
       dispatch(deleteItem({ id: item.product.id }));
     });
@@ -29,9 +28,11 @@ const Header = () => {
 
     localStorage.removeItem("user");
     localStorage.removeItem("isLogged");
+    localStorage.removeItem("token");
     localStorage.removeItem("isLoggedAdmin");
 
-    location.reload() && navigate('/');
+    navigate('/');
+    location.reload();
   }
 
   return (
