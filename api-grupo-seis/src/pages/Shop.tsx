@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Flex, Heading, SimpleGrid, Text, Image, Skeleton } from '@chakra-ui/react';
+import { Box, Flex, Heading, SimpleGrid, Text, Image, Skeleton, Spinner } from '@chakra-ui/react';
 import Card from '/src/components/Shop/Card';
 import Paginator from '/src/components/Shop/Paginator';
-import { cutTitle } from '/src/utils/card';
 import Filter from '/src/components/Shop/Filter';
 import { useLocation } from 'react-router-dom';
+import { cutTitle } from '/src/utils/card';
 import Loading from '/src/components/Loading/Loading';
 import catBanner from '/src/assets/img/cat-banner.svg';
 import catPoster from '/src/assets/img/cats/sales-poster.png';
@@ -13,9 +13,10 @@ import dogPoster from '/src/assets/img/dogs/dog-poster.png';
 import hamsterPoster from '/src/assets/img/hamsters/hamster-poster.png'
 import hamsterBanner from '/src/assets/img/hamster-banner.svg';
 import pezBanner from '/src/assets/img/pez-banner.svg';
-import { getProductsByCategory } from '../services/ProductsService';
+import { getProductsByCategory, getProductsSortedByPopularity, getProductsSortedByPrice } from '../services/ProductsService';
 import { Product } from '../types/product';
 import { CustomResponse } from '../types/customResponse';
+import SortButton from '../components/Shop/SortButton';
 
 const buttons = ['Todo', 'Mas relevante', 'Mayor precio', 'Menor precio'];
 const filters = [
@@ -54,32 +55,68 @@ const Shop = () => {
             'hamsters': 'hamster',
             'peces': 'fish'
         };
-    
         return counterparts[animal.toLowerCase()];
     }
 
     const getProducts = async (category: string, page: number) => {
-
-        setIsLoading(true);
-
+        setIsProductsLoading(true);
         try {
-            const response = await getProductsByCategory(category, page);
+            const response = await getProductsByCategory({ category, page });
+            if (response.status === 200) {
+                setProducts(response.data.content);
+                setCurrentPage(response.data.currentPage);
+                setTotalElements(response.data.totalElements);
+                setTotalPages(response.data.totalPages);
+            } else {
+                console.error("Failed to fetch products:", response.data.errorMessage);
+            }
+        } catch (error) {
+            console.error("Failed to fetch products:", error);
+        } finally {
+            setIsProductsLoading(false);
+        }
+    };
 
-            if (response.statusCode === 200) { setProducts(response.content); setInformation(response) } 
-            else { console.error("Failed to fetch products:", response.errorMessage) }
-        } 
-        catch (error) { console.error("Failed to fetch products:", error) } 
-        finally { setIsLoading(false) }
-    }
+    const getProductsSorted = async (category: string, page: number, sortType: string, sortValue: string) => {
+        setIsProductsLoading(true);
+        try {
+            let response;
+            if (sortType === 'Mayor precio' || sortType === 'Menor precio') {
+                response = await getProductsSortedByPrice({ category, page, price: sortValue });
+            } else if (sortType === 'Mas relevante') {
+                response = await getProductsSortedByPopularity({ category, page, bestseller: sortValue });
+            } else {
+                getProducts(category, page);
+                return;
+            }
+            if (response.status === 200) {
+                setProducts(response.data.content);
+                setCurrentPage(response.data.currentPage);
+                setTotalElements(response.data.totalElements);
+                setTotalPages(response.data.totalPages);
+            } else {
+                console.error("Failed to fetch products:", response.data.errorMessage);
+            }
+        } catch (error) {
+            console.error("Failed to fetch products:", error);
+        } finally {
+            setIsProductsLoading(false);
+        }
+    };
     
     // loading
     const [isLoading, setIsLoading] = useState<boolean>(true);
+
+    // loading
+    const [isProductsLoading, setIsProductsLoading] = useState<boolean>(true);
 
     // products
     const [products, setProducts] = useState<Product[]>([]);
 
     // page info
-    const [information, setInformation] = useState<CustomResponse<Product[]>>();
+    const [currentPage, setCurrentPage] = useState<number>(0);
+    const [totalElements, setTotalElements] = useState<number>(0);
+    const [totalPages, setTotalPages] = useState<number>(0);
 
     // decoration
     const [decoration, setDecoration] = useState<Decoration>();
@@ -90,20 +127,61 @@ const Shop = () => {
     // category ex. cat
     const category = translateSpanishCategory(extractCategory(location.pathname));
 
-    useEffect(() => {
-        switch (location.pathname) {
-            case '/shop/perros': { setDecoration({ banner: dogBanner, poster: dogPoster }); break; }
-        
-            case '/shop/gatos': { setDecoration({ banner: catBanner, poster: catPoster }); break; }
-        
-            case '/shop/peces': { setDecoration({ banner: pezBanner }); break; }
-        
-            case '/shop/hamsters': { setDecoration({ banner: hamsterBanner, poster: hamsterPoster }); break; }
-        }
+    // sort button state
+    interface Sort {
+        type: string,
+        value: string
+    }
+    const [sort, setSort] = useState<Sort>({type: 'none', value: 'none'});
 
-        getProducts(category, information?.currentPage || 0);
+    const handleSortButtonClick = (text: string) => {
+        switch (text) {
+            case 'Mayor precio':
+                setSort({ type: text, value: 'desc' });
+                break;
+            case 'Menor precio':
+                setSort({ type: text, value: 'asc' });
+                break;
+            case 'Mas relevante':
+                setSort({ type: text, value: 'desc' });
+                break;
+            case 'Todo':
+                setSort({ type: 'none', value: 'none' });
+                break;
+            default:
+                break;
+        }
+    };
+
+    useEffect(() => {
+        setIsLoading(true);
+        switch (location.pathname) {
+            case '/shop/perros':
+                setDecoration({ banner: dogBanner, poster: dogPoster });
+                break;
+            case '/shop/gatos':
+                setDecoration({ banner: catBanner, poster: catPoster });
+                break;
+            case '/shop/peces':
+                setDecoration({ banner: pezBanner });
+                break;
+            case '/shop/hamsters':
+                setDecoration({ banner: hamsterBanner, poster: hamsterPoster });
+                break;
+            default:
+                setDecoration(undefined);
+                break;
+        }
+        getProducts(category, currentPage);
+        setIsLoading(false);
     }, [location]);
 
+    useEffect(() => {
+        setIsProductsLoading(true);
+        setCurrentPage(0);
+        getProductsSorted(category, currentPage, sort.type, sort.value);
+    }, [sort]);
+    
     return (
         <>
             {isLoading && <Loading />}
@@ -131,13 +209,15 @@ const Shop = () => {
                             <Flex justifyContent="space-between" gap={10}>
                                 <Heading fontSize={{ base: "2rem", xl: "3.5rem" }} fontWeight="900">Resultados</Heading>
                                 <Flex gap={4} alignSelf="flex-end">
-                                    {buttons.map((value, index) => <Button key={index} variant={'brandPrimary'} h={'fit-content'} py={{ base: "0.6rem", xl: "0.8rem" }} fontSize={{ base: "0.7rem", xl: "1rem" }} pr={{ base: "0.7rem", xl: "1.2rem" }} pl={{ base: "0.7rem", xl: "1.2rem" }}>{value}</Button>)}
+                                    {buttons.map((value, index) => <SortButton key={index} text={value} onClick={handleSortButtonClick}/>)}
                                 </Flex>
                             </Flex>
-                            <Text fontSize={{ base: "0.8rem", xl: "1.1rem" }} ml={{ base: "0.2rem", xl: "0.5rem" }}>khkh productos</Text>
+                            <Text fontSize={{ base: "0.8rem", xl: "1.1rem" }} ml={{ base: "0.2rem", xl: "0.5rem" }}>{totalElements} productos</Text>
                         </Skeleton>
                         <SimpleGrid columns={{base: '2', xl: '3'}} spacing={9} mt="2rem">
-                            {products?.map((product: any, index: number) =>
+                            {isProductsLoading ? (
+                                <Spinner/>
+                            ) : products?.map((product: any, index: number) =>
                                 <Skeleton key={index} isLoaded={!isLoading} startColor='brand.darkGreen' endColor='brand.lightGreen'>
                                     <Card
                                         id={product.id}
@@ -154,7 +234,7 @@ const Shop = () => {
                                 </Skeleton>
                             )}
                         </SimpleGrid>
-                        <Paginator pages={information?.totalPages} handleClick={(page: number) => getProducts(category, page)}/>
+                        <Paginator pages={totalPages} handleClick={(page: number) => getProducts(category, page)}/>
                     </Flex>
                 </Flex>
             </Box>
