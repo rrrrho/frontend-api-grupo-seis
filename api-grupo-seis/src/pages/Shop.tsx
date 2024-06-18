@@ -117,7 +117,7 @@ const Shop = () => {
     const [products, setProducts] = useState<Product[]>([]);
 
     // page info
-    const [currentPage, setCurrentPage] = useState<number>(0);
+    const [currentPage, setCurrentPage] = useState<number>(localStorage.getItem('page') || 0);
     const [totalElements, setTotalElements] = useState<number>(0);
     const [totalPages, setTotalPages] = useState<number>(0);
 
@@ -180,9 +180,9 @@ const Shop = () => {
     }, [location]);
 
     useEffect(() => {
-        setIsProductsLoading(true);
+        localStorage.setItem('page', JSON.stringify(0));
         setCurrentPage(0);
-        getProductsSorted(category, currentPage, sort.type, sort.value);
+        getProductsSorted(category, 0, sort.type, sort.value);
     }, [sort]);
 
     return (
@@ -212,7 +212,7 @@ const Shop = () => {
                             <Flex justifyContent="space-between" gap={10}>
                                 <Heading fontSize={{ base: "2rem", xl: "3.5rem" }} fontWeight="900">Resultados</Heading>
                                 <Flex gap={4} alignSelf="flex-end">
-                                    {buttons.map((value, index) => <SortButton key={index} text={value} onClick={handleSortButtonClick}/>)}
+                                    <SortButton values={buttons} onClick={handleSortButtonClick}/>
                                 </Flex>
                             </Flex>
                             <Text fontSize={{ base: "0.8rem", xl: "1.1rem" }} ml={{ base: "0.2rem", xl: "0.5rem" }}>{totalElements} productos</Text>
@@ -239,8 +239,8 @@ const Shop = () => {
                                         </Skeleton>
                                     )}
                                 </SimpleGrid>
-                                <Paginator pages={totalPages} handleClick={(page: number) => getProducts(category, page)}/>
-                         </>
+                                <Paginator pages={totalPages} handleClick={(page: number) => {sort.type != 'none' ? getProductsSorted(category, page, sort.type, sort.value) : getProducts(category, page)}}/>
+                            </>
                         )}
                     </Flex>
                 </Flex>
