@@ -15,7 +15,6 @@ import hamsterBanner from '/src/assets/img/hamster-banner.svg';
 import pezBanner from '/src/assets/img/pez-banner.svg';
 import { getProductsByCategory, getProductsSortedByPopularity, getProductsSortedByPrice } from '../services/ProductsService';
 import { Product } from '../types/product';
-import { CustomResponse } from '../types/customResponse';
 import SortButton from '../components/Shop/SortButton';
 
 const buttons = ['Todo', 'Mas relevante', 'Mayor precio', 'Menor precio'];
@@ -73,7 +72,9 @@ const Shop = () => {
         } catch (error) {
             console.error("Failed to fetch products:", error);
         } finally {
-            setIsProductsLoading(false);
+            setTimeout(() => {
+                setIsProductsLoading(false);
+            }, 2000);
         }
     };
 
@@ -100,7 +101,9 @@ const Shop = () => {
         } catch (error) {
             console.error("Failed to fetch products:", error);
         } finally {
-            setIsProductsLoading(false);
+            setTimeout(() => {
+                setIsProductsLoading(false);
+            }, 2000);
         }
     };
     
@@ -181,7 +184,7 @@ const Shop = () => {
         setCurrentPage(0);
         getProductsSorted(category, currentPage, sort.type, sort.value);
     }, [sort]);
-    
+
     return (
         <>
             {isLoading && <Loading />}
@@ -214,27 +217,31 @@ const Shop = () => {
                             </Flex>
                             <Text fontSize={{ base: "0.8rem", xl: "1.1rem" }} ml={{ base: "0.2rem", xl: "0.5rem" }}>{totalElements} productos</Text>
                         </Skeleton>
-                        <SimpleGrid columns={{base: '2', xl: '3'}} spacing={9} mt="2rem">
-                            {isProductsLoading ? (
-                                <Spinner/>
-                            ) : products?.map((product: any, index: number) =>
-                                <Skeleton key={index} isLoaded={!isLoading} startColor='brand.darkGreen' endColor='brand.lightGreen'>
-                                    <Card
-                                        id={product.id}
-                                        name={cutTitle(product.title)}
-                                        image={product.image_url}
-                                        rating={product.score}
-                                        voters={product.score_voters}
-                                        price={product.price}
-                                        quota={product.price / 6}
-                                        discount={product.discount}
-                                        stock={product.stock}
-                                        bestseller={product.bestseller == 1 ? true : false}
-                                    />
-                                </Skeleton>
-                            )}
-                        </SimpleGrid>
-                        <Paginator pages={totalPages} handleClick={(page: number) => getProducts(category, page)}/>
+                        {isProductsLoading ? (
+                            <Spinner boxSize={'5rem'} alignSelf={'center'}/>
+                        ) : (
+                            <>
+                                <SimpleGrid columns={{base: '2', xl: '3'}} spacing={9} mt="2rem">
+                                    {products?.map((product: any, index: number) =>
+                                        <Skeleton key={index} isLoaded={!isLoading} startColor='brand.darkGreen' endColor='brand.lightGreen'>
+                                            <Card
+                                                id={product.id}
+                                                name={cutTitle(product.title)}
+                                                image={product.image_url}
+                                                rating={product.score}
+                                                voters={product.score_voters}
+                                                price={product.price}
+                                                quota={product.price / 6}
+                                                discount={product.discount}
+                                                stock={product.stock}
+                                                bestseller={product.bestseller == 1 ? true : false}
+                                            />
+                                        </Skeleton>
+                                    )}
+                                </SimpleGrid>
+                                <Paginator pages={totalPages} handleClick={(page: number) => getProducts(category, page)}/>
+                         </>
+                        )}
                     </Flex>
                 </Flex>
             </Box>
