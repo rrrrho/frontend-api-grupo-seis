@@ -70,6 +70,7 @@ export const UsersTable = ({
                 color="brand.darkGreen"
                 fontSize="md"
                 borderColor={"brand.darkGreen"}
+                padding={3.5}
               >
                 ID
               </Th>
@@ -78,6 +79,7 @@ export const UsersTable = ({
                 color="brand.darkGreen"
                 fontSize="md"
                 borderColor={"brand.darkGreen"}
+                padding={3.5}
               >
                 NOMBRE
               </Th>
@@ -86,6 +88,7 @@ export const UsersTable = ({
                 color="brand.darkGreen"
                 fontSize="md"
                 borderColor={"brand.darkGreen"}
+                padding={3.5}
               >
                 APELLIDO
               </Th>
@@ -94,6 +97,7 @@ export const UsersTable = ({
                 color="brand.darkGreen"
                 fontSize="md"
                 borderColor={"brand.darkGreen"}
+                padding={3.5}
               >
                 DNI
               </Th>
@@ -102,6 +106,7 @@ export const UsersTable = ({
                 color="brand.darkGreen"
                 fontSize="md"
                 borderColor={"brand.darkGreen"}
+                padding={3.5}
               >
                 TELÉFONO
               </Th>
@@ -110,6 +115,7 @@ export const UsersTable = ({
                 color="brand.darkGreen"
                 fontSize="md"
                 borderColor={"brand.darkGreen"}
+                padding={3.5}
               >
                 CORREO
               </Th>
@@ -118,6 +124,7 @@ export const UsersTable = ({
                 color="brand.darkGreen"
                 fontSize="md"
                 borderColor={"brand.darkGreen"}
+                padding={3.5}
               >
                 ROL
               </Th>
@@ -126,6 +133,7 @@ export const UsersTable = ({
                 color="brand.darkGreen"
                 fontSize="md"
                 borderColor={"brand.darkGreen"}
+                padding={3.5}
               >
                 ESTADO
               </Th>
@@ -134,6 +142,7 @@ export const UsersTable = ({
                 color="brand.darkGreen"
                 fontSize="md"
                 borderColor={"brand.darkGreen"}
+                padding={3.5}
               >
                 ELIMINAR
               </Th>

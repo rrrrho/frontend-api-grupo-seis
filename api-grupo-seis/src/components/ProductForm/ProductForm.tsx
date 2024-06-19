@@ -130,7 +130,7 @@ const ProductForm = ({
         {
           headers: {
             Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdTEyM2Fubm5ubm4xMjNubkBleGFtcGxlLmNvbSIsImlhdCI6MTcxODUxMTcxNCwiZXhwIjoxNzE4NTQ3NzE0fQ.QzC__TbToUZWsUI-xuDScLrzi7pxmKNcr4gvy0uTf-4",
+              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdTEyM2Fubm5ubm4xMjNubkBleGFtcGxlLmNvbSIsImlhdCI6MTcxODgwMjg1MiwiZXhwIjoxNzE4ODM4ODUyfQ.cU4cLsj4MpXW1vJIxS-vvs46LonorcL86uz4R5WecLs",
           },
         }
       );
@@ -160,7 +160,7 @@ const ProductForm = ({
         {
           headers: {
             Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdTEyM2Fubm5ubm4xMjNubkBleGFtcGxlLmNvbSIsImlhdCI6MTcxODUxMTcxNCwiZXhwIjoxNzE4NTQ3NzE0fQ.QzC__TbToUZWsUI-xuDScLrzi7pxmKNcr4gvy0uTf-4",
+              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdTEyM2Fubm5ubm4xMjNubkBleGFtcGxlLmNvbSIsImlhdCI6MTcxODgwMjg1MiwiZXhwIjoxNzE4ODM4ODUyfQ.cU4cLsj4MpXW1vJIxS-vvs46LonorcL86uz4R5WecLs",
           },
         }
       );

@@ -1,6 +1,6 @@
 [
   {
-    "id": 3,
+    "id": 55,
     "imageUrl": "/src/assets/img/cats/catChowCarneYPollo.webp",
     "title": "Cat Chow Adulto Carne y Pollo - 15 Kg",
     "description": "Alimento balanceado para gatos adultos sabor carne y pollo",
@@ -15,7 +15,7 @@
     "bestseller": true
   },
   {
-    "id": 6,
+    "id": 56,
     "imageUrl": "/src/assets/img/cats/oldPrinceNovel.png",
     "title": "Alimento Old Prince Novel Gato Adulto - 3 Kg",
     "description": "Alimento completo para gatos adultos.",
