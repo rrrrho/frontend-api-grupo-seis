@@ -47,7 +47,8 @@ interface Parameter {
     page: number,
     price?: string,
     bestseller?: string
-    brand?: string
+    brand?: string,
+    stage?: string
 }
 
 const Shop = () => {
@@ -65,11 +66,11 @@ const Shop = () => {
         return counterparts[animal.toLowerCase()];
     }
 
-    const getProducts = async ({page, category, bestseller, price, brand}: Parameter) => {
+    const getProducts = async ({page, category, bestseller, price, brand, stage}: Parameter) => {
         window.scrollTo(0, 0);
         setIsProductsLoading(true);
         try {
-            const response = await getProductsFiltered({ category, page, bestseller, price, brand });
+            const response = await getProductsFiltered({ category, page, bestseller, price, brand, stage });
             if (response.status === 200) {
                 setProducts(response.data.content);
                 setCurrentPage(response.data.currentPage);
@@ -121,7 +122,8 @@ const Shop = () => {
     interface Filters {
         brand?: string,
         age?: number,
-        size?: string
+        size?: string,
+        stage?: string
     }
     const [filters, setFilters] = useState<Filters>();
 
@@ -148,6 +150,18 @@ const Shop = () => {
         switch (name) {
             case 'Marca':
                 setFilters({...filters, brand: value});
+                break;
+            case 'Edad':
+                let stage;
+                if (value === 'Adulto senior') {
+                    stage = 'SENIOR'
+                } else if (value === 'Adulto') {
+                    stage = 'ADULT'
+                } else if (value === 'Cachorro') {
+                    stage = 'BABY'
+                }
+
+                setFilters({...filters, stage: stage});
                 break;
             default:
                 break;
@@ -183,16 +197,16 @@ const Shop = () => {
 
         switch (sort.type) {
             case 'Mayor precio':
-                getProducts({category: category, page: 0, price: sort.value, brand: filters?.brand});
+                getProducts({category: category, page: 0, price: sort.value, brand: filters?.brand, stage: filters?.stage});
                 break;
             case 'Menor precio':
-                getProducts({category: category, page: 0, price: sort.value, brand: filters?.brand});
+                getProducts({category: category, page: 0, price: sort.value, brand: filters?.brand, stage: filters?.stage});
                 break;
             case 'Mas relevante':
-                getProducts({category: category, page: 0, bestseller: sort.value, brand: filters?.brand});
+                getProducts({category: category, page: 0, bestseller: sort.value, brand: filters?.brand, stage: filters?.stage});
                 break;
             default:
-                getProducts({category: category, page: 0, brand: filters?.brand});
+                getProducts({category: category, page: 0, brand: filters?.brand, stage: filters?.stage});
                 break;
             };
 
