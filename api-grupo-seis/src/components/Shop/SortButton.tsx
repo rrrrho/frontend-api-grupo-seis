@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import { Box, Button } from "@chakra-ui/react";
 import React, { useState } from "react";
 
 interface Props {
@@ -7,30 +7,35 @@ interface Props {
 };
 
 const renderButtons = ({values, onClick}: Props) => {
-    const [activeFilter, setActiveFilter] = useState<string>(localStorage.getItem('filter') || 'none')
+    const [activeFilter, setActiveFilter] = useState<string>('Todo')
     const buttons: JSX.Element[] = [];
 
     const handleClick = (text: string) => {
         setActiveFilter(text);
-        localStorage.setItem('filter', text);
         onClick(text);
     };
     
     for (let i = 0; i < values.length; i++) {
         buttons.push(
-            <Button 
+            <Box
+            as={'button'}
             key={i}
-            variant={'brandPrimary'}
+            disabled={activeFilter === values[i]}
             bg={activeFilter === values[i] ? "brand.lightBeige" : "brand.darkBrown"}
             color={activeFilter === values[i] ? "brand.darkBrown" : "brand.lightBeige"}
-            h={'fit-content'} 
-            py={{ base: "0.6rem", xl: "0.8rem" }} 
-            fontSize={{ base: "0.7rem", xl: "1rem" }} 
-            pr={{ base: "0.7rem", xl: "1.2rem" }} 
-            pl={{ base: "0.7rem", xl: "1.2rem" }}
+            fontWeight="600"
+            px={'1rem'}
+            h={'3.1rem'}
+            borderRadius={8}
+            transition="all .2s ease-in-out"
+            _hover={activeFilter != values[i] ? {
+                bg: "brand.lightBeige",
+                color: "brand.darkBrown",
+                transform: "scale(1.1)"
+            } : ''}
             onClick={() => handleClick(values[i])}>
                 {values[i]}
-            </Button>
+            </Box>
         );
     };
 

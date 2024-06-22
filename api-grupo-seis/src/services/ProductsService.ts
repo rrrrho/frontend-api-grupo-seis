@@ -8,32 +8,35 @@ interface Props {
   page: number,
   price?: string,
   bestseller?: string
+  brand?: string
 }
 
-export const getProductsByCategory = async ({
+export const getProductsFiltered = async ({
   category,
-  page
+  page,
+  bestseller,
+  price,
+  brand
 }: Props): Promise<Response<Product[]>> => {
-  const response = await httpService.get(`${BASE_URL}${GET_ALL_PRODUCTS}?page=${page}&category=${category}`);
-  console.log(response)
-  return response;
-};
+  let url = `${BASE_URL}${GET_ALL_PRODUCTS}?page=${page}`;
 
-export const getProductsSortedByPrice = async ({
-  category,
-  page, 
-  price
-}: Props): Promise<Response<Product[]>> => {
-  const response = await httpService.get(`${BASE_URL}${GET_ALL_PRODUCTS}?page=${page}&category=${category}&price=${price}`);
-  return response;
-};
+  if (category !== undefined && category !== null && category !== '') {
+    url += `&category=${category}`;
+  }
 
-export const getProductsSortedByPopularity = async ({
-  category,
-  page, 
-  bestseller
-}: Props): Promise<Response<Product[]>> => {
-  const response = await httpService.get(`${BASE_URL}${GET_ALL_PRODUCTS}?page=${page}&category=${category}&bestseller=${bestseller}`);
+  if (bestseller !== undefined && bestseller !== null && bestseller !== '' && bestseller === 'Mas relevante') {
+    url += `&bestseller=${bestseller}`;
+  }
+
+  if (price !== undefined && price !== null && price !== '' && (price === 'asc' || price === 'desc')) {
+    url += `&price=${price}`;
+  }
+
+  if (brand !== undefined && brand !== null && brand !== '') {
+    url += `&brand=${brand}`;
+  }
+
+  const response = await httpService.get(url);
   return response;
 };
 

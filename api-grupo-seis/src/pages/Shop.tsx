@@ -13,12 +13,12 @@ import dogPoster from '/src/assets/img/dogs/dog-poster.png';
 import hamsterPoster from '/src/assets/img/hamsters/hamster-poster.png'
 import hamsterBanner from '/src/assets/img/hamster-banner.svg';
 import pezBanner from '/src/assets/img/pez-banner.svg';
-import { getProductsByCategory, getProductsSortedByPopularity, getProductsSortedByPrice } from '../services/ProductsService';
+import { getProductsByCategory, getProductsFiltered, getProductsSortedByPopularity, getProductsSortedByPrice } from '../services/ProductsService';
 import { Product } from '../types/product';
 import SortButton from '../components/Shop/SortButton';
 
 const buttons = ['Todo', 'Mas relevante', 'Mayor precio', 'Menor precio'];
-const filters = [
+const filterss = [
     {
         name: 'Marca',
         values: ['Fancy Feast', 'Gentle Giants', 'Purina Pro Plan', 'Cat Chow', 'Mon Ami']
@@ -42,6 +42,14 @@ interface Decoration {
     poster?: string
 }
 
+interface Parameter {
+    category: string,
+    page: number,
+    price?: string,
+    bestseller?: string
+    brand?: string
+}
+
 const Shop = () => {
     const extractCategory = (url: string): string => {
         return url.substring(url.lastIndexOf('/') + 1);
@@ -57,39 +65,11 @@ const Shop = () => {
         return counterparts[animal.toLowerCase()];
     }
 
-    const getProducts = async (category: string, page: number) => {
+    const getProducts = async ({page, category, bestseller, price, brand}: Parameter) => {
+        window.scrollTo(0, 0);
         setIsProductsLoading(true);
         try {
-            const response = await getProductsByCategory({ category, page });
-            if (response.status === 200) {
-                setProducts(response.data.content);
-                setCurrentPage(response.data.currentPage);
-                setTotalElements(response.data.totalElements);
-                setTotalPages(response.data.totalPages);
-            } else {
-                console.error("Failed to fetch products:", response.data.errorMessage);
-            }
-        } catch (error) {
-            console.error("Failed to fetch products:", error);
-        } finally {
-            setTimeout(() => {
-                setIsProductsLoading(false);
-            }, 2000);
-        }
-    };
-
-    const getProductsSorted = async (category: string, page: number, sortType: string, sortValue: string) => {
-        setIsProductsLoading(true);
-        try {
-            let response;
-            if (sortType === 'Mayor precio' || sortType === 'Menor precio') {
-                response = await getProductsSortedByPrice({ category, page, price: sortValue });
-            } else if (sortType === 'Mas relevante') {
-                response = await getProductsSortedByPopularity({ category, page, bestseller: sortValue });
-            } else {
-                getProducts(category, page);
-                return;
-            }
+            const response = await getProductsFiltered({ category, page, bestseller, price, brand });
             if (response.status === 200) {
                 setProducts(response.data.content);
                 setCurrentPage(response.data.currentPage);
@@ -137,6 +117,14 @@ const Shop = () => {
     }
     const [sort, setSort] = useState<Sort>({type: 'none', value: 'none'});
 
+    // filters state
+    interface Filters {
+        brand?: string,
+        age?: number,
+        size?: string
+    }
+    const [filters, setFilters] = useState<Filters>();
+
     const handleSortButtonClick = (text: string) => {
         switch (text) {
             case 'Mayor precio':
@@ -153,7 +141,17 @@ const Shop = () => {
                 break;
             default:
                 break;
-        }
+        };
+    };
+
+    const handleFilterButtonClick = (name: string, value: string) => {
+        switch (name) {
+            case 'Marca':
+                setFilters({...filters, brand: value});
+                break;
+            default:
+                break;
+        };
     };
 
     useEffect(() => {
@@ -175,15 +173,30 @@ const Shop = () => {
                 setDecoration(undefined);
                 break;
         }
-        getProducts(category, currentPage);
+        getProducts({category: category, page: currentPage});
         setIsLoading(false);
     }, [location]);
 
     useEffect(() => {
         localStorage.setItem('page', JSON.stringify(0));
         setCurrentPage(0);
-        getProductsSorted(category, 0, sort.type, sort.value);
-    }, [sort]);
+
+        switch (sort.type) {
+            case 'Mayor precio':
+                getProducts({category: category, page: 0, price: sort.value, brand: filters?.brand});
+                break;
+            case 'Menor precio':
+                getProducts({category: category, page: 0, price: sort.value, brand: filters?.brand});
+                break;
+            case 'Mas relevante':
+                getProducts({category: category, page: 0, bestseller: sort.value, brand: filters?.brand});
+                break;
+            default:
+                getProducts({category: category, page: 0, brand: filters?.brand});
+                break;
+            };
+
+    }, [sort, filters]);
 
     return (
         <>
@@ -198,9 +211,9 @@ const Shop = () => {
                 </Skeleton>
                 <Flex justifyContent="center" mt="3rem" gap={20}>
                     <Flex gap={5} w={{base: '28vw', xl: "22vw"}} flexDir="column">
-                        {filters.map((filter, index) =>
+                        {filterss.map((filterx, index) =>
                             <Skeleton key={index} isLoaded={!isLoading} startColor='brand.darkGreen' endColor='brand.lightGreen'>
-                                <Filter name={filter.name} options={filter.values} />
+                                <Filter name={filterx.name} options={filterx.values} onClick={handleFilterButtonClick}/>
                             </Skeleton>
                         )}
                         <Box>
@@ -239,7 +252,7 @@ const Shop = () => {
                                         </Skeleton>
                                     )}
                                 </SimpleGrid>
-                                <Paginator pages={totalPages} handleClick={(page: number) => {sort.type != 'none' ? getProductsSorted(category, page, sort.type, sort.value) : getProducts(category, page)}}/>
+                                <Paginator pages={totalPages} handleClick={(page: number) => getProducts({category: category, page: page, price: sort.value, bestseller: sort.value})}/>
                             </>
                         )}
                     </Flex>
