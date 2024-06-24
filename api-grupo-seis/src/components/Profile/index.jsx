@@ -19,8 +19,6 @@ const Profile = () => {
     <>
       {isLoading && <Loading />}
       <div>
-        <Box w={"100%"} background={"brand.darkMustard"} h={"10vh"} />
-
         <Tabs isFitted variant="enclosed" colorScheme="green">
           <TabList mb="1em">
             <Tab>Perfil</Tab>
