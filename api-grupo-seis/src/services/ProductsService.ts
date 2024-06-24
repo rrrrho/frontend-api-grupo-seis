@@ -9,7 +9,9 @@ interface Props {
   price?: string,
   bestseller?: string
   brand?: string,
-  stage?: string
+  stage?: string,
+  min?: number,
+  max?: number
 }
 
 export const getProductsFiltered = async ({
@@ -18,7 +20,9 @@ export const getProductsFiltered = async ({
   bestseller,
   price,
   brand,
-  stage
+  stage,
+  min,
+  max
 }: Props): Promise<Response<Product[]>> => {
   let url = `${BASE_URL}${GET_ALL_PRODUCTS}?page=${page}`;
 
@@ -26,7 +30,7 @@ export const getProductsFiltered = async ({
     url += `&category=${category}`;
   }
 
-  if (bestseller !== undefined && bestseller !== null && bestseller !== '' && bestseller === 'Mas relevante') {
+  if (bestseller !== undefined && bestseller !== null && bestseller !== '' && bestseller === 'desc') {
     url += `&bestseller=${bestseller}`;
   }
 
@@ -40,6 +44,14 @@ export const getProductsFiltered = async ({
   
   if (stage !== undefined && stage !== null && stage !== '') {
     url += `&stage=${stage}`;
+  }
+
+  if (min !== undefined && min !== null) {
+    url += `&min=${min}`;
+  }
+
+  if (max !== undefined && max !== null) {
+    url += `&max=${max}`;
   }
 
   const response = await httpService.get(url);

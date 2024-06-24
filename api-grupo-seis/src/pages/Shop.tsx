@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Flex, Heading, SimpleGrid, Text, Image, Skeleton, Spinner } from '@chakra-ui/react';
-import Card from '/src/components/Shop/Card';
-import Paginator from '/src/components/Shop/Paginator';
-import Filter from '/src/components/Shop/Filter';
+import { Box, Flex, Heading, SimpleGrid, Text, Image, Skeleton, Spinner, Center } from '@chakra-ui/react';
+import Card from '../components/Shop/Card';
+import Paginator from '../components/Shop/Paginator';
+import Filter from '../components/Shop/Filter';
 import { useLocation } from 'react-router-dom';
-import { cutTitle } from '/src/utils/card';
-import Loading from '/src/components/Loading/Loading';
-import catBanner from '/src/assets/img/cat-banner.svg';
-import catPoster from '/src/assets/img/cats/sales-poster.png';
-import dogBanner from '/src/assets/img/dog-banner.svg';
-import dogPoster from '/src/assets/img/dogs/dog-poster.png';
-import hamsterPoster from '/src/assets/img/hamsters/hamster-poster.png'
-import hamsterBanner from '/src/assets/img/hamster-banner.svg';
-import pezBanner from '/src/assets/img/pez-banner.svg';
-import { getProductsByCategory, getProductsFiltered, getProductsSortedByPopularity, getProductsSortedByPrice } from '../services/ProductsService';
+import { cutTitle } from '../utils/card';
+import Loading from '../components/Loading/Loading';
+import catBanner from '../assets/img/cat-banner.svg';
+import catPoster from '../assets/img/cats/sales-poster.png';
+import dogBanner from '../assets/img/dog-banner.svg';
+import dogPoster from '../assets/img/dogs/dog-poster.png';
+import hamsterPoster from '../assets/img/hamsters/hamster-poster.png'
+import hamsterBanner from '../assets/img/hamster-banner.svg';
+import pezBanner from '../assets/img/pez-banner.svg';
+import { getProductsFiltered } from '../services/ProductsService';
 import { Product } from '../types/product';
 import SortButton from '../components/Shop/SortButton';
+import PriceSlider from '../components/Shop/PriceSlider';
+import noProducts from './../assets/img/no-products.svg'
 
 const buttons = ['Todo', 'Mas relevante', 'Mayor precio', 'Menor precio'];
 const filterss = [
@@ -27,6 +29,7 @@ const filterss = [
         name: 'Edad',
         values: ['Cachorro', 'Adulto', 'Adulto senior']
     },
+    /*
     {
         name: 'Tipo',
         values: ['Seco', 'Humedo', 'Medicado', 'Natural']
@@ -35,6 +38,7 @@ const filterss = [
         name: 'Tamaño',
         values: ['Mini', 'Pequeño', 'Grande', 'Gigante']
     }
+    */
 ];
 
 interface Decoration {
@@ -48,7 +52,9 @@ interface Parameter {
     price?: string,
     bestseller?: string
     brand?: string,
-    stage?: string
+    stage?: string,
+    min?: number,
+    max?: number
 }
 
 const Shop = () => {
@@ -66,11 +72,10 @@ const Shop = () => {
         return counterparts[animal.toLowerCase()];
     }
 
-    const getProducts = async ({page, category, bestseller, price, brand, stage}: Parameter) => {
-        window.scrollTo(0, 0);
+    const getProducts = async ({page, category, bestseller, price, brand, stage, min, max}: Parameter) => {
         setIsProductsLoading(true);
         try {
-            const response = await getProductsFiltered({ category, page, bestseller, price, brand, stage });
+            const response = await getProductsFiltered({ category, page, bestseller, price, brand, stage, min, max });
             if (response.status === 200) {
                 setProducts(response.data.content);
                 setCurrentPage(response.data.currentPage);
@@ -98,7 +103,7 @@ const Shop = () => {
     const [products, setProducts] = useState<Product[]>([]);
 
     // page info
-    const [currentPage, setCurrentPage] = useState<number>(localStorage.getItem('page') || 0);
+    const [currentPage, setCurrentPage] = useState<number>(parseInt(localStorage.getItem('page') as string) || 0);
     const [totalElements, setTotalElements] = useState<number>(0);
     const [totalPages, setTotalPages] = useState<number>(0);
 
@@ -123,7 +128,9 @@ const Shop = () => {
         brand?: string,
         age?: number,
         size?: string,
-        stage?: string
+        stage?: string,
+        min?: number,
+        max?: number
     }
     const [filters, setFilters] = useState<Filters>();
 
@@ -146,10 +153,11 @@ const Shop = () => {
         };
     };
 
-    const handleFilterButtonClick = (name: string, value: string) => {
+    const handleFilterButtonClick = (name: string, value: string | number[]) => {
+        console.log(value)
         switch (name) {
             case 'Marca':
-                setFilters({...filters, brand: value});
+                setFilters({...filters, brand: value as string});
                 break;
             case 'Edad':
                 let stage;
@@ -162,6 +170,9 @@ const Shop = () => {
                 }
 
                 setFilters({...filters, stage: stage});
+                break;
+            case 'min/max':
+                setFilters({...filters, min: value[0] as number, max: value[1] as number});
                 break;
             default:
                 break;
@@ -188,28 +199,39 @@ const Shop = () => {
                 break;
         }
         getProducts({category: category, page: currentPage});
-        setIsLoading(false);
+        setTimeout(() => setIsLoading(false), 2000)
     }, [location]);
 
     useEffect(() => {
         localStorage.setItem('page', JSON.stringify(0));
         setCurrentPage(0);
 
+        const parameters = {
+            category: category,
+            page: 0,
+            price: '',
+            bestseller: '',
+            brand: filters?.brand,
+            stage: filters?.stage,
+            min: filters?.min,
+            max: filters?.max
+        };
+
         switch (sort.type) {
             case 'Mayor precio':
-                getProducts({category: category, page: 0, price: sort.value, brand: filters?.brand, stage: filters?.stage});
+                parameters.price = sort.value;
                 break;
             case 'Menor precio':
-                getProducts({category: category, page: 0, price: sort.value, brand: filters?.brand, stage: filters?.stage});
+                parameters.price = sort.value;
                 break;
             case 'Mas relevante':
-                getProducts({category: category, page: 0, bestseller: sort.value, brand: filters?.brand, stage: filters?.stage});
+                parameters.bestseller = sort.value;
                 break;
             default:
-                getProducts({category: category, page: 0, brand: filters?.brand, stage: filters?.stage});
                 break;
-            };
+        }
 
+        getProducts(parameters);
     }, [sort, filters]);
 
     return (
@@ -223,8 +245,11 @@ const Shop = () => {
                         </Box>
                     </Box>
                 </Skeleton>
-                <Flex justifyContent="center" mt="3rem" gap={20}>
+                <Flex justifyContent="center" mt="3rem" mb={products.length ? '0rem' : '3rem'} gap={20}>
                     <Flex gap={5} w={{base: '28vw', xl: "22vw"}} flexDir="column">
+                        <Skeleton isLoaded={!isLoading} startColor='brand.darkGreen' endColor='brand.lightGreen'>
+                            <PriceSlider name={'Price'} onClick={handleFilterButtonClick} isLoading={isLoading}/>
+                        </Skeleton>
                         {filterss.map((filterx, index) =>
                             <Skeleton key={index} isLoaded={!isLoading} startColor='brand.darkGreen' endColor='brand.lightGreen'>
                                 <Filter name={filterx.name} options={filterx.values} onClick={handleFilterButtonClick}/>
@@ -244,13 +269,11 @@ const Shop = () => {
                             </Flex>
                             <Text fontSize={{ base: "0.8rem", xl: "1.1rem" }} ml={{ base: "0.2rem", xl: "0.5rem" }}>{totalElements} productos</Text>
                         </Skeleton>
-                        {isProductsLoading ? (
-                            <Spinner boxSize={'5rem'} alignSelf={'center'}/>
-                        ) : (
+                        { products.length ? (
                             <>
                                 <SimpleGrid columns={{base: '2', xl: '3'}} spacing={9} mt="2rem">
                                     {products?.map((product: any, index: number) =>
-                                        <Skeleton key={index} isLoaded={!isLoading} startColor='brand.darkGreen' endColor='brand.lightGreen'>
+                                        <Skeleton key={index} isLoaded={!isProductsLoading} startColor='brand.darkGreen' endColor='brand.lightGreen'>
                                             <Card
                                                 id={product.id}
                                                 name={cutTitle(product.title)}
@@ -266,8 +289,12 @@ const Shop = () => {
                                         </Skeleton>
                                     )}
                                 </SimpleGrid>
-                                <Paginator pages={totalPages} handleClick={(page: number) => getProducts({category: category, page: page, price: sort.value, bestseller: sort.value})}/>
+                                <Paginator pages={totalPages} handleClick={(page: number) => getProducts({category: category, page: page, bestseller: sort.value, price: sort.value, brand: filters?.brand, stage: filters?.stage, min: filters?.min, max: filters?.max})}/>
                             </>
+                        ) : (
+                            <Center my={10}>
+                                <Image src={noProducts}/>
+                            </Center>
                         )}
                     </Flex>
                 </Flex>
