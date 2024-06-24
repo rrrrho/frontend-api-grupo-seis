@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, Flex, Icon } from "@chakra-ui/react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
@@ -8,12 +8,11 @@ interface Props {
 };
 
 const Paginator: React.FC<Props> = ({ pages, handleClick }: Props) => {
-    const page = localStorage.getItem('page');
-    const [activePage, setActivePage] = useState<number>(page ? parseInt(page) : 0);
+    let activePage = parseInt(localStorage.getItem('page') as string) | 0;
 
     const handleButtonClick = (page: number) => {
         if (page < pages && page > -1) {
-            setActivePage(page); 
+            activePage = page;
             localStorage.setItem('page', JSON.stringify(page)); 
             handleClick(page);
         };
