@@ -6,7 +6,7 @@ import { setUser } from "../context/slices/userSlice";
 import Loading from "../components/Loading/Loading";
 import ModalCountdown from "../components/Modal/ModalCountdown";
 import ModalError from "../components/Modal/ModalError";
-import NavLink from "../components/Layout/Header/NavLink";
+import { loginUser } from "../services/LoginService";
 
 const Login = () => {
     const [email, setEmail] = useState<string>("");
@@ -17,44 +17,49 @@ const Login = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const users = [
-        {
-            name: 'Juana',
-            lastname: 'Lopez',
-            email: 'juana12@gmail.com',
-            password: '123'
-        },
-        {
-            name: 'Pedro',
-            lastname: 'Hernandez',
-            email: 'pedrito123@gmail.com',
-            password: '1234'
-        }
-    ]
-
     useEffect(() => {
         setTimeout(() => {
             setIsLoading(false);
         }, 2000);
     }, []);
 
-    const handleSubmit = (e: { preventDefault: () => void; }) => {
+    const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
 
-        let user = users.find(u => u.email == email && u.password == password)
+        try {
+            const response = await loginUser({
+              email: email,
+              password: password,
+            });
+      
+            if (response.statusCode === 200) {
+              const token = response.content?.token;
+      
+              response.content.email && localStorage.setItem('user', JSON.stringify({ 
+                name: response.content.name, 
+                lastName: response.content.lastname, 
+                id: response.content.id,
+              }))
 
-        if (user) {
-            dispatch(setUser({ name: user.name, lastName: user.lastname, id: 1 }));
-            localStorage.setItem('user', JSON.stringify({ name: user.name, lastName: user.lastname }));
-            localStorage.setItem("isLogged", "true");
+              localStorage.setItem("isLogged", "true");
+      
+              if (token) {
+                // console.log("Token:", token);
+                localStorage.setItem("token", token);
+              }
 
-            onOpenSuccess();
+              dispatch(setUser({ name: response.content.name, lastName: response.content.lastname, id: response.content.id }));
 
-            setTimeout(() => {
+              onOpenSuccess();
+              setTimeout(() => {
                 navigate('/');
-            }, 3000);
-        } else {
+            }, 2000);
+            }
+        } catch (error) {
+            console.error("Error en el inicio de sesión:", error);
             onOpenError();
+        } finally {
+            setIsLoading(false);
         }
     };
 

@@ -1,10 +1,10 @@
 import { Box, Flex, Heading, Image, Grid, GridItem, Text, Skeleton } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import Banner from "/src/components/Home/Banner";
 import dogImage from "/src/assets/img/home/dog.png"; 
 import catImage from "/src/assets/img/home/cat.png"; 
 import pecesImage from "/src/assets/img/home/pez.png";
 import hamstersImage from "/src/assets/img/home/hamnster.png";
-import { useEffect, useState } from "react";
 import Loading from "/src/components/Loading/Loading";
 import bestsellers from '../json/Home/bestsellers.json'
 import activeMind from '/src/assets/img/home/purinaActiveMind.svg';

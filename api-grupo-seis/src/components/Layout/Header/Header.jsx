@@ -26,11 +26,13 @@ const Header = () => {
 
     localStorage.removeItem("user");
     localStorage.removeItem("isLogged");
+    localStorage.removeItem("token");
     localStorage.removeItem("isLoggedAdmin");
+
     navigate("/");
     location.reload();
   };
-
+  
   return (
     <header>
       <Flex
