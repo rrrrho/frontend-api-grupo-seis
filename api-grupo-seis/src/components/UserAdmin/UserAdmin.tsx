@@ -15,6 +15,8 @@ const UserAdmin = () => {
   const [orderBy, setOrderBy] = useState<string>("");
   const [selectedPage, setSelectedPage] = useState<number>(0);
   const [totalPages, setTotalPages] = useState<number>(0);
+  const [isSelectedPagePaginator, setIsSelectedPagePaginator] =
+    useState<boolean>(false);
 
   const {
     isOpen: isDeleteOpen,
@@ -30,7 +32,7 @@ const UserAdmin = () => {
           lastname: query && filter === "lastname" ? query : undefined,
           email: query && filter === "email" ? query : undefined,
           sort: orderBy ? orderBy : undefined,
-          page: selectedPage,
+          page: query ? 0 : selectedPage,
         },
       });
       if (response.data.content.length === 0) {
@@ -42,6 +44,7 @@ const UserAdmin = () => {
     } catch (error) {
       console.error(error);
     }
+    setIsSelectedPagePaginator(false);
   };
 
   const fetchUserStateChange = async (id, state) => {
@@ -60,6 +63,11 @@ const UserAdmin = () => {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const setSelectedPagePaginator = (page: number) => {
+    setSelectedPage(page);
+    setIsSelectedPagePaginator(true);
   };
 
   const filterUsers = () => {
@@ -97,7 +105,7 @@ const UserAdmin = () => {
 
   useEffect(() => {
     fetchUsers();
-  }, [selectedPage, orderBy]);
+  }, [orderBy, isSelectedPagePaginator]);
 
   return (
     <Box px="2rem">
@@ -146,7 +154,7 @@ const UserAdmin = () => {
         m="2rem"
         totalPages={totalPages}
         selectedPage={selectedPage}
-        setSelectedPage={setSelectedPage}
+        setSelectedPage={setSelectedPagePaginator}
       />
     </Box>
   );
