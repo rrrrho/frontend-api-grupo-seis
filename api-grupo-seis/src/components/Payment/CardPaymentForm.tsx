@@ -9,7 +9,7 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 import { calcTotalCheckout } from "../../utils/checkout.tsx";
 import { formatPrice } from "../../utils/card.tsx";
@@ -17,9 +17,13 @@ import { useAppSelector } from "../../context/hooks.ts";
 
 type CardPaymentFormProps = {
   discount: number;
+  setLastFourDigits: (lastFourDigits: string) => void;
 };
 
-export const CardPaymentForm = ({ discount }: CardPaymentFormProps) => {
+export const CardPaymentForm = ({
+  discount,
+  setLastFourDigits,
+}: CardPaymentFormProps) => {
   const cartState = useAppSelector((state) => state.cart);
   const total = calcTotalCheckout(cartState, discount);
   const [cardNumber, setCardNumber] = useState<string>("");
@@ -28,7 +32,11 @@ export const CardPaymentForm = ({ discount }: CardPaymentFormProps) => {
   const [expirationYear, setExpirationYear] = useState<number>(0);
   const [cardHolder, setCardHolder] = useState<string>("");
   const [cardHolderDni, setCardHolderDni] = useState<string>("");
-  const [installments, setInstallments] = useState<number>(1);
+
+  useEffect(() => {
+    setLastFourDigits(cardNumber.slice(-4));
+  }, [cardNumber]);
+
   return (
     <Stack gap="1rem">
       <Flex align="center" w="100%">
@@ -107,25 +115,6 @@ export const CardPaymentForm = ({ discount }: CardPaymentFormProps) => {
           </NumberInput>
         </FormControl>
       </Flex>
-
-      <FormControl isRequired w="48.5%">
-        <FormLabel mb="0.1em">Cuotas</FormLabel>
-        <Select
-          placeholder="Seleccionar"
-          onChange={(e) => setInstallments(Number(e.target.value))}
-          variant="brandSecondary"
-          sx={{
-            option: {
-              backgroundColor: "brand.lightBeige",
-            },
-          }}
-        >
-          <option value="1">1 cuota de ${formatPrice(total)}</option>
-          <option value="3">3 cuotas ${formatPrice(total / 3)}</option>
-          <option value="6">6 cuotas ${formatPrice(total / 6)}</option>
-          <option value="12">12 cuotas ${formatPrice(total / 12)}</option>
-        </Select>
-      </FormControl>
     </Stack>
   );
 };

@@ -1,8 +1,8 @@
-import { Flex, HStack, Image, Text } from "@chakra-ui/react";
-import { formatPrice } from "../../utils/card.tsx";
+import { Flex, HStack, Image, Text, Box, Badge } from "@chakra-ui/react";
+import { formatPrice } from "../../utils/card";
 import React from "react";
-import { Product } from "../../types/product.ts";
-import { calculateDiscount } from "../../utils/card.tsx";
+import { Product } from "../../types/product";
+import { calculateDiscount } from "../../utils/card";
 
 type ProductProps = {
   product: Product;
@@ -16,15 +16,32 @@ export const ProductItem = ({ product, quantity }: ProductProps) => {
       align="center"
       borderColor="brand.darkBeige"
       justify="space-between"
+      position="relative"
     >
       <HStack>
-        <Image
-          src={product.image}
-          alt={product.name}
-          maxW="50px"
-          maxH="50px"
-          mb="0.5em"
-        />
+        <Box position="relative">
+          <Image
+            src={product.image}
+            alt={product.name}
+            maxW="50px"
+            maxH="50px"
+            mb="0.5em"
+          />
+          <Badge
+            position="absolute"
+            top="-10px"
+            right="-10px"
+            backgroundColor="brand.darkBrown"
+            color="brand.lightBeige"
+            borderRadius="full"
+            fontSize="xs"
+            px="2"
+            py="0.5"
+            boxShadow="md"
+          >
+            {quantity}
+          </Badge>
+        </Box>
         <Text fontWeight="semibold" fontSize="sm" textAlign="start">
           {product.name}
         </Text>

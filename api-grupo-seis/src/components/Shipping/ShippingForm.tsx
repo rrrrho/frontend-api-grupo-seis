@@ -7,7 +7,7 @@ import {
   NumberInputField,
   Stack,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 import ShippingOption from "../Cart/Shipping/ShippingOption";
 import options from "/src/json/Cart/options.json";
@@ -15,9 +15,13 @@ import { useAppSelector } from "../../context/hooks";
 
 type ShippingFormProps = {
   shippingNotSelected: boolean;
+  setShippingData: (data: string) => void;
 };
 
-export const ShippingForm = ({ shippingNotSelected }: ShippingFormProps) => {
+export const ShippingForm = ({
+  shippingNotSelected,
+  setShippingData,
+}: ShippingFormProps) => {
   const cartSlice = useAppSelector((state) => state.cart);
   const [address, setAddress] = useState<string>("");
   const [number, setNumber] = useState<string>("");
@@ -26,7 +30,9 @@ export const ShippingForm = ({ shippingNotSelected }: ShippingFormProps) => {
   );
   const [city, setCity] = useState<string>("");
   const [province, setProvince] = useState<string>("");
-  const [receiver, setReceiver] = useState<string>("");
+  useEffect(() => {
+    setShippingData(`${address}, ${number}, ${zipCode}, ${province}, ${city}`);
+  }, [address, number, zipCode, city, province, setShippingData]);
 
   return (
     <Stack gap="1rem" mt="1em">
@@ -76,14 +82,6 @@ export const ShippingForm = ({ shippingNotSelected }: ShippingFormProps) => {
           />
         </FormControl>
       </Flex>
-      <FormControl isRequired w="49.2%">
-        <FormLabel mb="0.1em">Nombre del receptor</FormLabel>
-        <Input
-          variant="brandSecondary"
-          value={receiver}
-          onChange={(e) => setReceiver(e.target.value)}
-        />
-      </FormControl>
       <ShippingOption options={options} postalCode={zipCode} />
       {shippingNotSelected && (
         <p style={{ color: "red", fontSize: "0.8em" }}>

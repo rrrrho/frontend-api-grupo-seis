@@ -31,7 +31,7 @@ export const OrderDetails = ({
       w="35vw"
       backgroundColor="rgba(78, 110, 82, 0.4)"
       borderRadius="10"
-      padding="1em"
+      padding="1.2em"
       gap="0.5rem"
     >
       <Heading variant="sectionTitle" fontSize="4xl">
