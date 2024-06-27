@@ -3,14 +3,17 @@ import React, { useState } from "react";
 
 interface Props {
   name: string,
-  options: string[]
+  options: string[],
+  onClick: (name: string, value: string)=>void
 };
 
-const Filter = ({name, options}: Props) => {
+const Filter = ({name, options, onClick}: Props) => {
   const [selectedOption, setSelectedOption] = useState<Array<string>>(['']);
  
   const handleCheckboxChange = (value) => {
     setSelectedOption([value]);
+
+    onClick(name, value);
   };
 
   return (
