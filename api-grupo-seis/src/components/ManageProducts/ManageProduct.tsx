@@ -27,6 +27,7 @@ import React, { useState } from "react";
 import { formatPrice, generateRating } from "../../utils/card";
 import products from "../../json/ManageProducts/manage-products-data.json";
 import ProductForm from "../ProductForm/ProductForm";
+import { deleteProduct } from "../../services/ProductsService";
 
 const ManageProductTable = () => {
   const [editingProduct, setEditingProduct] = useState<number>(0);
@@ -50,9 +51,10 @@ const ManageProductTable = () => {
 
   const fetchDelete = async (id: number) => {
     try {
-      await fetch(`http://localhost:8080/api/product/${id}`, {
-        method: "DELETE",
-      });
+      const response = await deleteProduct(id);
+      if (response.statusCode === 204) {
+        setProductsState(productsState.filter((p) => p.id !== id));
+      }
     } catch (error) {
       console.error(error);
     }

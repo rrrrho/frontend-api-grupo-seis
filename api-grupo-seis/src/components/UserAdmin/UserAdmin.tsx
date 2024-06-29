@@ -4,9 +4,13 @@ import { useEffect, useState } from "react";
 import { Search } from "./Search";
 import { Filters } from "./Filters";
 import { UsersTable } from "./UsersTable";
-import axios from "axios";
 import { User } from "../../types/user";
 import UserAdminPaginator from "./UserAdminPaginator";
+import {
+  changeUserState,
+  deleteUser,
+  getUsersFiltered,
+} from "../../services/UserService";
 
 const UserAdmin = () => {
   const [filter, setFilter] = useState<string>("email");
@@ -17,6 +21,7 @@ const UserAdmin = () => {
   const [totalPages, setTotalPages] = useState<number>(0);
   const [isSelectedPagePaginator, setIsSelectedPagePaginator] =
     useState<boolean>(false);
+  const [isShowAll, setIsShowAll] = useState<boolean>(false);
 
   const {
     isOpen: isDeleteOpen,
@@ -26,21 +31,20 @@ const UserAdmin = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/user", {
-        params: {
-          name: query && filter === "name" ? query : undefined,
-          lastname: query && filter === "lastname" ? query : undefined,
-          email: query && filter === "email" ? query : undefined,
-          sort: orderBy ? orderBy : undefined,
-          page: query ? 0 : selectedPage,
-        },
+      const response = await getUsersFiltered({
+        query,
+        filter,
+        orderBy,
+        selectedPage,
       });
-      if (response.data.content.length === 0) {
+      if (response.users.length === 0) {
         return;
       }
+      console.log("Users:", response.users);
+      console.log("tipo", typeof response.users);
 
-      setUsers(response.data.content);
-      setTotalPages(response.data.totalPages);
+      setUsers(response.users);
+      setTotalPages(response.totalPages);
     } catch (error) {
       console.error(error);
     }
@@ -49,7 +53,7 @@ const UserAdmin = () => {
 
   const fetchUserStateChange = async (id, state) => {
     try {
-      await axios.patch(`http://localhost:8080/api/user/${id}?state=${state}`);
+      await changeUserState(id, state);
       await fetchUsers();
     } catch (error) {
       console.error(error);
@@ -58,7 +62,7 @@ const UserAdmin = () => {
 
   const fetchUserDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8080/api/user/${id}`);
+      await deleteUser(id);
       await fetchUsers();
     } catch (error) {
       console.error(error);
@@ -100,12 +104,15 @@ const UserAdmin = () => {
 
   const handleShowAll = () => {
     setQuery("");
-    fetchUsers();
+    setIsShowAll(true);
   };
 
   useEffect(() => {
+    if (isShowAll) {
+      setIsShowAll(false);
+    }
     fetchUsers();
-  }, [orderBy, isSelectedPagePaginator]);
+  }, [orderBy, isSelectedPagePaginator, isShowAll]);
 
   return (
     <Box px="2rem">
