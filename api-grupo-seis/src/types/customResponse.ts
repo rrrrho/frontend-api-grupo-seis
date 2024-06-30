@@ -9,7 +9,7 @@ export interface CustomResponse<T> {
 
 export interface Response<T> {
   config: {},
-  data: CustomResponse<T>,
+  data: T,
   headers: {},
   status: number,
   statusText: string

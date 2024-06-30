@@ -1,11 +1,11 @@
 import { RangeSlider, RangeSliderTrack, RangeSliderFilledTrack, RangeSliderThumb, Box, Heading, Button, Tooltip, Flex, Text, Input } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { formatPrice } from "../../utils/card";
 
 interface Props {
     name: string,
     isLoading: boolean,
-    onClick: (name: string, value: string)=>void
+    onClick: (name: string, value: number[])=>void
 }
 
 const PriceSlider = ({name, onClick, isLoading}: Props) => {

@@ -53,7 +53,7 @@ const Login = () => {
               onOpenSuccess();
               setTimeout(() => {
                 navigate('/');
-            }, 2000);
+            }, 3000);
             }
         } catch (error) {
             console.error("Error en el inicio de sesión:", error);
