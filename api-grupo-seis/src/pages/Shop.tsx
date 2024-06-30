@@ -185,6 +185,9 @@ const Shop = () => {
     useEffect(() => {
         setIsLoading(true);
         localStorage.setItem('page', '0');
+        setFilters({});
+        setSort({type: 'none', value: 'none'});
+
         switch (location.pathname) {
             case '/shop/perros':
                 setDecoration({ banner: dogBanner, poster: dogPoster });
@@ -203,12 +206,13 @@ const Shop = () => {
                 break;
         }
 
+
         getProducts({category: category, page: 0, keywords: category ? undefined : extractCategory(location.pathname)});
         setTimeout(() => setIsLoading(false), 2000)
     }, [location]);
 
     useEffect(() => {
-        if (sort.type && filters) {
+        if (sort.type || filters) {
             localStorage.setItem('page', JSON.stringify(0));
             setCurrentPage(0);
 
