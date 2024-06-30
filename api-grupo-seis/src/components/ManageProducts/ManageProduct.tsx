@@ -30,12 +30,17 @@ import {
   deleteProduct,
   getProductsByVendor,
 } from "../../services/ProductsService";
+import UserAdminPaginator from "../UserAdmin/UserAdminPaginator";
 
 const ManageProductTable = () => {
   const [editingProduct, setEditingProduct] = useState<number>(0);
   const [deleteCandidateId, setDeleteCandidateId] = useState<number>(0);
   const [deleteCandidateTitle, setDeleteCandidateTitle] = useState<string>("");
   const [productsState, setProductsState] = useState([]);
+  const [selectedPage, setSelectedPage] = useState<number>(0);
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [isSelectedPagePaginator, setIsSelectedPagePaginator] =
+    useState<boolean>(false);
   const {
     isOpen: isDeleteOpen,
     onOpen: onOpenDelete,
@@ -53,12 +58,18 @@ const ManageProductTable = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await getProductsByVendor(24, 0);
+      const response = await getProductsByVendor(24, selectedPage);
       setProductsState(response.content);
+      setTotalPages(response.totalPages);
       console.log(response.content);
+      if (response.content.length === 0) {
+        return;
+      }
     } catch (error) {
       console.error(error);
     }
+
+    setIsSelectedPagePaginator(false);
   };
 
   const fetchDelete = async (id: number) => {
@@ -78,9 +89,14 @@ const ManageProductTable = () => {
     setDeleteCandidateTitle(name);
   };
 
+  const setSelectedPagePaginator = (page: number) => {
+    setSelectedPage(page);
+    setIsSelectedPagePaginator(true);
+  };
+
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [isSelectedPagePaginator]);
 
   return (
     <>
@@ -266,6 +282,13 @@ const ManageProductTable = () => {
           </Table>
         </TableContainer>
       )}
+      <UserAdminPaginator
+        alignSelf={"alignSelf"}
+        m="2rem"
+        totalPages={totalPages}
+        selectedPage={selectedPage}
+        setSelectedPage={setSelectedPagePaginator}
+      />
     </>
   );
 };
