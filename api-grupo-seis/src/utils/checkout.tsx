@@ -30,3 +30,18 @@ export const calcSubtotalCheckout = (cartState) => {
 
   return subtotal;
 };
+
+export const toSnakeCase = (obj: any): any => {
+  return Object.keys(obj).reduce((acc, key) => {
+    const modifiedKey = key.replace(/([A-Z])/g, "_$1").toLowerCase();
+    acc[modifiedKey] = obj[key];
+    return acc;
+  }, {});
+};
+
+export const toCamelCase = (obj: any): any => {
+  return Object.keys(obj).reduce((acc, key) => {
+    acc[key.replace(/(_\w)/g, (k) => k[1].toUpperCase())] = obj[key];
+    return acc;
+  }, {});
+};

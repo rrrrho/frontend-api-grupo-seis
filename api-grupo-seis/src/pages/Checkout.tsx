@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { deleteItem } from "../context/slices/cartSlice";
 import { calcTotalCheckout } from "../utils/checkout";
 import Loading from "../components/Loading/Loading";
+import { createInvoice } from "../services/InvoiceService";
 
 const Checkout = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -52,16 +53,10 @@ const Checkout = () => {
       product_id: item.product.id,
       quantity: item.quantity,
     }));
-
-    // TODO: mandar el id del user actual
-    const response = await fetch("http://localhost:8080/api/invoice", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+    try {
+      const response = await createInvoice({
         products: products,
-        user_id: 1,
+        user_id: 24,
         payment_method: paymentMethod,
         shipping_method:
           shippingMethod === "shipping"
@@ -71,10 +66,10 @@ const Checkout = () => {
             : "PICKUP",
         shipping_data: shippingData,
         last_four_digits: lastFourDigits,
-      }),
-    });
-    const data = await response.json();
-    console.log(data);
+      });
+    } catch (error) {
+      console.error("Error en el checkout:", error);
+    }
   };
 
   useEffect(() => {

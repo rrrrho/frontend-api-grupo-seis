@@ -23,16 +23,19 @@ import {
 } from "@chakra-ui/react";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { formatPrice, generateRating } from "../../utils/card";
-import products from "../../json/ManageProducts/manage-products-data.json";
 import ProductForm from "../ProductForm/ProductForm";
+import {
+  deleteProduct,
+  getProductsByVendor,
+} from "../../services/ProductsService";
 
 const ManageProductTable = () => {
   const [editingProduct, setEditingProduct] = useState<number>(0);
   const [deleteCandidateId, setDeleteCandidateId] = useState<number>(0);
   const [deleteCandidateTitle, setDeleteCandidateTitle] = useState<string>("");
-  const [productsState, setProductsState] = useState(products);
+  const [productsState, setProductsState] = useState([]);
   const {
     isOpen: isDeleteOpen,
     onOpen: onOpenDelete,
@@ -48,11 +51,22 @@ const ManageProductTable = () => {
     onCloseDelete();
   };
 
+  const fetchProducts = async () => {
+    try {
+      const response = await getProductsByVendor(24, 0);
+      setProductsState(response.content);
+      console.log(response.content);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const fetchDelete = async (id: number) => {
     try {
-      await fetch(`http://localhost:8080/api/product/${id}`, {
-        method: "DELETE",
-      });
+      const response = await deleteProduct(id);
+      if (response.statusCode === 204) {
+        setProductsState(productsState.filter((p) => p.id !== id));
+      }
     } catch (error) {
       console.error(error);
     }
@@ -64,12 +78,17 @@ const ManageProductTable = () => {
     setDeleteCandidateTitle(name);
   };
 
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
   return (
     <>
       {editingProduct ? (
         <ProductForm
           product={productsState.filter((p) => p.id === editingProduct)[0]}
           setEditingProduct={setEditingProduct}
+          productId={editingProduct}
         />
       ) : (
         <TableContainer mx="2rem" mt="1rem">

@@ -20,10 +20,11 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import ModalSuccess from "../Modal/ModalSuccess";
-import axios from "axios";
+import { createProduct, updateProduct } from "../../services/ProductsService";
+import { ProductRequest } from "../../types/product";
 
 //TODO: eliminar esta y usar la que quede como definitiva en /types
-interface Product {
+export interface Product {
   id: number;
   title: string;
   description: string;
@@ -40,13 +41,14 @@ interface Product {
 }
 
 type AddProductFormProps = {
-  product: Product;
+  product: ProductRequest;
   setEditingProduct: (id: number) => void;
+  productId: number;
 };
-
+// TODO: mandar bien el userId
 const ProductForm = ({
   product = {
-    id: 0,
+    userId: 24,
     title: "",
     description: "",
     imageUrl: "",
@@ -61,6 +63,7 @@ const ProductForm = ({
     bestseller: false,
   },
   setEditingProduct,
+  productId,
 }: AddProductFormProps) => {
   const [title, setTitle] = useState<string>(product.title);
   const [description, setDescription] = useState<string>(product.description);
@@ -108,64 +111,46 @@ const ProductForm = ({
     resetForm();
   };
 
-  // TODO: cambiar lo de headers para que mande un token bien
+  // TODO: mandar un product request en vez de un product
   const fetchCreateProduct = async () => {
     try {
-      await axios.post(
-        "http://localhost:8080/api/product",
-        {
-          title: title,
-          description: description,
-          image_url: imageUrl,
-          brand: brand,
-          pet_category: petCategory,
-          pet_stage: petStage ? petStage : null,
-          score: 0,
-          score_voters: 0,
-          price: price,
-          discount: discount,
-          stock: stock,
-          bestseller: false,
-        },
-        {
-          headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdTEyM2Fubm5ubm4xMjNubkBleGFtcGxlLmNvbSIsImlhdCI6MTcxODgwMjg1MiwiZXhwIjoxNzE4ODM4ODUyfQ.cU4cLsj4MpXW1vJIxS-vvs46LonorcL86uz4R5WecLs",
-          },
-        }
-      );
+      await createProduct({
+        userId: product.userId,
+        title: title,
+        description: description,
+        imageUrl: imageUrl,
+        brand: brand,
+        petCategory: petCategory,
+        petStage: petStage ? petStage : null,
+        price: price,
+        discount: discount,
+        stock: stock,
+      });
     } catch (error) {
       console.log(error);
     }
   };
 
+  // TODO: mandar un product request en vez de un product
   const fetchEditProduct = async () => {
     try {
-      await axios.put(
-        `http://localhost:8080/api/product/${product.id}`,
+      await updateProduct(
         {
+          userId: product.userId,
           title: title,
           description: description,
-          image_url: imageUrl,
+          imageUrl: imageUrl,
           brand: brand,
-          pet_category: petCategory,
-          pet_stage: petStage ? petStage : null,
-          score: 0,
-          score_voters: 0,
+          petCategory: petCategory,
+          petStage: petStage ? petStage : null,
           price: price,
           discount: discount,
           stock: stock,
-          bestseller: false,
         },
-        {
-          headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdTEyM2Fubm5ubm4xMjNubkBleGFtcGxlLmNvbSIsImlhdCI6MTcxODgwMjg1MiwiZXhwIjoxNzE4ODM4ODUyfQ.cU4cLsj4MpXW1vJIxS-vvs46LonorcL86uz4R5WecLs",
-          },
-        }
+        productId
       );
     } catch (error) {
-      console.log(error);
+      console.log;
     }
   };
 

@@ -212,7 +212,7 @@ export const UsersTable = ({
                     leastDestructiveRef={cancelRef}
                     onClose={onCloseDelete}
                   >
-                    <AlertDialogOverlay bg="rgba(0,0,0,0.3)">
+                    <AlertDialogOverlay bg="rgba(0,0,0,0.15)">
                       <AlertDialogContent
                         bgColor="brand.lightGreen"
                         color={"brand.lightBeige"}
