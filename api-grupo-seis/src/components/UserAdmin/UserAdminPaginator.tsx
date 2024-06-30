@@ -33,24 +33,30 @@ const UserAdminPaginator = ({
       alignSelf={alignSelf}
       m={m}
     >
-      <Flex
+      <Button
         as="button"
         alignItems="center"
         justifyContent="center"
-        bg="brand.darkBrown"
-        color="brand.lightBeige"
-        borderRadius={5}
+        bg={selectedPage === 0 ? "gray.300" : "brand.darkBrown"}
+        color={selectedPage === 0 ? "gray.100" : "brand.lightBeige"}
+        _hover={
+          selectedPage === 0
+            ? {}
+            : {
+                bg: "brand.lightBeige",
+                color: "brand.darkBrown",
+                transform: "scale(1.2)",
+              }
+        }
+        cursor={selectedPage === 0 ? "not-allowed" : "pointer"}
         transition="all .2s ease-in-out"
+        borderRadius={5}
         h="3rem"
         w="3rem"
-        _hover={{
-          bg: "brand.lightBeige",
-          color: "brand.darkBrown",
-          transform: "scale(1.2)",
-        }}
+        onClick={handlePreviousPage}
       >
-        <Icon as={FaArrowLeft} onClick={handlePreviousPage} />
-      </Flex>
+        <Icon as={FaArrowLeft} />
+      </Button>
       {Array.from({ length: totalPages }, (_, index) =>
         index === selectedPage ? (
           <Button
@@ -90,17 +96,24 @@ const UserAdminPaginator = ({
         as="button"
         alignItems="center"
         justifyContent="center"
-        bg="brand.darkBrown"
-        color="brand.lightBeige"
+        bg={selectedPage === totalPages - 1 ? "gray.300" : "brand.darkBrown"}
+        color={
+          selectedPage === totalPages - 1 ? "gray.100" : "brand.lightBeige"
+        }
+        _hover={
+          selectedPage === totalPages - 1
+            ? {}
+            : {
+                bg: "brand.lightBeige",
+                color: "brand.darkBrown",
+                transform: "scale(1.2)",
+              }
+        }
+        cursor={selectedPage === totalPages - 1 ? "not-allowed" : "pointer"}
         transition="all .2s ease-in-out"
         borderRadius={5}
         h="3rem"
         w="3rem"
-        _hover={{
-          bg: "brand.lightBeige",
-          color: "brand.darkBrown",
-          transform: "scale(1.2)",
-        }}
         onClick={handleNextPage}
       >
         <Icon as={FaArrowRight} />
