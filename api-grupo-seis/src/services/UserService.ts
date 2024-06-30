@@ -28,6 +28,7 @@ export const getUsersFiltered = async ({
       },
     });
     return {
+      statusCode: response.status,
       users: response.data.content,
       totalPages: response.data.totalPages,
     };
@@ -39,17 +40,21 @@ export const getUsersFiltered = async ({
 export const changeUserState = async (
   id: number,
   state: boolean
-): Promise<void> => {
+): Promise<any> => {
   try {
-    await axios.patch(`${BASE_URL}${USERS}/${id}?state=${state}`);
+    const response = await axios.patch(
+      `${BASE_URL}${USERS}/${id}?state=${state}`
+    );
+    return response.status;
   } catch (error) {
     console.error(error);
   }
 };
 
-export const deleteUser = async (id: number): Promise<void> => {
+export const deleteUser = async (id: number): Promise<any> => {
   try {
-    await axios.delete(`${BASE_URL}${USERS}/${id}`);
+    const response = await axios.delete(`${BASE_URL}${USERS}/${id}`);
+    return response.status;
   } catch (error) {
     console.error(error);
   }

@@ -40,8 +40,6 @@ const UserAdmin = () => {
       if (response.users.length === 0) {
         return;
       }
-      console.log("Users:", response.users);
-      console.log("tipo", typeof response.users);
 
       setUsers(response.users);
       setTotalPages(response.totalPages);

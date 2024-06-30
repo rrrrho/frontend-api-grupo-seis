@@ -1,9 +1,10 @@
-import { BASE_URL, GET_ALL_PRODUCTS } from "./apiUrls";
+import { BASE_URL, GET_ALL_PRODUCTS, USERS } from "./apiUrls";
 import { Product } from "../components/ProductForm/ProductForm";
 import { Response } from "../types/customResponse";
 import httpService from "./httpService";
 import axios from "axios";
-import { toSnakeCase } from "../utils/checkout";
+import { toCamelCase, toSnakeCase } from "../utils/checkout";
+import { ProductRequest } from "../types/product";
 
 interface Props {
   category: string;
@@ -71,7 +72,7 @@ export const getProductsFiltered = async ({
 };
 
 export const createProduct = async (
-  product: Product
+  product: ProductRequest
 ): Promise<Response<Product>> => {
   const snakeCaseProduct = toSnakeCase(product);
   try {
@@ -89,12 +90,13 @@ export const createProduct = async (
 };
 
 export const updateProduct = async (
-  product: Product
+  product: ProductRequest,
+  productId: number
 ): Promise<Response<Product>> => {
   const snakeCaseProduct = toSnakeCase(product);
   try {
     const response = await httpService.put(
-      `${BASE_URL}${GET_ALL_PRODUCTS}/${product.id}`,
+      `${BASE_URL}${GET_ALL_PRODUCTS}/${productId}`,
       snakeCaseProduct
     );
     return {
@@ -114,6 +116,24 @@ export const deleteProduct = async (id: number): Promise<Response<Product>> => {
     return {
       statusCode: response.status,
       content: response.data,
+    };
+  } catch (error) {
+    throwError(error);
+  }
+};
+
+export const getProductsByVendor = async (
+  vendorId: number,
+  page: number
+): Promise<Response<Product[]>> => {
+  try {
+    const response = await httpService.get(
+      `${BASE_URL}${GET_ALL_PRODUCTS}/${USERS}/${vendorId}?page=${page}`
+    );
+    return {
+      statusCode: response.status,
+      content: response.data.content.map((p) => toCamelCase(p)),
+      totalPages: response.data.totalPages,
     };
   } catch (error) {
     throwError(error);

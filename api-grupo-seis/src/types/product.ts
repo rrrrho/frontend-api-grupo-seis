@@ -10,3 +10,16 @@ export interface Product {
   stock: number;
   bestseller: boolean;
 }
+
+export interface ProductRequest {
+  userId: number;
+  title: string;
+  description: string;
+  imageUrl: string;
+  brand: string;
+  petCategory: string;
+  petStage: string;
+  price: number;
+  discount: number;
+  stock: number;
+}

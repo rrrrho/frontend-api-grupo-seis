@@ -21,6 +21,7 @@ import {
 import React, { useState } from "react";
 import ModalSuccess from "../Modal/ModalSuccess";
 import { createProduct, updateProduct } from "../../services/ProductsService";
+import { ProductRequest } from "../../types/product";
 
 //TODO: eliminar esta y usar la que quede como definitiva en /types
 export interface Product {
@@ -40,13 +41,14 @@ export interface Product {
 }
 
 type AddProductFormProps = {
-  product: Product;
+  product: ProductRequest;
   setEditingProduct: (id: number) => void;
+  productId: number;
 };
-
+// TODO: mandar bien el userId
 const ProductForm = ({
   product = {
-    id: 0,
+    userId: 24,
     title: "",
     description: "",
     imageUrl: "",
@@ -61,6 +63,7 @@ const ProductForm = ({
     bestseller: false,
   },
   setEditingProduct,
+  productId,
 }: AddProductFormProps) => {
   const [title, setTitle] = useState<string>(product.title);
   const [description, setDescription] = useState<string>(product.description);
@@ -112,18 +115,16 @@ const ProductForm = ({
   const fetchCreateProduct = async () => {
     try {
       await createProduct({
+        userId: product.userId,
         title: title,
         description: description,
         imageUrl: imageUrl,
         brand: brand,
         petCategory: petCategory,
         petStage: petStage ? petStage : null,
-        score: 0,
-        scoreVoters: 0,
         price: price,
         discount: discount,
         stock: stock,
-        bestseller: false,
       });
     } catch (error) {
       console.log(error);
@@ -133,21 +134,21 @@ const ProductForm = ({
   // TODO: mandar un product request en vez de un product
   const fetchEditProduct = async () => {
     try {
-      await updateProduct({
-        id: product.id,
-        title: title,
-        description: description,
-        imageUrl: imageUrl,
-        brand: brand,
-        petCategory: petCategory,
-        petStage: petStage ? petStage : null,
-        score: 0,
-        scoreVoters: 0,
-        price: price,
-        discount: discount,
-        stock: stock,
-        bestseller: false,
-      });
+      await updateProduct(
+        {
+          userId: product.userId,
+          title: title,
+          description: description,
+          imageUrl: imageUrl,
+          brand: brand,
+          petCategory: petCategory,
+          petStage: petStage ? petStage : null,
+          price: price,
+          discount: discount,
+          stock: stock,
+        },
+        productId
+      );
     } catch (error) {
       console.log;
     }
