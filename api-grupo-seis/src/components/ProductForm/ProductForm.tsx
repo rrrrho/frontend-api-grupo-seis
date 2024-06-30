@@ -19,32 +19,58 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { Form } from "react-router-dom";
 import ModalSuccess from "../Modal/ModalSuccess";
-import { Product } from "../../types/product";
+import { createProduct, updateProduct } from "../../services/ProductsService";
+import { ProductRequest } from "../../types/product";
+
+//TODO: eliminar esta y usar la que quede como definitiva en /types
+export interface Product {
+  id: number;
+  title: string;
+  description: string;
+  imageUrl: string;
+  brand: string;
+  petCategory: string;
+  petStage: string;
+  score: number;
+  scoreVoters: number;
+  price: number;
+  discount: number;
+  stock: number;
+  bestseller: boolean;
+}
 
 type AddProductFormProps = {
-  product: Product;
+  product: ProductRequest;
   setEditingProduct: (id: number) => void;
+  productId: number;
 };
-
+// TODO: mandar bien el userId
 const ProductForm = ({
   product = {
-    id: 0,
-    name: "",
-    image: "",
+    userId: 24,
+    title: "",
+    description: "",
+    imageUrl: "",
+    brand: "",
+    petCategory: "",
+    petStage: "",
+    score: 0,
+    scoreVoters: 0,
     price: 0,
     discount: 0,
     stock: 0,
-    rating: 0,
-    voters: 0,
-    quota: 0,
     bestseller: false,
   },
   setEditingProduct,
+  productId,
 }: AddProductFormProps) => {
-  const [name, setName] = useState<string>(product.name);
-  const [imageUrl, setImageUrl] = useState<string>(product.image);
+  const [title, setTitle] = useState<string>(product.title);
+  const [description, setDescription] = useState<string>(product.description);
+  const [imageUrl, setImageUrl] = useState<string>(product.imageUrl);
+  const [brand, setBrand] = useState<string>(product.brand);
+  const [petCategory, setPetCategory] = useState<string>(product.petCategory);
+  const [petStage, setPetStage] = useState<string>(product.petStage);
   const [price, setPrice] = useState<number>(product.price);
   const [discount, setDiscount] = useState<number>(product.discount);
   const [stock, setStock] = useState<number>(product.stock);
@@ -55,8 +81,12 @@ const ProductForm = ({
   } = useDisclosure();
 
   const resetForm = () => {
-    setName("");
+    setTitle("");
+    setDescription("");
     setImageUrl("");
+    setBrand("");
+    setPetCategory("");
+    setPetStage("");
     setPrice(0);
     setDiscount(0);
     setStock(0);
@@ -64,12 +94,14 @@ const ProductForm = ({
 
   const handleAddSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    fetchCreateProduct();
     resetForm();
     onOpenSuccess();
   };
 
   const handleEditSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    fetchEditProduct();
     setEditingProduct(0);
     resetForm();
   };
@@ -77,6 +109,49 @@ const ProductForm = ({
   const handleCancel = () => {
     setEditingProduct(0);
     resetForm();
+  };
+
+  // TODO: mandar un product request en vez de un product
+  const fetchCreateProduct = async () => {
+    try {
+      await createProduct({
+        userId: product.userId,
+        title: title,
+        description: description,
+        imageUrl: imageUrl,
+        brand: brand,
+        petCategory: petCategory,
+        petStage: petStage ? petStage : null,
+        price: price,
+        discount: discount,
+        stock: stock,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // TODO: mandar un product request en vez de un product
+  const fetchEditProduct = async () => {
+    try {
+      await updateProduct(
+        {
+          userId: product.userId,
+          title: title,
+          description: description,
+          imageUrl: imageUrl,
+          brand: brand,
+          petCategory: petCategory,
+          petStage: petStage ? petStage : null,
+          price: price,
+          discount: discount,
+          stock: stock,
+        },
+        productId
+      );
+    } catch (error) {
+      console.log;
+    }
   };
 
   return (
@@ -91,7 +166,7 @@ const ProductForm = ({
         gap="0.5rem"
       >
         <Heading variant="sectionTitle" fontSize="4xl" mb="0.5rem">
-          {product.id ? `Editando ${product.name}` : "Agregar producto"}
+          {product.id ? `Editando ${product.title}` : "Agregar producto"}
         </Heading>
         <form onSubmit={product.id ? handleEditSubmit : handleAddSubmit}>
           <Flex flexDir={"column"} gap={5}>
@@ -102,8 +177,28 @@ const ProductForm = ({
                   <Input
                     variant="brandSecondary"
                     type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
+                </FormControl>
+
+                <FormControl isRequired mr="0.5em">
+                  <FormLabel mb="0.1em">Descripción</FormLabel>
+                  <Input
+                    variant="brandSecondary"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                  />
+                </FormControl>
+              </Flex>
+              <Flex align="center">
+                <FormControl isRequired mr="0.5em">
+                  <FormLabel mb="0.1em">Marca</FormLabel>
+                  <Input
+                    variant="brandSecondary"
+                    type="text"
+                    value={brand}
+                    onChange={(e) => setBrand(e.target.value)}
                   />
                 </FormControl>
 
@@ -115,6 +210,46 @@ const ProductForm = ({
                     value={imageUrl}
                     onChange={(e) => setImageUrl(e.target.value)}
                   />
+                </FormControl>
+              </Flex>
+              <Flex align="center">
+                <FormControl isRequired mr="0.5em">
+                  <FormLabel mb="0.1em">Categoría</FormLabel>
+                  <Select
+                    placeholder="Seleccionar"
+                    value={petCategory}
+                    onChange={(e) => setPetCategory(e.target.value)}
+                    variant="brandSecondary"
+                    sx={{
+                      option: {
+                        backgroundColor: "brand.lightBeige",
+                      },
+                    }}
+                  >
+                    <option value={"CAT"}>Gatos</option>
+                    <option value={"DOG"}>Perros</option>
+                    <option value={"HAMSTER"}>Hamster</option>
+                    <option value={"FISH"}>Peces</option>
+                  </Select>
+                </FormControl>
+
+                <FormControl mr="0.5em">
+                  <FormLabel mb="0.1em">Edad</FormLabel>
+                  <Select
+                    placeholder="Seleccionar"
+                    value={petStage}
+                    onChange={(e) => setPetStage(e.target.value)}
+                    variant="brandSecondary"
+                    sx={{
+                      option: {
+                        backgroundColor: "brand.lightBeige",
+                      },
+                    }}
+                  >
+                    <option value={"BABY"}>Cachorro</option>
+                    <option value={"ADULT"}>Adulto</option>
+                    <option value={"SENIOR"}>Adulto senior</option>
+                  </Select>
                 </FormControl>
               </Flex>
               <Flex direction="row" align="center">

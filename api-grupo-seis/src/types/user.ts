@@ -1,3 +1,4 @@
+
 export interface UserRegister {
     id?: number,
     name: string,
@@ -8,4 +9,15 @@ export interface UserRegister {
     password: string,
     state: boolean,
     role: "VENDOR" | "BUYER";
+}
+
+export interface User {
+  id: number;
+  name: string;
+  lastname: string;
+  dni: string;
+  phoneNumber: string;
+  email: string;
+  role: string;
+  state: boolean;
 }

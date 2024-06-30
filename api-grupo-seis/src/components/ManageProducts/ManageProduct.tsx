@@ -23,19 +23,19 @@ import {
 } from "@chakra-ui/react";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { formatPrice, generateRating } from "../../utils/card";
-import products from "../../json/ManageProducts/manage-products-data.json";
 import ProductForm from "../ProductForm/ProductForm";
+import {
+  deleteProduct,
+  getProductsByVendor,
+} from "../../services/ProductsService";
 
 const ManageProductTable = () => {
   const [editingProduct, setEditingProduct] = useState<number>(0);
-  const [productsState, setProductsState] = useState(
-    products.map((product) => ({
-      ...product,
-      quota: product.price / 6,
-    }))
-  );
+  const [deleteCandidateId, setDeleteCandidateId] = useState<number>(0);
+  const [deleteCandidateTitle, setDeleteCandidateTitle] = useState<string>("");
+  const [productsState, setProductsState] = useState([]);
   const {
     isOpen: isDeleteOpen,
     onOpen: onOpenDelete,
@@ -47,10 +47,40 @@ const ManageProductTable = () => {
     setEditingProduct(id);
   };
   const handleDelete = (id: number) => {
-    const newProducts = productsState.filter((product) => product.id !== id);
-    setProductsState(newProducts);
+    fetchDelete(id);
     onCloseDelete();
   };
+
+  const fetchProducts = async () => {
+    try {
+      const response = await getProductsByVendor(24, 0);
+      setProductsState(response.content);
+      console.log(response.content);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const fetchDelete = async (id: number) => {
+    try {
+      const response = await deleteProduct(id);
+      if (response.statusCode === 204) {
+        setProductsState(productsState.filter((p) => p.id !== id));
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleOnOpenDelete = (id, name) => {
+    onOpenDelete();
+    setDeleteCandidateId(id);
+    setDeleteCandidateTitle(name);
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   return (
     <>
@@ -58,19 +88,25 @@ const ManageProductTable = () => {
         <ProductForm
           product={productsState.filter((p) => p.id === editingProduct)[0]}
           setEditingProduct={setEditingProduct}
+          productId={editingProduct}
         />
       ) : (
         <TableContainer mx="2rem" mt="1rem">
           <Table>
             <Thead>
               <Tr>
-                <Th color="brand.darkGreen" fontSize={"md"}>
+                <Th
+                  color="brand.darkGreen"
+                  fontSize={"md"}
+                  borderColor={"brand.darkGreen"}
+                >
                   Producto
                 </Th>
                 <Th
                   textAlign={"center"}
                   color="brand.darkGreen"
                   fontSize={"md"}
+                  borderColor={"brand.darkGreen"}
                 >
                   Precio
                 </Th>
@@ -78,6 +114,7 @@ const ManageProductTable = () => {
                   textAlign={"center"}
                   color="brand.darkGreen"
                   fontSize={"md"}
+                  borderColor={"brand.darkGreen"}
                 >
                   Stock
                 </Th>
@@ -85,6 +122,7 @@ const ManageProductTable = () => {
                   textAlign={"center"}
                   color="brand.darkGreen"
                   fontSize={"md"}
+                  borderColor={"brand.darkGreen"}
                 >
                   Rating
                 </Th>
@@ -92,6 +130,7 @@ const ManageProductTable = () => {
                   textAlign={"center"}
                   color="brand.darkGreen"
                   fontSize={"md"}
+                  borderColor={"brand.darkGreen"}
                 >
                   Editar
                 </Th>
@@ -99,6 +138,7 @@ const ManageProductTable = () => {
                   textAlign={"center"}
                   color="brand.darkGreen"
                   fontSize={"md"}
+                  borderColor={"brand.darkGreen"}
                 >
                   Eliminar
                 </Th>
@@ -107,11 +147,11 @@ const ManageProductTable = () => {
             <Tbody>
               {productsState.map((product) => (
                 <Tr key={product.id}>
-                  <Td>
+                  <Td borderColor={"brand.darkGreen"}>
                     <HStack w="20vw">
                       <Image
-                        src={product.image}
-                        alt={product.name}
+                        src={product.imageUrl}
+                        alt={product.title}
                         boxSize="50px"
                         objectFit="cover"
                         borderRadius="md"
@@ -121,7 +161,7 @@ const ManageProductTable = () => {
                         color="brand.darkGreen"
                         fontSize={"md"}
                       >
-                        {product.name}
+                        {product.title}
                       </Text>
                     </HStack>
                   </Td>
@@ -129,6 +169,7 @@ const ManageProductTable = () => {
                     textAlign={"center"}
                     color="brand.darkGreen"
                     fontSize={"md"}
+                    borderColor={"brand.darkGreen"}
                   >
                     ${formatPrice(product.price)}
                   </Td>
@@ -136,18 +177,19 @@ const ManageProductTable = () => {
                     textAlign={"center"}
                     color="brand.darkGreen"
                     fontSize={"md"}
+                    borderColor={"brand.darkGreen"}
                   >
                     {product.stock}
                   </Td>
-                  <Td>
+                  <Td borderColor={"brand.darkGreen"}>
                     <VStack>
-                      <HStack>{generateRating(product.rating)}</HStack>
+                      <HStack>{generateRating(product.score)}</HStack>
                       <Text
                         textAlign={"center"}
                         color="brand.darkGreen"
                         fontSize={"md"}
                       >
-                        {product.rating}
+                        {product.score}
                       </Text>
                     </VStack>
                   </Td>
@@ -155,6 +197,7 @@ const ManageProductTable = () => {
                     textAlign={"center"}
                     color="brand.darkGreen"
                     fontSize={"md"}
+                    borderColor={"brand.darkGreen"}
                   >
                     <Button
                       variant="brandPrimary"
@@ -167,8 +210,14 @@ const ManageProductTable = () => {
                     textAlign={"center"}
                     color="brand.darkGreen"
                     fontSize={"md"}
+                    borderColor={"brand.darkGreen"}
                   >
-                    <Button variant="brandPrimary" onClick={onOpenDelete}>
+                    <Button
+                      variant="brandPrimary"
+                      onClick={() =>
+                        handleOnOpenDelete(product.id, product.title)
+                      }
+                    >
                       <MdDelete />
                     </Button>
                     <AlertDialog
@@ -188,7 +237,7 @@ const ManageProductTable = () => {
                           </AlertDialogHeader>
 
                           <AlertDialogBody>
-                            ¿Seguro que querés eliminar {product.name}?
+                            ¿Seguro que querés eliminar {deleteCandidateTitle}?
                           </AlertDialogBody>
 
                           <AlertDialogFooter>
@@ -201,7 +250,7 @@ const ManageProductTable = () => {
                             </Button>
                             <Button
                               colorScheme="red"
-                              onClick={() => handleDelete(product.id)}
+                              onClick={() => handleDelete(deleteCandidateId)}
                               ml={3}
                             >
                               Eliminar
