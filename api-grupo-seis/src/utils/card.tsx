@@ -23,6 +23,14 @@ export function cutTitle(title: string): string {
     return title;
 }
 
+// limit keyword lenght and adds '...' 
+export function cutKeyword(keyword: string): string {
+    if (keyword.length > 10) {
+        return keyword.substring(0, 10) + "...";
+    }
+    return keyword;
+}
+
 // calculates discounts based on percentages
 export function calculateDiscount(price: number, percentage: number): number {
     if (percentage < 0 || percentage > 100) {

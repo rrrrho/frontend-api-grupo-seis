@@ -4,14 +4,15 @@ import { Response } from "../types/customResponse";
 import httpService from "./httpService";
 
 interface Props {
-  category: string,
+  category?: string,
   page: number,
   price?: string,
   bestseller?: string
   brand?: string,
   stage?: string,
   min?: number,
-  max?: number
+  max?: number,
+  keywords?: string
 }
 
 export const getProductsFiltered = async ({
@@ -22,7 +23,8 @@ export const getProductsFiltered = async ({
   brand,
   stage,
   min,
-  max
+  max,
+  keywords
 }: Props): Promise<Response<Product[]>> => {
   let url = `${BASE_URL}${GET_ALL_PRODUCTS}?page=${page}`;
 
@@ -52,6 +54,10 @@ export const getProductsFiltered = async ({
 
   if (max !== undefined && max !== null) {
     url += `&max=${max}`;
+  }
+
+  if (keywords !== undefined && keywords !== null) {
+    url += `&keywords=${keywords}`;
   }
 
   const response = await httpService.get(url);

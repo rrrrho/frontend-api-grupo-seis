@@ -20,7 +20,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/shop" element={<Shop />}>
+        <Route path="/shop/*" element={<Shop />}>
           {shopRoutes.map((category, index) => (
             <Route key={index} path={category} element={<Shop />} />
           ))}
