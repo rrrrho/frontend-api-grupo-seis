@@ -22,9 +22,13 @@ import { setUser } from "../context/slices/userSlice";
 import { useNavigate } from "react-router-dom";
 import Loading from "../components/Loading/Loading";
 import ModalCountdown from "../components/Modal/ModalCountdown";
+import { registerUser } from "../services/UserService";
+import { loginUser } from "../services/LoginService";
+import ModalError from "../components/Modal/ModalError";
 
 const Register = () => {
   const [name, setName] = useState<string>("");
+  const [role, setRole] = useState<'BUYER' | 'VENDOR'>('BUYER');
   const [lastname, setLastname] = useState<string>("");
   const [dni, setDni] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
@@ -40,6 +44,7 @@ const Register = () => {
     onOpen: onOpenSuccess,
     onClose: onCloseSuccess,
   } = useDisclosure();
+  const { isOpen: isOpenError, onOpen: onOpenError, onClose: onCloseError } = useDisclosure();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -49,7 +54,7 @@ const Register = () => {
     }, 2000);
   }, []);
 
-  const handleSubmit = (e: { preventDefault: () => void }) => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     if (email !== confirmedEmail) {
@@ -66,18 +71,50 @@ const Register = () => {
       setPasswordsMatch(true);
     }
 
-    dispatch(setUser({ name: name, lastName: lastname, id: 1 }));
-    localStorage.setItem(
-      "user",
-      JSON.stringify({ name: name, lastName: lastname })
-    );
-    localStorage.setItem("isLogged", "true");
+    try {
+      const registerResponse = await registerUser({
+        name: name,
+        lastname: lastname,
+        email: email,
+        dni: dni,
+        phoneNumber: phone,
+        role: role,
+        password: password,
+        state: true
+      });
 
-    onOpenSuccess();
+      if (registerResponse.status === 201 && registerResponse.data.id) {
 
-    setTimeout(() => {
-      navigate("/");
-    }, 3000);
+        dispatch(setUser({ name: name, lastName: lastname, id: registerResponse.data.id }));
+        localStorage.setItem(
+          "user",
+          JSON.stringify({ name: name, lastName: lastname })
+        );
+
+        const loginResponse = await loginUser({
+          email: email,
+          password: password,
+        });
+
+        const token = loginResponse.content.token;
+
+        if (token) {
+          localStorage.setItem("token", token);
+        }
+
+        localStorage.setItem("isLogged", "true");
+        onOpenSuccess();
+
+        setTimeout(() => {
+          navigate("/");
+        }, 3000);
+      }
+  } catch (error) {
+      console.error("Error en el inicio de sesión:", error);
+      onOpenError();
+  } finally {
+    setIsLoading(false);
+  }
   };
 
   return (
@@ -242,20 +279,21 @@ const Register = () => {
                 </Flex>
                 <FormControl>
                   <RadioGroup
-                    defaultValue="buyer"
+                    defaultValue="BUYER"
                     color={"brand.lightBeige"}
                     fontWeight={"600"}
                     size={"lg"}
+                    onChange={(value: 'BUYER' | 'VENDOR') => setRole(value)}
                   >
                     <Stack
                       spacing={5}
                       direction="row"
                       justifyContent={"center"}
                     >
-                      <Radio colorScheme="red" value="seller">
+                      <Radio colorScheme="red" value="VENDOR">
                         Vendedor
                       </Radio>
-                      <Radio colorScheme="green" value="buyer">
+                      <Radio colorScheme="green" value="BUYER">
                         Comprador
                       </Radio>
                     </Stack>
@@ -274,6 +312,7 @@ const Register = () => {
                   onClose={onCloseSuccess}
                   title="¡Se ha realizado el registro con exito!"
                 />
+                <ModalError isOpen={isOpenError} onClose={onCloseError} title="¡Ya existe una cuenta con ese email!" />
               </Flex>
             </form>
           </Stack>

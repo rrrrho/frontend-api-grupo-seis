@@ -1,6 +1,6 @@
 import { BASE_URL, GET_ALL_PRODUCTS } from "./apiUrls";
 import { Product } from "../types/product";
-import { Response } from "../types/customResponse";
+import { CustomResponse, Response } from "../types/customResponse";
 import httpService from "./httpService";
 
 interface Props {
@@ -25,7 +25,7 @@ export const getProductsFiltered = async ({
   min,
   max,
   keywords
-}: Props): Promise<Response<Product[]>> => {
+}: Props): Promise<Response<CustomResponse<Product[]>>> => {
   let url = `${BASE_URL}${GET_ALL_PRODUCTS}?page=${page}`;
 
   if (category !== undefined && category !== null && category !== '') {
