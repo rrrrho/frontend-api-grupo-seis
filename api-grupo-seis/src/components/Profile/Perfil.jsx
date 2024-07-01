@@ -1,15 +1,26 @@
 import { Box, Heading, VStack, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { getUserByEmail } from "../../services/UserService";
+import { useAppSelector } from "../../context/hooks";
+import { selectUser } from "../../context/slices/userSlice";
 
 const SeccionPerfil = () => {
   // Ejemplo de datos del perfil (puedes obtener estos datos de una fuente de datos o de props)
-  const profileData = {
-    nombre: "Juan",
-    apellido: "Pérez",
-    dni: "12345678",
-    fechaNacimiento: "01/01/1990",
-    genero: "Masculino",
-    telefono: "123-456-789",
-  };
+  const [profileData,setProfileData] = useState({})
+  const userSlice = useAppSelector(selectUser)
+  const fetchUser = async()=>{
+    try{
+      const response = await getUserByEmail(userSlice.email)
+      setProfileData(response.user)
+    }catch(error){
+      console.error(error)
+    }
+  } 
+
+  useEffect(()=>{
+    fetchUser();
+
+  },[])
 
   return (
     <Box p="4">
@@ -18,22 +29,19 @@ const SeccionPerfil = () => {
       </Heading>
       <VStack align="start" spacing="2">
         <Text>
-          <strong>Nombre:</strong> {profileData.nombre}
+          <strong>Nombre:</strong> {profileData.name}
         </Text>
         <Text>
-          <strong>Apellido:</strong> {profileData.apellido}
+          <strong>Apellido:</strong> {profileData.lastname}
         </Text>
         <Text>
           <strong>DNI:</strong> {profileData.dni}
         </Text>
         <Text>
-          <strong>Fecha de Nacimiento:</strong> {profileData.fechaNacimiento}
+          <strong>Correo Electronico:</strong> {profileData.email}
         </Text>
         <Text>
-          <strong>Género:</strong> {profileData.genero}
-        </Text>
-        <Text>
-          <strong>Teléfono:</strong> {profileData.telefono}
+          <strong>Teléfono:</strong> {profileData.phoneNumber}
         </Text>
       </VStack>
     </Box>
