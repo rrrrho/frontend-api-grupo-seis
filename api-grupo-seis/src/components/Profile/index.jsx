@@ -12,9 +12,9 @@ import { selectUser } from "../../context/slices/userSlice";
 const Profile = () => {
   const [isLoading, setIsLoading] = useState(true);
   const user = useAppSelector(selectUser);
+  const [tabIndex, setTabIndex] = useState(0);
 
   useEffect(() => {
-    console.log(user);
     setTimeout(() => {
       setIsLoading(false);
     }, 2000);
@@ -23,7 +23,13 @@ const Profile = () => {
     <>
       {isLoading && <Loading />}
       <div>
-        <Tabs isFitted variant="enclosed" colorScheme="green">
+        <Tabs
+          isFitted
+          variant="enclosed"
+          colorScheme="green"
+          index={tabIndex}
+          onChange={(index) => setTabIndex(index)}
+        >
           <TabList mb="1em">
             <Tab>Perfil</Tab>
             {user?.role === "BUYER" && <Tab>Pedidos</Tab>}
@@ -55,7 +61,7 @@ const Profile = () => {
             {user?.role === "VENDOR" && (
               <>
                 <TabPanel>
-                  <ManageProductTable />
+                  <ManageProductTable activeTab={tabIndex} />
                 </TabPanel>
               </>
             )}

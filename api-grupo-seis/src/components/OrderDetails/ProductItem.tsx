@@ -21,8 +21,8 @@ export const ProductItem = ({ product, quantity }: ProductProps) => {
       <HStack>
         <Box position="relative">
           <Image
-            src={product.image}
-            alt={product.name}
+            src={product.imageUrl}
+            alt={product.title}
             maxW="50px"
             maxH="50px"
             mb="0.5em"
@@ -43,7 +43,7 @@ export const ProductItem = ({ product, quantity }: ProductProps) => {
           </Badge>
         </Box>
         <Text fontWeight="semibold" fontSize="sm" textAlign="start">
-          {product.name}
+          {product.title}
         </Text>
       </HStack>
       <Flex direction="column" align="center">
