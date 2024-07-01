@@ -28,7 +28,7 @@ const CategoryMenu = () => {
                 {categories.map((category, index) => (
                     <CategoryMenuItem key={index} {...category} onClick={handleCategoryButtonClick} isFirst={index === 0} isLast={index === categories.length - 1}/>
                 ))}
-        </MenuList>
+            </MenuList>
       </Menu>
     )
 }

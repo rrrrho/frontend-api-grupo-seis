@@ -2,11 +2,11 @@ import httpService from "./httpService";
 import { BASE_URL, LOGIN_URL } from "./apiUrls";
 import axios from "axios";
 import { UserLoginRequest, UserLoginResponse } from "../types/userLogin";
-import { CustomResponse } from "../types/customResponse";
+import { Response } from "../types/customResponse";
 
 export const loginUser = async (
   userLogin: UserLoginRequest
-): Promise<CustomResponse<UserLoginResponse>> => {
+): Promise<Response<UserLoginResponse>> => {
   try {
     const response = await httpService
     .post(
@@ -15,10 +15,7 @@ export const loginUser = async (
     );
     console.log(response);
 
-    return {
-      statusCode: response.status,
-      content: response.data,
-    };
+    return response;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       throw {

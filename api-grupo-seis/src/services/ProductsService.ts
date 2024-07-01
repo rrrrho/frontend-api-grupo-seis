@@ -1,3 +1,4 @@
+import { CustomResponse, Response } from "../types/customResponse";
 import { BASE_URL, GET_ALL_PRODUCTS, USERS } from "./apiUrls";
 import { Product } from "../components/ProductForm/ProductForm";
 import { Response } from "../types/customResponse";
@@ -7,14 +8,15 @@ import { toCamelCase, toSnakeCase } from "../utils/checkout";
 import { ProductRequest } from "../types/product";
 
 interface Props {
-  category: string;
-  page: number;
-  price?: string;
-  bestseller?: string;
-  brand?: string;
-  stage?: string;
-  min?: number;
-  max?: number;
+  category?: string,
+  page: number,
+  price?: string,
+  bestseller?: string
+  brand?: string,
+  stage?: string,
+  min?: number,
+  max?: number,
+  keywords?: string
 }
 
 export const getProductsFiltered = async ({
@@ -26,7 +28,9 @@ export const getProductsFiltered = async ({
   stage,
   min,
   max,
-}: Props): Promise<Response<Product[]>> => {
+  keywords
+}: Props): Promise<Response<CustomResponse<ProductRequest[]>>> => {
+
   let url = `${BASE_URL}${GET_ALL_PRODUCTS}?page=${page}`;
 
   if (category !== undefined && category !== null && category !== "") {
@@ -65,6 +69,10 @@ export const getProductsFiltered = async ({
 
   if (max !== undefined && max !== null) {
     url += `&max=${max}`;
+  }
+
+  if (keywords !== undefined && keywords !== null) {
+    url += `&keywords=${keywords}`;
   }
 
   const response = await httpService.get(url);

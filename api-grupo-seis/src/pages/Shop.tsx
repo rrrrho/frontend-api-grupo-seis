@@ -4,9 +4,10 @@ import Card from '../components/Shop/Card';
 import Paginator from '../components/Shop/Paginator';
 import Filter from '../components/Shop/Filter';
 import { useLocation } from 'react-router-dom';
-import { cutTitle } from '../utils/card';
+import { cutKeyword, cutTitle } from '../utils/card';
 import Loading from '../components/Loading/Loading';
 import catBanner from '../assets/img/cat-banner.svg';
+import searchBanner from '../assets/img/search-banner.svg';
 import catPoster from '../assets/img/cats/sales-poster.png';
 import dogBanner from '../assets/img/dog-banner.svg';
 import dogPoster from '../assets/img/dogs/dog-poster.png';
@@ -54,12 +55,14 @@ interface Parameter {
     brand?: string,
     stage?: string,
     min?: number,
-    max?: number
+    max?: number,
+    keywords?: string
 }
 
 const Shop = () => {
     const extractCategory = (url: string): string => {
-        return url.substring(url.lastIndexOf('/') + 1);
+        const startIndex = url.indexOf('/shop/') + '/shop/'.length;
+        return url.substring(startIndex);
     }
 
     const translateSpanishCategory = (animal: string): string => {
@@ -72,10 +75,10 @@ const Shop = () => {
         return counterparts[animal.toLowerCase()];
     }
 
-    const getProducts = async ({page, category, bestseller, price, brand, stage, min, max}: Parameter) => {
+    const getProducts = async ({page, category, bestseller, price, brand, stage, min, max, keywords}: Parameter) => {
         setIsProductsLoading(true);
         try {
-            const response = await getProductsFiltered({ category, page, bestseller, price, brand, stage, min, max });
+            const response = await getProductsFiltered({ category, page, bestseller, price, brand, stage, min, max, keywords });
             if (response.status === 200) {
                 setProducts(response.data.content);
                 setCurrentPage(response.data.currentPage);
@@ -181,6 +184,10 @@ const Shop = () => {
 
     useEffect(() => {
         setIsLoading(true);
+        localStorage.setItem('page', '0');
+        setFilters({});
+        setSort({type: 'none', value: 'none'});
+
         switch (location.pathname) {
             case '/shop/perros':
                 setDecoration({ banner: dogBanner, poster: dogPoster });
@@ -195,43 +202,48 @@ const Shop = () => {
                 setDecoration({ banner: hamsterBanner, poster: hamsterPoster });
                 break;
             default:
-                setDecoration(undefined);
+                setDecoration({ banner: searchBanner});
                 break;
         }
-        getProducts({category: category, page: currentPage});
+
+
+        getProducts({category: category, page: 0, keywords: category ? undefined : extractCategory(location.pathname)});
         setTimeout(() => setIsLoading(false), 2000)
     }, [location]);
 
     useEffect(() => {
-        localStorage.setItem('page', JSON.stringify(0));
-        setCurrentPage(0);
+        if (sort.type || filters) {
+            localStorage.setItem('page', JSON.stringify(0));
+            setCurrentPage(0);
 
-        const parameters = {
-            category: category,
-            page: 0,
-            price: '',
-            bestseller: '',
-            brand: filters?.brand,
-            stage: filters?.stage,
-            min: filters?.min,
-            max: filters?.max
-        };
+            const parameters = {
+                category: category,
+                page: 0,
+                price: '',
+                bestseller: '',
+                brand: filters?.brand,
+                stage: filters?.stage,
+                min: filters?.min,
+                max: filters?.max,
+                keywords: category ? undefined : extractCategory(location.pathname)
+            };
 
-        switch (sort.type) {
-            case 'Mayor precio':
-                parameters.price = sort.value;
-                break;
-            case 'Menor precio':
-                parameters.price = sort.value;
-                break;
-            case 'Mas relevante':
-                parameters.bestseller = sort.value;
-                break;
-            default:
-                break;
+            switch (sort.type) {
+                case 'Mayor precio':
+                    parameters.price = sort.value;
+                    break;
+                case 'Menor precio':
+                    parameters.price = sort.value;
+                    break;
+                case 'Mas relevante':
+                    parameters.bestseller = sort.value;
+                    break;
+                default:
+                    break;
+            }
+
+            getProducts(parameters);
         }
-
-        getProducts(parameters);
     }, [sort, filters]);
 
     return (
@@ -248,7 +260,7 @@ const Shop = () => {
                 <Flex justifyContent="center" mt="3rem" mb={products.length ? '0rem' : '3rem'} gap={20}>
                     <Flex gap={5} w={{base: '28vw', xl: "22vw"}} flexDir="column">
                         <Skeleton isLoaded={!isLoading} startColor='brand.darkGreen' endColor='brand.lightGreen'>
-                            <PriceSlider name={'Price'} onClick={handleFilterButtonClick} isLoading={isLoading}/>
+                            <PriceSlider name={'Precio'} onClick={handleFilterButtonClick} isLoading={isLoading}/>
                         </Skeleton>
                         {filterss.map((filterx, index) =>
                             <Skeleton key={index} isLoaded={!isLoading} startColor='brand.darkGreen' endColor='brand.lightGreen'>
@@ -262,7 +274,7 @@ const Shop = () => {
                     <Flex flexDir="column">
                         <Skeleton isLoaded={!isLoading} startColor='brand.darkGreen' endColor='brand.lightGreen'>
                             <Flex justifyContent="space-between" gap={10}>
-                                <Heading fontSize={{ base: "2rem", xl: "3.5rem" }} fontWeight="900">Resultados</Heading>
+                                <Heading fontSize={{ base: "2rem", xl: "3.5rem" }} fontWeight="900">{category ? 'Resultados' : cutKeyword(extractCategory(location.pathname))}</Heading>
                                 <Flex gap={4} alignSelf="flex-end">
                                     <SortButton values={buttons} onClick={handleSortButtonClick}/>
                                 </Flex>
@@ -289,7 +301,7 @@ const Shop = () => {
                                         </Skeleton>
                                     )}
                                 </SimpleGrid>
-                                <Paginator pages={totalPages} handleClick={(page: number) => getProducts({category: category, page: page, bestseller: sort.value, price: sort.value, brand: filters?.brand, stage: filters?.stage, min: filters?.min, max: filters?.max})}/>
+                                <Paginator pages={totalPages} handleClick={(page: number) => getProducts({category: category, page: page, bestseller: sort.value, price: sort.value, brand: filters?.brand, stage: filters?.stage, min: filters?.min, max: filters?.max, keywords: category ? undefined : extractCategory(location.pathname)})}/>
                             </>
                         ) : (
                             <Center my={10}>

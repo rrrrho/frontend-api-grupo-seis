@@ -1,5 +1,6 @@
 import axios from "axios";
-import { User } from "../types/user";
+import httpService from "./httpService";
+import { User, UserRegister } from "../types/user";
 import { Response } from "../types/customResponse";
 import { BASE_URL, USERS } from "./apiUrls";
 import { toCamelCase } from "../utils/checkout";
@@ -10,6 +11,22 @@ interface GetUsersFilteredProps {
   orderBy: string;
   selectedPage: number;
 }
+
+export const registerUser = async (userRegister: UserRegister): Promise<Response<UserRegister>> => {
+  try {
+    return await httpService.post(`${BASE_URL}${USERS}`, userRegister); 
+  } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw {
+          statusCode: error.response ? error.response.status : 500,
+          data: null,
+          errorMessage: error.message,
+        };
+      } else {
+        throw error;
+      };
+    };
+  };
 
 export const getUsersFiltered = async ({
   query,

@@ -1,4 +1,4 @@
-import { useDisclosure, Flex, Skeleton, Stack, Heading, FormControl, FormLabel, Input, NumberInput, NumberInputField, InputGroup, InputLeftAddon, Button, Text, Link } from "@chakra-ui/react";
+import { useDisclosure, Flex, Skeleton, Stack, Heading, FormControl, FormLabel, Input, Button, Text, Link } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../context/hooks";
@@ -7,6 +7,7 @@ import Loading from "../components/Loading/Loading";
 import ModalCountdown from "../components/Modal/ModalCountdown";
 import ModalError from "../components/Modal/ModalError";
 import { loginUser } from "../services/LoginService";
+import { decodeJwt } from "jose";
 
 const Login = () => {
     const [email, setEmail] = useState<string>("");
@@ -28,39 +29,32 @@ const Login = () => {
 
         try {
             const response = await loginUser({
-              email: email,
-              password: password,
+                email: email,
+                password: password,
             });
       
-            if (response.statusCode === 200) {
-              const token = response.content?.token;
-      
-              response.content.email && localStorage.setItem('user', JSON.stringify({ 
-                name: response.content.name, 
-                lastName: response.content.lastname, 
-                id: response.content.id,
-              }))
+            if (response.status === 200) {
+                const token = response.data.token;
+                const claims = decodeJwt(token);
+                const user = { email: claims.sub as string, role: claims.authority as string };
 
-              localStorage.setItem("isLogged", "true");
-      
-              if (token) {
-                // console.log("Token:", token);
                 localStorage.setItem("token", token);
-              }
+                localStorage.setItem("user", JSON.stringify(user));
+                dispatch(setUser(user));
+                localStorage.setItem("isLogged", "true");
 
-              dispatch(setUser({ name: response.content.name, lastName: response.content.lastname, id: response.content.id }));
+                onOpenSuccess();
 
-              onOpenSuccess();
-              setTimeout(() => {
-                navigate('/');
-            }, 2000);
+                setTimeout(() => {
+                    navigate('/');
+                }, 3000);
             }
         } catch (error) {
             console.error("Error en el inicio de sesión:", error);
             onOpenError();
         } finally {
             setIsLoading(false);
-        }
+        };
     };
 
     return (
