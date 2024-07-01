@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Box, Flex, Image, Skeleton, Text } from "@chakra-ui/react";
 import { formatPrice, calculateDiscount, generateRating } from "../utils/card";
 import AddToCart from "../components/ProductDetail/AddToCart2";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Loading from "../components/Loading/Loading";
+import { useAppSelector } from "../context/hooks";
+import { selectUser } from "../context/slices/userSlice";
 
 const ProductDetail = () => {
+  const user = useAppSelector(selectUser);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const location = useLocation();
   const product = location.state;
@@ -155,6 +158,7 @@ const ProductDetail = () => {
             <Flex justifyContent="flex-end">
               {" "}
               {}
+              {(user.role === 'BUYER' || user.email === undefined) &&
               <AddToCart
                 id={id}
                 name={name}
@@ -167,6 +171,7 @@ const ProductDetail = () => {
                 stock={stock}
                 bestseller={bestseller}
               />
+              }
             </Flex>
           </Box>
         </Skeleton>

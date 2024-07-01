@@ -39,11 +39,7 @@ const Register = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [passwordsMatch, setPasswordsMatch] = useState<boolean>(true);
   const [emailsMatch, setEmailsMatch] = useState<boolean>(true);
-  const {
-    isOpen: isOpenSuccess,
-    onOpen: onOpenSuccess,
-    onClose: onCloseSuccess,
-  } = useDisclosure();
+  const { isOpen: isOpenSuccess, onOpen: onOpenSuccess, onClose: onCloseSuccess } = useDisclosure();
   const { isOpen: isOpenError, onOpen: onOpenError, onClose: onCloseError } = useDisclosure();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -84,37 +80,31 @@ const Register = () => {
       });
 
       if (registerResponse.status === 201 && registerResponse.data.id) {
+        const user = { email: email, role: role };
 
-        dispatch(setUser({ name: name, lastName: lastname, id: registerResponse.data.id }));
-        localStorage.setItem(
-          "user",
-          JSON.stringify({ name: name, lastName: lastname })
-        );
+        dispatch(setUser(user));
+        localStorage.setItem("user", JSON.stringify(user));
 
         const loginResponse = await loginUser({
           email: email,
           password: password,
         });
 
-        const token = loginResponse.content.token;
-
-        if (token) {
-          localStorage.setItem("token", token);
-        }
-
+        localStorage.setItem("token", loginResponse.data.token);
         localStorage.setItem("isLogged", "true");
+
         onOpenSuccess();
 
         setTimeout(() => {
           navigate("/");
         }, 3000);
       }
-  } catch (error) {
+    } catch (error) {
       console.error("Error en el inicio de sesión:", error);
       onOpenError();
-  } finally {
-    setIsLoading(false);
-  }
+    } finally {
+      setIsLoading(false);
+    };
   };
 
   return (

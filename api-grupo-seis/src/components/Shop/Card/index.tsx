@@ -4,8 +4,12 @@ import AddToCart from './AddToCart';
 import { formatPrice, calculateDiscount, generateRating } from "../../../utils/card";
 import { Product } from "../../../types/product";
 import { Link } from "react-router-dom";
+import { useAppSelector } from "../../../context/hooks";
+import { selectUser } from "../../../context/slices/userSlice";
 
 const Card = ({id, name, image, rating, voters, price, discount, quota, stock, bestseller}: Product) => {
+    const user = useAppSelector(selectUser);
+
     const producto = {
         id: id,
         name: name,
@@ -37,7 +41,9 @@ const Card = ({id, name, image, rating, voters, price, discount, quota, stock, b
                     />
                 </Link>
             </Box>
-            <AddToCart id={id} name={name} image={image} rating={rating} voters={voters} price={price} discount={discount} quota={quota} stock={stock} bestseller={bestseller}/>
+            {(user.role === 'BUYER' || user.email === undefined) &&
+                <AddToCart id={id} name={name} image={image} rating={rating} voters={voters} price={price} discount={discount} quota={quota} stock={stock} bestseller={bestseller}/>
+            }
             <Box p="1.4rem">
                 <Box h="7.6vh">
                     <Text fontWeight="600" fontSize={{base: '0.8rem', xl: "1rem"}} cursor="pointer">{name}</Text>

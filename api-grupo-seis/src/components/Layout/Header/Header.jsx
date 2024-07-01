@@ -8,13 +8,14 @@ import CategoryMenu from "./Categories/CategoryMenu";
 import { Link, useNavigate } from "react-router-dom";
 import ActionLink from "./ActionLink";
 import { useAppDispatch, useAppSelector } from "../../../context/hooks";
-import { logoutUser } from "../../../context/slices/userSlice";
+import { logoutUser, selectUser } from "../../../context/slices/userSlice";
 import { deleteItem } from "../../../context/slices/cartSlice";
 
 const Header = () => {
   const isLogged = JSON.parse(localStorage.getItem("isLogged"));
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const user = useAppSelector(selectUser);
   const cartState = useAppSelector((state) => state.cart);
 
   const handleLogOut = () => {
@@ -78,7 +79,7 @@ const Header = () => {
               </NavLink>
             </>
           )}
-          <Cart />
+          {(user.role === 'BUYER' || user.email === undefined) && <Cart />}
         </Flex>
       </Flex>
     </header>

@@ -12,19 +12,10 @@ interface GetUsersFilteredProps {
   selectedPage: number;
 }
 
-export const registerUser = async (
-    userRegister: UserRegister
-  ): Promise<Response<UserRegister>> => {
-    try {
-      const response = await httpService
-      .post(
-        `${BASE_URL}${REGISTER_URL}`,
-        userRegister
-      );
-      console.log(response);
-  
-      return response;
-    } catch (error) {
+export const registerUser = async (userRegister: UserRegister): Promise<Response<UserRegister>> => {
+  try {
+    return await httpService.post(`${BASE_URL}${USERS}`, userRegister); 
+  } catch (error) {
       if (axios.isAxiosError(error)) {
         throw {
           statusCode: error.response ? error.response.status : 500,
@@ -33,8 +24,8 @@ export const registerUser = async (
         };
       } else {
         throw error;
-      }
-    }
+      };
+    };
   };
 
 export const getUsersFiltered = async ({
