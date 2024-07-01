@@ -76,3 +76,17 @@ export const deleteUser = async (id: number): Promise<any> => {
     console.error(error);
   }
 };
+
+export const getUserByEmail = async (email: string): Promise<any> => {
+  try{
+    const response = await axios.get(`${BASE_URL}${USERS}/email/${email}`);
+    return {
+      statusCode: response.status,
+      user: response.data,
+      
+    }
+  }
+  catch(error){
+    console.error(error)
+  }
+}
