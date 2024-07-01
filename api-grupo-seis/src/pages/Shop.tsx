@@ -303,7 +303,7 @@ const Shop = () => {
                     <Flex flexDir="column">
                         <Skeleton isLoaded={!isLoading} startColor='brand.darkGreen' endColor='brand.lightGreen'>
                             <Flex justifyContent="space-between" gap={10}>
-                                <Heading fontSize={{ base: "2rem", xl: "3.5rem" }} fontWeight="900">{category ? 'Resultados' : cutKeyword(extractCategory(location.pathname))}</Heading>
+                                <Heading fontSize={{ base: "2rem", xl: "3.5rem" }} fontWeight="900">{category ? 'Resultados' : cutKeyword(extractCategory(location.pathname).replace(/%/g, ' '))}</Heading>
                                 <Flex gap={4} alignSelf="flex-end">
                                     <SortButton values={buttons} onClick={handleSortButtonClick}/>
                                 </Flex>
