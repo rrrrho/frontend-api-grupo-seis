@@ -11,6 +11,7 @@ const NavLink = (props: Props) => {
 
   return (
     <Link
+      w={'fit-content'}
       as="a"
       px={1}
       py={1}

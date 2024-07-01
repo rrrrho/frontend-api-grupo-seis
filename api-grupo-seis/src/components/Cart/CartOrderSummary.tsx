@@ -1,18 +1,36 @@
-import { Button, Flex, HStack, Heading, Link, Stack, Text, VStack } from '@chakra-ui/react';
-import OrderSummaryItem from './OrderSummaryItem';
-import React, { useState } from 'react';
-import ShippingMethod from './Shipping/ShippingMethod';
-import { formatPrice } from '../../utils/card.tsx';
-import { useAppSelector } from '../../context/hooks';
-  
+import {
+  Button,
+  Flex,
+  HStack,
+  Heading,
+  Link,
+  Stack,
+  Text,
+  VStack,
+  useDisclosure,
+} from "@chakra-ui/react";
+import OrderSummaryItem from "./OrderSummaryItem";
+import React, { useState } from "react";
+import ShippingMethod from "./Shipping/ShippingMethod";
+import { formatPrice } from "../../utils/card.tsx";
+import { useAppSelector } from "../../context/hooks";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { selectUser } from "../../context/slices/userSlice.ts";
+import ModalError from "../Modal/ModalError.tsx";
+
 interface Props {
-  onCloseCart: () => void
+  onCloseCart: () => void;
 }
 
-export const CartOrderSummary = ({onCloseCart}: Props) => {
+export const CartOrderSummary = ({ onCloseCart }: Props) => {
+  const user = useAppSelector(selectUser);
+  const navigate = useNavigate();
   const cartState = useAppSelector((state) => state.cart);
-  const [ showShippingMenu, setShowShippingMenu ] = useState(cartState.shipping.postalCode > 0);
-  
+  const { isOpen: isOpenError, onOpen: onOpenError, onClose: onCloseError } = useDisclosure();
+  const [showShippingMenu, setShowShippingMenu] = useState(
+    cartState.shipping.postalCode > 0
+  );
+
   const calcSubtotal = () => {
     let subtotal = 0;
 
@@ -22,43 +40,69 @@ export const CartOrderSummary = ({onCloseCart}: Props) => {
 
     return subtotal;
   };
-  
+
   const calcTotal = () => {
     let total = calcSubtotal();
-    let shipping = typeof cartState.shipping.option !== 'undefined' ? cartState.shipping.option.price : 0;
+    let shipping =
+      typeof cartState.shipping.option !== "undefined"
+        ? cartState.shipping.option.price
+        : 0;
 
     total += shipping;
     return total;
-  }
-  
+  };
+
   const goToCheckout = () => {
-    console.log('checkout');
-    onCloseCart();
-  }
-  
+    if (user.email) {
+      navigate("/checkout");
+      onCloseCart();
+    }
+    
+    onOpenError();
+  };
+
   return (
-    <Stack spacing="8" py={8}>
-      <Heading size="md">Resumen de compra</Heading>
-      <Stack spacing="6">
-        <OrderSummaryItem label="Subtotal (sin envío)" value={`$${formatPrice(calcSubtotal())}`} />
-        <OrderSummaryItem label="Envío a domicilio">
-          <Link href="#" onClick={() => setShowShippingMenu(!showShippingMenu)} textDecor="underline">
-            {showShippingMenu ? 'Cerrar' : 'Calcular envío'}
-          </Link>
-        </OrderSummaryItem>
-        {showShippingMenu && ( <ShippingMethod /> )}
-        <Flex justify="space-between">
-          <Text fontSize="lg" fontWeight="semibold">Total</Text>
-          <Text fontSize="xl" fontWeight="extrabold">${formatPrice(calcTotal())}</Text>
-        </Flex>
+    <>
+      <ModalError isOpen={isOpenError} onClose={onCloseError} title="Por favor, inicie sesion." />
+      <Stack spacing="8" py={8}>
+        <Heading size="md">Resumen de compra</Heading>
+        <Stack spacing="6">
+          <OrderSummaryItem
+            label="Subtotal (sin envío)"
+            value={`$${formatPrice(calcSubtotal())}`}
+          />
+          <OrderSummaryItem label="Envío a domicilio">
+            <Link
+              onClick={() => setShowShippingMenu(!showShippingMenu)}
+              textDecor="underline"
+            >
+              {showShippingMenu ? "Cerrar" : "Calcular envío"}
+            </Link>
+          </OrderSummaryItem>
+          {showShippingMenu && <ShippingMethod />}
+          <Flex justify="space-between">
+            <Text fontSize="lg" fontWeight="semibold">
+              Total
+            </Text>
+            <Text fontSize="xl" fontWeight="extrabold">
+              ${formatPrice(calcTotal())}
+            </Text>
+          </Flex>
+        </Stack>
+        <VStack direction="column" align="center">
+          <Button onClick={() => goToCheckout()} variant="brandPrimary" px={20}>
+            Iniciar compra
+          </Button>
+          <HStack
+            fontWeight="semibold"
+            color={"brand.darkGreen"}
+            fontSize={"0.9rem"}
+          >
+            <p>o</p>
+            <Link onClick={onCloseCart}>Seguir comprando</Link>
+          </HStack>
+        </VStack>
       </Stack>
-      <VStack direction="column" align="center">
-        <Button onClick={() => goToCheckout()} variant="brandPrimary" px={20}>Iniciar compra</Button>
-        <HStack fontWeight="semibold" color={'brand.darkGreen'} fontSize={'0.9rem'}>
-          <p>o</p>
-          <Link onClick={onCloseCart}>Seguir comprando</Link>
-        </HStack>
-      </VStack>
-    </Stack>
+    </>
   );
 };

@@ -1,45 +1,93 @@
 import React from "react";
 import { Box, Flex, Icon } from "@chakra-ui/react";
-import { FaArrowLeft } from "react-icons/fa";
-import { FaArrowRight } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
-const pages = [
-    {
-        number: 1,
-        selected: true
-    },
-    {
-        number: 2,
-        selected: false
-    },
-    {
-        number: 3,
-        selected: false
-    },
-    {
-        number: 4,
-        selected: false
-    },
-    {
-        number: 5,
-        selected: false
-    }
-];
+interface Props {
+    pages: number;
+    handleClick: (page: number) => void;
+};
 
-const Paginator = ({alignSelf, m}) => {
+const Paginator: React.FC<Props> = ({ pages, handleClick }: Props) => {
+    let activePage = parseInt(localStorage.getItem('page') as string) | 0;
+
+    const handleButtonClick = (page: number) => {
+        if (page < pages && page > -1) {
+            activePage = page;
+            localStorage.setItem('page', JSON.stringify(page)); 
+            handleClick(page);
+        };
+    };
+
+    const renderButtons = () => {
+        const buttons: JSX.Element[] = [];
+
+        for (let i = 0; i < pages; i++) {
+            buttons.push(
+                <Box
+                    key={i}
+                    as="button"
+                    fontWeight="600"
+                    w="3rem"
+                    h="100%"
+                    bg={activePage === i ? "brand.lightBeige" : "brand.darkBrown"}
+                    borderRadius={5}
+                    color={activePage === i ? "brand.darkBrown" : "brand.lightBeige"}
+                    disabled={activePage === i}
+                    onClick={() => handleButtonClick(i)}
+                    transition="all .2s ease-in-out"
+                    _hover={activePage != i ? {
+                        bg: "brand.lightBeige",
+                        color: "brand.darkBrown",
+                        transform: "scale(1.2)"
+                    } : ''}
+                >
+                    {i + 1}
+                </Box>
+            );
+        };
+        return buttons;
+    };
+
     return (
-        <Flex gap={4} borderRadius="5px" alignItems="center" alignSelf={alignSelf} m={m}>
-            <Flex as="button" alignItems="center" justifyContent="center" bg="brand.darkBrown" color="brand.lightBeige" borderRadius={5} transition="all .2s ease-in-out" h="3rem" w="3rem" _hover={{bg: "brand.lightBeige", color: "brand.darkBrown", transform: "scale(1.2)"}}>
-                <Icon as={FaArrowLeft}/>
+        <Flex gap={4} borderRadius="5px" alignItems="center" alignSelf={'center'} m={'3rem'}>
+            <Flex
+                as="button"
+                alignItems="center"
+                justifyContent="center"
+                bg={activePage === 0 ? "brand.lightBeige" : "brand.darkBrown"}
+                color={activePage === 0 ? "brand.darkBrown" : "brand.lightBeige"}
+                borderRadius={5}
+                transition="all .2s ease-in-out"
+                h="3rem"
+                w="3rem"
+                onClick={() => handleButtonClick(activePage - 1)}
+                _hover={activePage > 0 ? {
+                    bg: "brand.lightBeige",
+                    color: "brand.darkBrown",
+                    transform: "scale(1.2)"
+                } : ''}
+            >
+                <Icon as={FaArrowLeft} />
             </Flex>
-            {pages.map((page) => page.selected ? (
-                    <Box as="button" fontWeight="600" w="3rem" h="100%" bg="brand.lightBeige" borderRadius={5} color="brand.darkBrown">{page.number}</Box>
-                ) :
-                (
-                    <Box as="button" fontWeight="600" w="3rem" h="100%" color="brand.lightBeige" transition="all .2s ease-in-out" borderRadius={5} bg="brand.darkBrown" _hover={{bg: "brand.lightBeige", color: "brand.darkBrown", transform: "scale(1.2)"}}>{page.number}</Box>)
-                )}
-            <Flex as="button" alignItems="center" justifyContent="center" bg="brand.darkBrown" color="brand.lightBeige" transition="all .2s ease-in-out" borderRadius={5} h="3rem" w="3rem" _hover={{bg: "brand.lightBeige", color: "brand.darkBrown", transform: "scale(1.2)"}}>
-                <Icon as={FaArrowRight}/>
+            {renderButtons()}
+            <Flex
+                as="button"
+                alignItems="center"
+                justifyContent="center"
+                bg={activePage >= pages - 1 ? "brand.lightBeige" : "brand.darkBrown"}
+                color={activePage >= pages - 1 ? "brand.darkBrown" : "brand.lightBeige"}
+                transition="all .2s ease-in-out"
+                borderRadius={5}
+                h="3rem"
+                w="3rem"
+                onClick={() => handleButtonClick(activePage + 1)}
+                _hover={activePage < pages - 1 ? {
+                    bg: "brand.lightBeige",
+                    color: "brand.darkBrown",
+                    transform: "scale(1.2)"
+                } : ''}
+            >
+                <Icon as={FaArrowRight} />
             </Flex>
         </Flex>
     );

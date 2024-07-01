@@ -3,19 +3,22 @@ import React, { useState } from "react";
 
 interface Props {
   name: string,
-  options: string[]
+  options: string[],
+  onClick: (name: string, value: string)=>void
 };
 
-const Filter = ({name, options}: Props) => {
+const Filter = ({name, options, onClick}: Props) => {
   const [selectedOption, setSelectedOption] = useState<Array<string>>(['']);
  
   const handleCheckboxChange = (value) => {
     setSelectedOption([value]);
+
+    onClick(name, value);
   };
 
   return (
     <Box bg="rgba(78,110,82,0.3)" borderRadius={10} p="2rem 4rem">
-      <Heading fontSize="1.8rem">{name}</Heading>
+      <Heading fontSize={{base: "1.4rem", xl: "1.8rem"}}>{name}</Heading>
       <Flex flexDir="column" gap={3} mt={4}>
         <CheckboxGroup
         colorScheme="brand.darkGreen"
@@ -26,7 +29,7 @@ const Filter = ({name, options}: Props) => {
             {options.map((value, index) => (
               <Checkbox
               key={index}
-              size="lg"
+              size={{base: 'sm', xl: 'lg'}}
               value={value}
               color="brand.darkGreen"
               borderColor="brand.darkGreen"

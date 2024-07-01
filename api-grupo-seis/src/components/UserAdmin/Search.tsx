@@ -11,12 +11,11 @@ type SearchProps = {
 export const Search = ({
   query,
   onChangeQuery,
-  filterUsers,
   handleShowAll,
+  filterUsers,
 }: SearchProps) => {
   const handleSubmit = (e) => {
     e.preventDefault();
-    onChangeQuery("");
     filterUsers();
   };
 

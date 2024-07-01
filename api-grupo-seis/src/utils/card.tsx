@@ -23,6 +23,14 @@ export function cutTitle(title: string): string {
     return title;
 }
 
+// limit keyword lenght and adds '...' 
+export function cutKeyword(keyword: string): string {
+    if (keyword.length > 10) {
+        return keyword.substring(0, 10) + "...";
+    }
+    return keyword;
+}
+
 // calculates discounts based on percentages
 export function calculateDiscount(price: number, percentage: number): number {
     if (percentage < 0 || percentage > 100) {
@@ -49,6 +57,7 @@ export function generateRating(rating: number): JSX.Element[] {
                 as={FaStar} 
                 color="brand.darkMustard"
                 key={i}
+                boxSize={{base: '3', xl: '4'}}
                 />);
         } else if (i === roundedRating) {
             icons.push(
@@ -56,6 +65,7 @@ export function generateRating(rating: number): JSX.Element[] {
                 as={FaStarHalfAlt} 
                 color="brand.darkMustard"
                 key={i}
+                boxSize={{base: '3', xl: '4'}}
                 />);
         } else {
             icons.push(
@@ -63,6 +73,7 @@ export function generateRating(rating: number): JSX.Element[] {
                 as={FaRegStar} 
                 color="brand.darkMustard"
                 key={i}
+                boxSize={{base: '3', xl: '4'}}
                 />);
         }
     }

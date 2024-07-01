@@ -34,8 +34,8 @@ export const Filters = ({ onFilter, filter }: FiltersProps) => {
       <Button
         variant="brandThird"
         m="0.15em"
-        isActive={filter === "lastName" ? true : false}
-        onClick={() => onFilter("lastName")}
+        isActive={filter === "lastname" ? true : false}
+        onClick={() => onFilter("lastname")}
         h="40px"
         paddingTop="0"
         paddingBottom="0"
