@@ -30,12 +30,17 @@ import {
   deleteProduct,
   getProductsByVendor,
 } from "../../services/ProductsService";
+import UserAdminPaginator from "../UserAdmin/UserAdminPaginator";
 
-const ManageProductTable = () => {
+const ManageProductTable = (activeTab: number) => {
   const [editingProduct, setEditingProduct] = useState<number>(0);
   const [deleteCandidateId, setDeleteCandidateId] = useState<number>(0);
   const [deleteCandidateTitle, setDeleteCandidateTitle] = useState<string>("");
   const [productsState, setProductsState] = useState([]);
+  const [selectedPage, setSelectedPage] = useState<number>(0);
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [isSelectedPagePaginator, setIsSelectedPagePaginator] =
+    useState<boolean>(false);
   const {
     isOpen: isDeleteOpen,
     onOpen: onOpenDelete,
@@ -51,14 +56,23 @@ const ManageProductTable = () => {
     onCloseDelete();
   };
 
+  const setSelectedPagePaginator = (page: number) => {
+    setSelectedPage(page);
+    setIsSelectedPagePaginator(true);
+  };
+
   const fetchProducts = async () => {
     try {
-      const response = await getProductsByVendor(24, 0);
+      const response = await getProductsByVendor(
+        Number(localStorage.getItem("userId")),
+        selectedPage
+      );
       setProductsState(response.content);
-      console.log(response.content);
+      setTotalPages(response.totalPages);
     } catch (error) {
       console.error(error);
     }
+    setIsSelectedPagePaginator(false);
   };
 
   const fetchDelete = async (id: number) => {
@@ -80,7 +94,7 @@ const ManageProductTable = () => {
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [activeTab, editingProduct, isSelectedPagePaginator]);
 
   return (
     <>
@@ -266,6 +280,13 @@ const ManageProductTable = () => {
           </Table>
         </TableContainer>
       )}
+      <UserAdminPaginator
+        alignSelf={"alignSelf"}
+        m="2rem"
+        totalPages={totalPages}
+        selectedPage={selectedPage}
+        setSelectedPage={setSelectedPagePaginator}
+      />
     </>
   );
 };

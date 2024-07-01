@@ -12,9 +12,9 @@ import { selectUser } from "../../context/slices/userSlice";
 const Profile = () => {
   const [isLoading, setIsLoading] = useState(true);
   const user = useAppSelector(selectUser);
+  const [tabIndex, setTabIndex] = useState(0);
 
   useEffect(() => {
-    console.log(user)
     setTimeout(() => {
       setIsLoading(false);
     }, 2000);
@@ -23,39 +23,53 @@ const Profile = () => {
     <>
       {isLoading && <Loading />}
       <div>
-        <Tabs isFitted variant="enclosed" colorScheme="green">
+        <Tabs
+          isFitted
+          variant="enclosed"
+          colorScheme="green"
+          index={tabIndex}
+          onChange={(index) => setTabIndex(index)}
+        >
           <TabList mb="1em">
             <Tab>Perfil</Tab>
-            {user?.role === 'BUYER' && <Tab>Pedidos</Tab>}
-            {user?.role === 'VENDOR' && 
-            <>
-              <Tab>Agregar producto</Tab>
-              <Tab>Gestionar productos</Tab>
-            </>}
-            {user?.role === 'ADMIN' && <Tab>Administración de usuarios</Tab>}
+            {user?.role === "BUYER" && <Tab>Pedidos</Tab>}
+            {user?.role === "VENDOR" && (
+              <>
+                <Tab>Agregar producto</Tab>
+                <Tab>Gestionar productos</Tab>
+              </>
+            )}
+            {user?.role === "ADMIN" && <Tab>Administración de usuarios</Tab>}
           </TabList>
 
           <TabPanels>
             <TabPanel>
               <SeccionPerfil />
             </TabPanel>
-            {user?.role === 'BUYER' &&             
-            <TabPanel>
-              <PedidosRealizados />
-            </TabPanel>}
-            {user?.role === 'VENDOR' && 
+            {user?.role === "BUYER" && (
+              <TabPanel>
+                <PedidosRealizados />
+              </TabPanel>
+            )}
+            {user?.role === "VENDOR" && (
               <>
                 <TabPanel>
                   <ProductForm />
                 </TabPanel>
+              </>
+            )}
+            {user?.role === "VENDOR" && (
+              <>
                 <TabPanel>
-                  <ManageProductTable />
+                  <ManageProductTable activeTab={tabIndex} />
                 </TabPanel>
-              </>}
-            {user?.role === 'ADMIN' && 
+              </>
+            )}
+            {user?.role === "ADMIN" && (
               <TabPanel>
                 <UserAdmin />
-              </TabPanel>}
+              </TabPanel>
+            )}
           </TabPanels>
         </Tabs>
       </div>

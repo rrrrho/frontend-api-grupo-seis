@@ -37,8 +37,8 @@ const UserAdminPaginator = ({
         as="button"
         alignItems="center"
         justifyContent="center"
-        bg={selectedPage === 0 ? "gray.300" : "brand.darkBrown"}
-        color={selectedPage === 0 ? "gray.100" : "brand.lightBeige"}
+        bg={"brand.darkBrown"}
+        color={"brand.lightBeige"}
         _hover={
           selectedPage === 0
             ? {}
@@ -48,6 +48,7 @@ const UserAdminPaginator = ({
                 transform: "scale(1.2)",
               }
         }
+        opacity={selectedPage === 0 ? 0.5 : 1}
         cursor={selectedPage === 0 ? "not-allowed" : "pointer"}
         transition="all .2s ease-in-out"
         borderRadius={5}
@@ -96,10 +97,8 @@ const UserAdminPaginator = ({
         as="button"
         alignItems="center"
         justifyContent="center"
-        bg={selectedPage === totalPages - 1 ? "gray.300" : "brand.darkBrown"}
-        color={
-          selectedPage === totalPages - 1 ? "gray.100" : "brand.lightBeige"
-        }
+        bg={"brand.darkBrown"}
+        color={"brand.lightBeige"}
         _hover={
           selectedPage === totalPages - 1
             ? {}
@@ -109,6 +108,7 @@ const UserAdminPaginator = ({
                 transform: "scale(1.2)",
               }
         }
+        opacity={selectedPage === totalPages - 1 ? 0.5 : 1}
         cursor={selectedPage === totalPages - 1 ? "not-allowed" : "pointer"}
         transition="all .2s ease-in-out"
         borderRadius={5}

@@ -33,7 +33,7 @@ const Checkout = () => {
 
   const handleFinishedCheckout = (e) => {
     e.preventDefault();
-    if (cartState.shipping.option.id === 0 && shippingMethod !== "shipping") {
+    if (cartState.shipping.option.id === 0 && shippingMethod === "shipping") {
       setShippingNotSelected(true);
       return;
     }
@@ -54,9 +54,9 @@ const Checkout = () => {
       quantity: item.quantity,
     }));
     try {
-      const response = await createInvoice({
+      await createInvoice({
         products: products,
-        user_id: 24,
+        user_id: Number(localStorage.getItem("userId")),
         payment_method: paymentMethod,
         shipping_method:
           shippingMethod === "shipping"

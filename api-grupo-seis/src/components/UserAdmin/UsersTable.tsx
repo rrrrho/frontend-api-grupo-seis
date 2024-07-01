@@ -178,7 +178,7 @@ export const UsersTable = ({
                     colorScheme={
                       user.role === "BUYER"
                         ? "green"
-                        : user.role === "SELLER"
+                        : user.role === "VENDOR"
                         ? "blue"
                         : "red"
                     }

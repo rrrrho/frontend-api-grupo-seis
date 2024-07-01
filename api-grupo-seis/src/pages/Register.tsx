@@ -28,7 +28,7 @@ import ModalError from "../components/Modal/ModalError";
 
 const Register = () => {
   const [name, setName] = useState<string>("");
-  const [role, setRole] = useState<'BUYER' | 'VENDOR'>('BUYER');
+  const [role, setRole] = useState<"BUYER" | "VENDOR">("BUYER");
   const [lastname, setLastname] = useState<string>("");
   const [dni, setDni] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
@@ -39,8 +39,16 @@ const Register = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [passwordsMatch, setPasswordsMatch] = useState<boolean>(true);
   const [emailsMatch, setEmailsMatch] = useState<boolean>(true);
-  const { isOpen: isOpenSuccess, onOpen: onOpenSuccess, onClose: onCloseSuccess } = useDisclosure();
-  const { isOpen: isOpenError, onOpen: onOpenError, onClose: onCloseError } = useDisclosure();
+  const {
+    isOpen: isOpenSuccess,
+    onOpen: onOpenSuccess,
+    onClose: onCloseSuccess,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenError,
+    onOpen: onOpenError,
+    onClose: onCloseError,
+  } = useDisclosure();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -76,11 +84,12 @@ const Register = () => {
         phoneNumber: phone,
         role: role,
         password: password,
-        state: true
+        state: true,
       });
 
       if (registerResponse.status === 201 && registerResponse.data.id) {
         const user = { email: email, role: role };
+        const userId = registerResponse.data.id;
 
         dispatch(setUser(user));
         localStorage.setItem("user", JSON.stringify(user));
@@ -92,6 +101,7 @@ const Register = () => {
 
         localStorage.setItem("token", loginResponse.data.token);
         localStorage.setItem("isLogged", "true");
+        localStorage.setItem("userId", userId.toString());
 
         onOpenSuccess();
 
@@ -104,7 +114,7 @@ const Register = () => {
       onOpenError();
     } finally {
       setIsLoading(false);
-    };
+    }
   };
 
   return (
@@ -273,7 +283,7 @@ const Register = () => {
                     color={"brand.lightBeige"}
                     fontWeight={"600"}
                     size={"lg"}
-                    onChange={(value: 'BUYER' | 'VENDOR') => setRole(value)}
+                    onChange={(value: "BUYER" | "VENDOR") => setRole(value)}
                   >
                     <Stack
                       spacing={5}
@@ -302,7 +312,11 @@ const Register = () => {
                   onClose={onCloseSuccess}
                   title="¡Se ha realizado el registro con exito!"
                 />
-                <ModalError isOpen={isOpenError} onClose={onCloseError} title="¡Ya existe una cuenta con ese email!" />
+                <ModalError
+                  isOpen={isOpenError}
+                  onClose={onCloseError}
+                  title="¡Ya existe una cuenta con ese email!"
+                />
               </Flex>
             </form>
           </Stack>
