@@ -54,6 +54,9 @@ const ProductDetail = () => {
             position="relative"
             cursor="pointer"
           >
+            { stock === 0 && 
+              <Text pos={'absolute'} top={3} left={3} fontSize={'2rem'} p={'0.2rem 0.5rem'} borderRadius={'5px'} color={'brand.lightBeige'} bg={'brand.darkGreen'}>Sin stock</Text>
+            }
             {bestseller && (
               <Text
                 position="absolute"
@@ -158,7 +161,7 @@ const ProductDetail = () => {
             <Flex justifyContent="flex-end">
               {" "}
               {}
-              {(user.role === 'BUYER' || user.email === undefined) &&
+              {(user.role === 'BUYER' || user.email === undefined) && stock > 0 &&
               <AddToCart
                 id={id}
                 name={name}

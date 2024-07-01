@@ -25,6 +25,13 @@ const Card = ({id, name, image, rating, voters, price, discount, quota, stock, b
     return (
         <Flex w={{base: '17rem', xl: "18rem"}} bg="brand.lightBeige" borderRadius="15px" flexDir="column" position="relative" transition="all 0.2s" _hover={{transform: "scale(1.1)"}}>
             <Box bg="white" h="22vh" w="100%" borderTopRadius="15px" position="relative" cursor="pointer">
+                {
+                    stock === 0 && (
+                        <Text position="absolute" top={3} left={3} color="brand.lightBeige" fontSize={{base: '0.6rem', xl: "1rem"}} p="0.2rem 0.5rem" bg="brand.darkGreen" borderRadius={'5px'}>
+                            Sin stock
+                        </Text>
+                    )
+                }
                 {bestseller && (
                     <Text position="absolute" bottom="0" fontWeight="600" color="brand.darkBrown" fontSize={{base: '0.6rem', xl: "0.8rem"}} p="0.2rem 0.5rem" bg="brand.darkMustard" borderTopRightRadius="5px">
                         ¡Más vendido!
@@ -41,7 +48,7 @@ const Card = ({id, name, image, rating, voters, price, discount, quota, stock, b
                     />
                 </Link>
             </Box>
-            {(user.role === 'BUYER' || user.email === undefined) &&
+            {(user.role === 'BUYER' || user.email === undefined) && stock > 0 &&
                 <AddToCart id={id} name={name} image={image} rating={rating} voters={voters} price={price} discount={discount} quota={quota} stock={stock} bestseller={bestseller}/>
             }
             <Box p="1.4rem">
