@@ -1,18 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface UserState {
-  name: string;
-  lastName: string;
-  id: number;
+  email: string;
+  role: string;
 }
 
 // @ts-ignore  
 const user = JSON.parse(localStorage.getItem('user'));
 
 const initialState: UserState = {
-  name: user?.name,
-  lastName: user?.lastName,
-  id: user?.id
+  email: user?.email,
+  role: user?.role
 };
 
 const userSlice = createSlice({
@@ -21,21 +19,19 @@ const userSlice = createSlice({
   reducers: {
     setUser: (
       state,
-      action: PayloadAction<{ name: string; lastName: string, id: number }>
+      action: PayloadAction<{ email: string; role: string }>
     ) => {
-      state.id = action.payload.id
-      state.name = action.payload.name;
-      state.lastName = action.payload.lastName;
+      state.email = action.payload.email;
+      state.role = action.payload.role;
     },
     logoutUser:( state ) => {
-      state.id = initialState.id,
-      state.name = initialState.name,
-      state.lastName = initialState.lastName
+      state.email = initialState.email,
+      state.role = initialState.role
     }
   },
 });
 
 export const { setUser, logoutUser } = userSlice.actions;
-export const selectName = (state: { user: UserState }) => state.user.name;
+export const selectEmail = (state: { user: UserState }) => state.user.email;
 export const selectUser = (state: { user: UserState }) => state.user;
 export default userSlice.reducer;
