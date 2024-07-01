@@ -43,7 +43,7 @@ const Cart = () => {
               <Stack direction={'column'} spacing={10} py={5} px={6} justify={'space-between'} minH={'100%'}>
                 <Stack spacing={8}>
                   {
-                    items.map((item) => <CartItem id={item.product.id} name={item.product.name} image={item.product.image} price={item.product.price} discount={item.product.discount} stock={item.product.stock} quantity={item.quantity}></CartItem>)
+                    items.map((item) => <CartItem id={item.product.id} name={item.product.title} image={item.product.imageUrl} price={item.product.price} discount={item.product.discount} stock={item.product.stock} quantity={item.quantity}></CartItem>)
                   }
                 </Stack> 
                 <CartOrderSummary onCloseCart={onClose}/>       

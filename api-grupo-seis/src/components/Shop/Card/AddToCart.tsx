@@ -7,7 +7,7 @@ import { AiFillShopping } from "react-icons/ai";
 import ModalSuccess from "../../Modal/ModalSuccess";
 import ModalError from "../../Modal/ModalError";
 
-const AddToCart = ({id, name, price, image, rating, voters, discount, quota, stock, bestseller}: Product) => {
+const AddToCart = ({id, title, price, imageUrl, rating, voters, discount, quota, stock, bestseller}: Product) => {
     const items = useAppSelector((state) => state.cart.items);
     const dispatch = useAppDispatch();
     const { isOpen: isOpenSuccess, onOpen: onOpenSuccess, onClose: onCloseSuccess } = useDisclosure();
@@ -15,7 +15,7 @@ const AddToCart = ({id, name, price, image, rating, voters, discount, quota, sto
 
     const addItemToCart = () => {
         const isItemInCart = items.some((item) => item.product.id === id);
-        const product = {id, name, price, image, rating, voters, discount, quota, stock, bestseller};
+        const product = {id, title, price, imageUrl, rating, voters, discount, quota, stock, bestseller};
     
         if (!isItemInCart) {
             dispatch(addItem({ product, quantity: 1 }));

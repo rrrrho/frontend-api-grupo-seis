@@ -317,8 +317,8 @@ const Shop = () => {
                                         <Skeleton key={index} isLoaded={!isProductsLoading} startColor='brand.darkGreen' endColor='brand.lightGreen'>
                                             <Card
                                                 id={product.id}
-                                                name={cutTitle(product.title)}
-                                                image={product.image_url}
+                                                title={cutTitle(product.title)}
+                                                imageUrl={product.image_url}
                                                 rating={product.score}
                                                 voters={product.score_voters}
                                                 price={product.price}

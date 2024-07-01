@@ -7,13 +7,13 @@ import { Link } from "react-router-dom";
 import { useAppSelector } from "../../../context/hooks";
 import { selectUser } from "../../../context/slices/userSlice";
 
-const Card = ({id, name, image, rating, voters, price, discount, quota, stock, bestseller}: Product) => {
+const Card = ({id, title, imageUrl, rating, voters, price, discount, quota, stock, bestseller}: Product) => {
     const user = useAppSelector(selectUser);
 
     const producto = {
         id: id,
-        name: name,
-        image: image,
+        name: title,
+        image: imageUrl,
         rating: rating,
         voters: voters,
         price: price,
@@ -40,7 +40,7 @@ const Card = ({id, name, image, rating, voters, price, discount, quota, stock, b
                 <Link to= {`/product-detail/${producto.id}`} state = { producto }>
 
                     <Image
-                        src={image}
+                        src={imageUrl}
                         objectFit="contain"
                         w="100%"
                         h="100%"
@@ -49,11 +49,11 @@ const Card = ({id, name, image, rating, voters, price, discount, quota, stock, b
                 </Link>
             </Box>
             {(user.role === 'BUYER' || user.email === undefined) && stock > 0 &&
-                <AddToCart id={id} name={name} image={image} rating={rating} voters={voters} price={price} discount={discount} quota={quota} stock={stock} bestseller={bestseller}/>
+                <AddToCart id={id} title={title} imageUrl={imageUrl} rating={rating} voters={voters} price={price} discount={discount} quota={quota} stock={stock} bestseller={bestseller}/>
             }
             <Box p="1.4rem">
                 <Box h="7.6vh">
-                    <Text fontWeight="600" fontSize={{base: '0.8rem', xl: "1rem"}} cursor="pointer">{name}</Text>
+                    <Text fontWeight="600" fontSize={{base: '0.8rem', xl: "1rem"}} cursor="pointer">{title}</Text>
                     <Flex gap={1} alignItems={'center'}>
                         <Text fontSize={{base: '0.6rem', xl: "0.8rem"}}>{rating}</Text>
                         <Flex alignItems={'center'}>{generateRating(rating)}</Flex>
