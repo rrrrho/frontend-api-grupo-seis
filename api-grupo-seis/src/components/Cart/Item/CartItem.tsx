@@ -27,7 +27,7 @@ const CartItem = ({ id, name, price, image, discount, stock, quantity }: CartIte
     return (
         <Flex gap={5} justifyContent="space-between" h="10vh" boxSizing='border-box'>
             <Flex gap={5}>
-                <Image src={image} boxSize={'6rem'} borderRadius={10}/>
+                <Image src={image} bg={'white'} boxSize={'6rem'} borderRadius={10}/>
                 <Flex flexDir={'column'} alignItems={'flex-start'} justifyContent={'space-between'}>
                     <Box>
                         <Text fontWeight={600} fontSize="0.8rem">{name}</Text>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Flex, Heading, SimpleGrid, Text, Image, Skeleton, Spinner, Center } from '@chakra-ui/react';
+import { Box, Flex, Heading, SimpleGrid, Text, Image, Skeleton, Center } from '@chakra-ui/react';
 import Card from '../components/Shop/Card';
 import Paginator from '../components/Shop/Paginator';
 import Filter from '../components/Shop/Filter';
@@ -14,13 +14,19 @@ import dogPoster from '../assets/img/dogs/dog-poster.png';
 import hamsterPoster from '../assets/img/hamsters/hamster-poster.png'
 import hamsterBanner from '../assets/img/hamster-banner.svg';
 import pezBanner from '../assets/img/pez-banner.svg';
-import { getProductsFiltered } from '../services/ProductsService';
+import { getBrands, getProductsFiltered } from '../services/ProductsService';
 import { Product } from '../types/product';
 import SortButton from '../components/Shop/SortButton';
 import PriceSlider from '../components/Shop/PriceSlider';
 import noProducts from './../assets/img/no-products.svg'
 
 const buttons = ['Todo', 'Mas relevante', 'Mayor precio', 'Menor precio'];
+
+interface FilterContent {
+    name: string,
+    values: string[]
+}
+
 const filterss = [
     {
         name: 'Marca',
@@ -95,6 +101,19 @@ const Shop = () => {
             }, 2000);
         }
     };
+
+    const getProductBrands = async (category: string) => {
+        try {
+            const response = await getBrands(category);
+            if (response.status === 200 && response.data.length > 0) {
+                setFilterContent([...filterContent, {name: 'Marca', values: response.data}]);
+            } else {
+                console.error("Failed to fetch brands:", response.statusText);
+            }
+        } catch (error) {
+            console.error("Failed to fetch brands:", error);
+        };
+    };
     
     // loading
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -118,6 +137,9 @@ const Shop = () => {
 
     // category ex. cat
     const category = translateSpanishCategory(extractCategory(location.pathname));
+
+    const [filterContent, setFilterContent] = useState<FilterContent[]>
+    ((category === 'cat' || category === 'dog') ? [{name: 'Edad', values: ['Cachorro', 'Adulto', 'Adulto senior']}] : []);
 
     // sort button state
     interface Sort {
@@ -157,7 +179,6 @@ const Shop = () => {
     };
 
     const handleFilterButtonClick = (name: string, value: string | number[]) => {
-        console.log(value)
         switch (name) {
             case 'Marca':
                 setFilters({...filters, brand: value as string});
@@ -187,6 +208,7 @@ const Shop = () => {
         localStorage.setItem('page', '0');
         setFilters({});
         setSort({type: 'none', value: 'none'});
+        setFilterContent((category === 'cat' || category === 'dog') ? [{name: 'Edad', values: ['Cachorro', 'Adulto', 'Adulto senior']}] : []);
 
         switch (location.pathname) {
             case '/shop/perros':
@@ -206,10 +228,17 @@ const Shop = () => {
                 break;
         }
 
-
         getProducts({category: category, page: 0, keywords: category ? undefined : extractCategory(location.pathname)});
         setTimeout(() => setIsLoading(false), 2000)
     }, [location]);
+
+    useEffect(() => {
+        if (!filterContent.some(filter => filter.name === 'Marca')) {
+            const parameter = category ? category : '';
+            getProductBrands(parameter);
+        }
+    }, [filterContent])
+
 
     useEffect(() => {
         if (sort.type || filters) {
@@ -262,7 +291,7 @@ const Shop = () => {
                         <Skeleton isLoaded={!isLoading} startColor='brand.darkGreen' endColor='brand.lightGreen'>
                             <PriceSlider name={'Precio'} onClick={handleFilterButtonClick} isLoading={isLoading}/>
                         </Skeleton>
-                        {filterss.map((filterx, index) =>
+                        {filterContent.map((filterx, index) =>
                             <Skeleton key={index} isLoaded={!isLoading} startColor='brand.darkGreen' endColor='brand.lightGreen'>
                                 <Filter name={filterx.name} options={filterx.values} onClick={handleFilterButtonClick}/>
                             </Skeleton>
@@ -274,7 +303,7 @@ const Shop = () => {
                     <Flex flexDir="column">
                         <Skeleton isLoaded={!isLoading} startColor='brand.darkGreen' endColor='brand.lightGreen'>
                             <Flex justifyContent="space-between" gap={10}>
-                                <Heading fontSize={{ base: "2rem", xl: "3.5rem" }} fontWeight="900">{category ? 'Resultados' : cutKeyword(extractCategory(location.pathname))}</Heading>
+                                <Heading fontSize={{ base: "2rem", xl: "3.5rem" }} fontWeight="900">{category ? 'Resultados' : cutKeyword(extractCategory(location.pathname).replace(/%/g, ' '))}</Heading>
                                 <Flex gap={4} alignSelf="flex-end">
                                     <SortButton values={buttons} onClick={handleSortButtonClick}/>
                                 </Flex>
@@ -288,8 +317,8 @@ const Shop = () => {
                                         <Skeleton key={index} isLoaded={!isProductsLoading} startColor='brand.darkGreen' endColor='brand.lightGreen'>
                                             <Card
                                                 id={product.id}
-                                                name={cutTitle(product.title)}
-                                                image={product.image_url}
+                                                title={cutTitle(product.title)}
+                                                imageUrl={product.image_url}
                                                 rating={product.score}
                                                 voters={product.score_voters}
                                                 price={product.price}

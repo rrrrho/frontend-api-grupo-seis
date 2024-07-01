@@ -23,12 +23,9 @@ const Header = () => {
       dispatch(deleteItem({ id: item.product.id }));
     });
 
-    dispatch(logoutUser());
-
     localStorage.removeItem("user");
     localStorage.removeItem("isLogged");
     localStorage.removeItem("token");
-    localStorage.removeItem("isLoggedAdmin");
 
     navigate("/");
     location.reload();

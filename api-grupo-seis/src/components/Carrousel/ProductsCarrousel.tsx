@@ -42,8 +42,8 @@ const ProductsCarrousel = ({ products }: Props) => {
               <SwiperSlide className="productSlide">
                 <Card
                                                           id={product.id}
-                                                          name={cutTitle(product.name)}
-                                                          image={product.image}
+                                                          title={cutTitle(product.name)}
+                                                          imageUrl={product.image}
                                                           rating={product.rating}
                                                           voters={product.voters}
                                                           price={product.price}

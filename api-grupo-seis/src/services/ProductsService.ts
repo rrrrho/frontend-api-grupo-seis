@@ -1,7 +1,6 @@
 import { CustomResponse, Response } from "../types/customResponse";
-import { BASE_URL, GET_ALL_PRODUCTS, USERS } from "./apiUrls";
+import { BASE_URL, GET_ALL_PRODUCTS, GET_BRANDS, USERS } from "./apiUrls";
 import { Product } from "../components/ProductForm/ProductForm";
-import { Response } from "../types/customResponse";
 import httpService from "./httpService";
 import axios from "axios";
 import { toCamelCase, toSnakeCase } from "../utils/checkout";
@@ -18,6 +17,11 @@ interface Props {
   max?: number,
   keywords?: string
 }
+
+export const getBrands = async (category: string): Promise<Response<string[]>> => {
+  let url = `${BASE_URL}${GET_BRANDS}${category ? `?category=${category}` : ''}`;
+  return await httpService.get(url);
+};
 
 export const getProductsFiltered = async ({
   category,
