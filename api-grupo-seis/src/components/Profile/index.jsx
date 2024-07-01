@@ -14,7 +14,7 @@ const Profile = () => {
   const user = useAppSelector(selectUser);
 
   useEffect(() => {
-    console.log(user)
+    console.log(user);
     setTimeout(() => {
       setIsLoading(false);
     }, 2000);
@@ -26,36 +26,44 @@ const Profile = () => {
         <Tabs isFitted variant="enclosed" colorScheme="green">
           <TabList mb="1em">
             <Tab>Perfil</Tab>
-            {user?.role === 'BUYER' && <Tab>Pedidos</Tab>}
-            {user?.role === 'VENDOR' && 
-            <>
-              <Tab>Agregar producto</Tab>
-              <Tab>Gestionar productos</Tab>
-            </>}
-            {user?.role === 'ADMIN' && <Tab>Administración de usuarios</Tab>}
+            {user?.role === "BUYER" && <Tab>Pedidos</Tab>}
+            {user?.role === "VENDOR" && (
+              <>
+                <Tab>Agregar producto</Tab>
+                <Tab>Gestionar productos</Tab>
+              </>
+            )}
+            {user?.role === "ADMIN" && <Tab>Administración de usuarios</Tab>}
           </TabList>
 
           <TabPanels>
             <TabPanel>
               <SeccionPerfil />
             </TabPanel>
-            {user?.role === 'BUYER' &&             
-            <TabPanel>
-              <PedidosRealizados />
-            </TabPanel>}
-            {user?.role === 'VENDOR' && 
+            {user?.role === "BUYER" && (
+              <TabPanel>
+                <PedidosRealizados />
+              </TabPanel>
+            )}
+            {user?.role === "VENDOR" && (
               <>
                 <TabPanel>
                   <ProductForm />
                 </TabPanel>
+              </>
+            )}
+            {user?.role === "VENDOR" && (
+              <>
                 <TabPanel>
                   <ManageProductTable />
                 </TabPanel>
-              </>}
-            {user?.role === 'ADMIN' && 
+              </>
+            )}
+            {user?.role === "ADMIN" && (
               <TabPanel>
                 <UserAdmin />
-              </TabPanel>}
+              </TabPanel>
+            )}
           </TabPanels>
         </Tabs>
       </div>

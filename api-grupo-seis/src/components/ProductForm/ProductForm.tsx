@@ -23,7 +23,7 @@ import ModalSuccess from "../Modal/ModalSuccess";
 import { createProduct, updateProduct } from "../../services/ProductsService";
 import { ProductRequest } from "../../types/product";
 
-//TODO: eliminar esta y usar la que quede como definitiva en /types
+// TODO: eliminar esta y usar la que quede como definitiva en /types
 export interface Product {
   id: number;
   title: string;
@@ -45,22 +45,18 @@ type AddProductFormProps = {
   setEditingProduct: (id: number) => void;
   productId: number;
 };
-// TODO: mandar bien el userId
 const ProductForm = ({
   product = {
-    userId: 24,
+    userId: Number(localStorage.getItem("userId")),
     title: "",
     description: "",
     imageUrl: "",
     brand: "",
     petCategory: "",
     petStage: "",
-    score: 0,
-    scoreVoters: 0,
     price: 0,
     discount: 0,
     stock: 0,
-    bestseller: false,
   },
   setEditingProduct,
   productId,

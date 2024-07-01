@@ -56,7 +56,7 @@ const Checkout = () => {
     try {
       const response = await createInvoice({
         products: products,
-        user_id: 24,
+        user_id: Number(localStorage.getItem("userId")),
         payment_method: paymentMethod,
         shipping_method:
           shippingMethod === "shipping"
