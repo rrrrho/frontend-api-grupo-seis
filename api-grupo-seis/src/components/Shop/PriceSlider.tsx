@@ -1,4 +1,4 @@
-import { RangeSlider, RangeSliderTrack, RangeSliderFilledTrack, RangeSliderThumb, Box, Heading, Button, Tooltip, Flex, Text, Input } from "@chakra-ui/react";
+import { RangeSlider, RangeSliderTrack, RangeSliderFilledTrack, RangeSliderThumb, Heading, Button, Flex, Text, Popover, PopoverContent, PopoverArrow, PopoverTrigger } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { formatPrice } from "../../utils/card";
 
@@ -22,14 +22,26 @@ const PriceSlider = ({name, onClick, isLoading}: Props) => {
                 <RangeSliderTrack bg='brand.lightBeige'>
                     <RangeSliderFilledTrack bg='brand.darkMustard' />
                 </RangeSliderTrack>
-                <Tooltip label={`$${formatPrice(values[0])}`} isOpen={!isLoading} bg={'brand.darkBrown'} color={'brand.lightBeige'} hasArrow arrowSize={15}>
-                    <RangeSliderThumb boxSize={6} index={0} />
-                </Tooltip>
-                <Tooltip placement='top' label={`$${formatPrice(values[1])}`} isOpen={!isLoading} bg={'brand.darkBrown'} color={'brand.lightBeige'} hasArrow arrowSize={15}>
-                    <RangeSliderThumb boxSize={6} index={1} />
-                </Tooltip>
+                <Popover isOpen={!isLoading} arrowShadowColor={'brand.darkBrown'}>
+                    <PopoverTrigger>
+                        <RangeSliderThumb boxSize={6} index={0} />
+                    </PopoverTrigger>
+                    <PopoverContent bg={'brand.darkBrown'} w={'fit-content'} p={1.5} border={'none'} borderRadius={2}>
+                        <PopoverArrow bg={'brand.darkBrown'}/>
+                        <Text fontSize={'0.9rem'} color={'brand.lightBeige'}>${formatPrice(values[0])}</Text>
+                    </PopoverContent>
+                </Popover>
+                <Popover isOpen={!isLoading} placement={'top'} arrowShadowColor={'brand.darkBrown'}>
+                    <PopoverTrigger>
+                        <RangeSliderThumb boxSize={6} index={1} />
+                    </PopoverTrigger>
+                    <PopoverContent bg={'brand.darkBrown'} w={'fit-content'} p={1.5} border={'none'} borderRadius={2}>
+                        <PopoverArrow bg={'brand.darkBrown'}/>
+                        <Text fontSize={'0.9rem'} color={'brand.lightBeige'}>${formatPrice(values[1])}</Text>
+                    </PopoverContent>
+                </Popover>
             </RangeSlider>
-            <Button mt={10} variant={'brandPrimary'} onClick={handleClick}>
+            <Button mt={12} variant={'brandPrimary'} onClick={handleClick}>
                 Buscar
             </Button>
             {/**

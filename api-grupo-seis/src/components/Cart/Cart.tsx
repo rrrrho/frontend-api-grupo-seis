@@ -30,7 +30,7 @@ const Cart = () => {
       finalFocusRef={btnRef}
       size={'md'}
       >
-      <DrawerOverlay />
+      <DrawerOverlay/>
         <DrawerContent bg='brand.cream'>
           <DrawerCloseButton zIndex={5} size="lg" color="brand.lightBeige" />
           <DrawerHeader bg="brand.lightGreen">

@@ -260,7 +260,7 @@ const Shop = () => {
                 <Flex justifyContent="center" mt="3rem" mb={products.length ? '0rem' : '3rem'} gap={20}>
                     <Flex gap={5} w={{base: '28vw', xl: "22vw"}} flexDir="column">
                         <Skeleton isLoaded={!isLoading} startColor='brand.darkGreen' endColor='brand.lightGreen'>
-                            <PriceSlider name={'Price'} onClick={handleFilterButtonClick} isLoading={isLoading}/>
+                            <PriceSlider name={'Precio'} onClick={handleFilterButtonClick} isLoading={isLoading}/>
                         </Skeleton>
                         {filterss.map((filterx, index) =>
                             <Skeleton key={index} isLoaded={!isLoading} startColor='brand.darkGreen' endColor='brand.lightGreen'>

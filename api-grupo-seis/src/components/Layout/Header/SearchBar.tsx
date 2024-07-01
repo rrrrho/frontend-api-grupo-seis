@@ -1,14 +1,13 @@
-import { Box, Icon, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
-import React, { useRef } from "react";
+import { Icon, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
+import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
-    const [value, setValue] = React.useState('');
+    const [value, setValue] = useState('');
     const navigate = useNavigate();
 
     const handleClick = (value: string) => {
-        localStorage.setItem('keywords', value);
         navigate(`/shop/${value}`);
         setValue('');
     };
