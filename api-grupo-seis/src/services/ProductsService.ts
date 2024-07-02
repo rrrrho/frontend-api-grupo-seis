@@ -7,19 +7,23 @@ import { toCamelCase, toSnakeCase } from "../utils/checkout";
 import { ProductRequest } from "../types/product";
 
 interface Props {
-  category?: string,
-  page: number,
-  price?: string,
-  bestseller?: string
-  brand?: string,
-  stage?: string,
-  min?: number,
-  max?: number,
-  keywords?: string
+  category?: string;
+  page: number;
+  price?: string;
+  bestseller?: string;
+  brand?: string;
+  stage?: string;
+  min?: number;
+  max?: number;
+  keywords?: string;
 }
 
-export const getBrands = async (category: string): Promise<Response<string[]>> => {
-  let url = `${BASE_URL}${GET_BRANDS}${category ? `?category=${category}` : ''}`;
+export const getBrands = async (
+  category: string
+): Promise<Response<string[]>> => {
+  let url = `${BASE_URL}${GET_BRANDS}${
+    category ? `?category=${category}` : ""
+  }`;
   return await httpService.get(url);
 };
 
@@ -32,9 +36,8 @@ export const getProductsFiltered = async ({
   stage,
   min,
   max,
-  keywords
+  keywords,
 }: Props): Promise<Response<CustomResponse<ProductRequest[]>>> => {
-
   let url = `${BASE_URL}${GET_ALL_PRODUCTS}?page=${page}`;
 
   if (category !== undefined && category !== null && category !== "") {
@@ -146,6 +149,20 @@ export const getProductsByVendor = async (
       statusCode: response.status,
       content: response.data.content.map((p) => toCamelCase(p)),
       totalPages: response.data.totalPages,
+    };
+  } catch (error) {
+    throwError(error);
+  }
+};
+
+export const getBestsellerProducts = async (): Promise<Response<Product[]>> => {
+  try {
+    const response = await httpService.get(
+      `${BASE_URL}${GET_ALL_PRODUCTS}?bestseller=desc&page=0`
+    );
+    return {
+      statusCode: response.status,
+      content: response.data.content.map((p) => toCamelCase(p)),
     };
   } catch (error) {
     throwError(error);

@@ -5,9 +5,8 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogOverlay,
-  Box,
   Button,
-  Flex,
+  Center,
   HStack,
   Image,
   Table,
@@ -31,6 +30,7 @@ import {
   getProductsByVendor,
 } from "../../services/ProductsService";
 import UserAdminPaginator from "../UserAdmin/UserAdminPaginator";
+import noProducts from "../../assets/img/no-products.svg";
 
 const ManageProductTable = (activeTab: number) => {
   const [editingProduct, setEditingProduct] = useState<number>(0);
@@ -104,6 +104,10 @@ const ManageProductTable = (activeTab: number) => {
           setEditingProduct={setEditingProduct}
           productId={editingProduct}
         />
+      ) : productsState.length === 0 ? (
+        <Center my={10}>
+          <Image src={noProducts} />
+        </Center>
       ) : (
         <TableContainer mx="2rem" mt="1rem">
           <Table>
@@ -239,7 +243,7 @@ const ManageProductTable = (activeTab: number) => {
                       leastDestructiveRef={cancelRef}
                       onClose={onCloseDelete}
                     >
-                      <AlertDialogOverlay bg="rgba(0,0,0,0.3)">
+                      <AlertDialogOverlay bg="rgba(0,0,0,0.15)">
                         <AlertDialogContent
                           bgColor="brand.lightGreen"
                           color={"brand.lightBeige"}
@@ -280,13 +284,15 @@ const ManageProductTable = (activeTab: number) => {
           </Table>
         </TableContainer>
       )}
-      <UserAdminPaginator
-        alignSelf={"alignSelf"}
-        m="2rem"
-        totalPages={totalPages}
-        selectedPage={selectedPage}
-        setSelectedPage={setSelectedPagePaginator}
-      />
+      {totalPages > 1 && (
+        <UserAdminPaginator
+          alignSelf={"alignSelf"}
+          m="2rem"
+          totalPages={totalPages}
+          selectedPage={selectedPage}
+          setSelectedPage={setSelectedPagePaginator}
+        />
+      )}
     </>
   );
 };

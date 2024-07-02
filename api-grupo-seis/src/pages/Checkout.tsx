@@ -61,7 +61,9 @@ const Checkout = () => {
         shipping_data: shippingData,
         last_four_digits: lastFourDigits,
       });
-      if (response.status === 201) {
+      console.log(response.statusCode);
+
+      if (response.statusCode === 201) {
         onOpen();
       }
     } catch (error) {
