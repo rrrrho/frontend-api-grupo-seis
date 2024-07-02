@@ -10,6 +10,7 @@ import { deleteItem } from "../context/slices/cartSlice";
 import { calcTotalCheckout } from "../utils/checkout";
 import Loading from "../components/Loading/Loading";
 import { createInvoice } from "../services/InvoiceService";
+import ModalError from "../components/Modal/ModalError";
 
 const Checkout = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -26,35 +27,28 @@ const Checkout = () => {
     paymentMethod === "CREDIT_CARD" ? 5 : paymentMethod === "WIRE" ? 10 : 0;
   const [shippingData, setShippingData] = useState("");
   const [lastFourDigits, setLastFourDigits] = useState("");
+  const {
+    isOpen: isOpenError,
+    onOpen: onOpenError,
+    onClose: onCloseError,
+  } = useDisclosure();
 
   useEffect(() => {
     calcTotalCheckout(cartState, paymentMethodDiscount);
   }, [paymentMethod, paymentMethodDiscount]);
 
-  const handleFinishedCheckout = (e) => {
+  const handleFinishedCheckout = async (e) => {
     e.preventDefault();
     if (cartState.shipping.option.id === 0 && shippingMethod === "shipping") {
       setShippingNotSelected(true);
       return;
     }
-    fetchCheckout();
-    onOpen();
-    cartState.items.map((item) => {
-      dispatch(deleteItem({ id: item.product.id }));
-    });
-    setTimeout(() => {
-      onClose();
-      navigate("/");
-    }, 3000);
-  };
-
-  const fetchCheckout = async () => {
     const products = cartState.items.map((item) => ({
       product_id: item.product.id,
       quantity: item.quantity,
     }));
     try {
-      await createInvoice({
+      const response = await createInvoice({
         products: products,
         user_id: Number(localStorage.getItem("userId")),
         payment_method: paymentMethod,
@@ -67,8 +61,23 @@ const Checkout = () => {
         shipping_data: shippingData,
         last_four_digits: lastFourDigits,
       });
+      console.log(response.statusCode);
+
+      if (response.statusCode === 201) {
+        onOpen();
+      }
     } catch (error) {
+      onOpenError();
       console.error("Error en el checkout:", error);
+    } finally {
+      setTimeout(() => {
+        cartState.items.map((item) => {
+          dispatch(deleteItem({ id: item.product.id }));
+        });
+        onClose();
+        onCloseError();
+        navigate("/");
+      }, 3000);
     }
   };
 
@@ -82,7 +91,7 @@ const Checkout = () => {
     <>
       {isLoading && <Loading />}
       <form onSubmit={handleFinishedCheckout}>
-        <Flex w="90vw" alignItems="center" justifyContent="center" m="3em">
+        <Flex w="90vw" alignItems="start" justifyContent="center" m="3em">
           <Flex direction="column" align="flex-start" mr="4em">
             <Skeleton
               isLoaded={!isLoading}
@@ -142,6 +151,11 @@ const Checkout = () => {
             </Flex>
           </Skeleton>
           <FinishedCheckoutModal isOpen={isOpen} onClose={onClose} />
+          <ModalError
+            isOpen={isOpenError}
+            onClose={onCloseError}
+            title="No hay suficiente stock para un producto."
+          />
         </Flex>
       </form>
     </>
