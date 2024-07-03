@@ -10,9 +10,9 @@ import { useNavigate } from "react-router-dom";
 
 const AddToCart = ({
   id,
-  name,
+  title,
   price,
-  image,
+  imageUrl,
   rating,
   voters,
   discount,
@@ -38,9 +38,9 @@ const AddToCart = ({
     const isItemInCart = items.some((item) => item.product.id === id);
     const product = {
       id,
-      name,
+      title,
       price,
-      image,
+      imageUrl,
       rating,
       voters,
       discount,

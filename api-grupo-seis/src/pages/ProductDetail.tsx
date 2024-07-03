@@ -14,8 +14,8 @@ const ProductDetail = () => {
   const product = location.state;
   const {
     id,
-    name,
-    image,
+    title,
+    imageUrl,
     rating,
     voters,
     price,
@@ -27,6 +27,8 @@ const ProductDetail = () => {
 
   useEffect(() => {
     setTimeout(() => {
+      console.log(product);
+
       setIsLoading(false);
     }, 2000);
   }, []);
@@ -54,9 +56,20 @@ const ProductDetail = () => {
             position="relative"
             cursor="pointer"
           >
-            { stock === 0 && 
-              <Text pos={'absolute'} top={3} left={3} fontSize={'2rem'} p={'0.2rem 0.5rem'} borderRadius={'5px'} color={'brand.lightBeige'} bg={'brand.darkGreen'}>Sin stock</Text>
-            }
+            {stock === 0 && (
+              <Text
+                pos={"absolute"}
+                top={3}
+                left={3}
+                fontSize={"2rem"}
+                p={"0.2rem 0.5rem"}
+                borderRadius={"5px"}
+                color={"brand.lightBeige"}
+                bg={"brand.darkGreen"}
+              >
+                Sin stock
+              </Text>
+            )}
             {bestseller && (
               <Text
                 position="absolute"
@@ -72,7 +85,7 @@ const ProductDetail = () => {
               </Text>
             )}
             <Image
-              src={image}
+              src={imageUrl}
               objectFit="contain"
               w="100%"
               h="100%"
@@ -87,7 +100,7 @@ const ProductDetail = () => {
                 fontSize={{ base: "2.8rem", xl: "2rem" }}
                 cursor="pointer"
               >
-                {name}
+                {title}
               </Text>
               <Flex gap={1} alignItems={"center"}>
                 <Text fontSize={{ base: "0.6rem", xl: "1.8rem" }}>
@@ -161,20 +174,21 @@ const ProductDetail = () => {
             <Flex justifyContent="flex-end">
               {" "}
               {}
-              {(user.role === 'BUYER' || user.email === undefined) && stock > 0 &&
-              <AddToCart
-                id={id}
-                name={name}
-                image={image}
-                rating={rating}
-                voters={voters}
-                price={price}
-                discount={discount}
-                quota={quota}
-                stock={stock}
-                bestseller={bestseller}
-              />
-              }
+              {(user.role === "BUYER" || user.email === undefined) &&
+                stock > 0 && (
+                  <AddToCart
+                    id={id}
+                    title={title}
+                    imageUrl={imageUrl}
+                    rating={rating}
+                    voters={voters}
+                    price={price}
+                    discount={discount}
+                    quota={quota}
+                    stock={stock}
+                    bestseller={bestseller}
+                  />
+                )}
             </Flex>
           </Box>
         </Skeleton>
