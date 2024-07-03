@@ -12,21 +12,23 @@ interface GetUsersFilteredProps {
   selectedPage: number;
 }
 
-export const registerUser = async (userRegister: UserRegister): Promise<Response<UserRegister>> => {
+export const registerUser = async (
+  userRegister: UserRegister
+): Promise<Response<UserRegister>> => {
   try {
-    return await httpService.post(`${BASE_URL}${USERS}`, userRegister); 
+    return await httpService.post(`${BASE_URL}${USERS}`, userRegister);
   } catch (error) {
-      if (axios.isAxiosError(error)) {
-        throw {
-          statusCode: error.response ? error.response.status : 500,
-          data: null,
-          errorMessage: error.message,
-        };
-      } else {
-        throw error;
+    if (axios.isAxiosError(error)) {
+      throw {
+        statusCode: error.response ? error.response.status : 500,
+        data: null,
+        errorMessage: error.message,
       };
-    };
-  };
+    } else {
+      throw error;
+    }
+  }
+};
 
 export const getUsersFiltered = async ({
   query,
@@ -78,15 +80,25 @@ export const deleteUser = async (id: number): Promise<any> => {
 };
 
 export const getUserByEmail = async (email: string): Promise<any> => {
-  try{
+  try {
     const response = await axios.get(`${BASE_URL}${USERS}/email/${email}`);
     return {
       statusCode: response.status,
       user: response.data,
-      
-    }
+    };
+  } catch (error) {
+    console.error(error);
   }
-  catch(error){
-    console.error(error)
+};
+
+export const editUser = async (
+  id: number,
+  user: UserRegister
+): Promise<any> => {
+  try {
+    const response = await axios.put(`${BASE_URL}${USERS}/${id}`, user);
+    return response;
+  } catch (error) {
+    console.error(error);
   }
-}
+};
